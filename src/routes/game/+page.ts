@@ -2,7 +2,7 @@ import type { PageLoad } from './$types';
 
 
 type Dialogue = {
-	speaker: string;
+	speakerName: string;
 	text: string;
 	position: 'left' | 'right';
 }
@@ -34,7 +34,7 @@ function parseLines(lines: string[]): Dialogue[] {
 		const line = lines[i];
 		if (line.startsWith("[")) {
 			if (speaker) {
-				dialogues.push({ speaker: speaker, position: position, text: text })
+				dialogues.push({ speakerName: speaker, position: position, text: text })
 			}
 			let words = line.slice(1, -1).split(" ")
 			speaker = words[0];
@@ -51,7 +51,7 @@ function parseLines(lines: string[]): Dialogue[] {
 		}
 	}
 	if (speaker) {
-		dialogues.push({ speaker: speaker, position: position, text: text })
+		dialogues.push({ speakerName: speaker, position: position, text: text })
 	}
 	return dialogues
 }
