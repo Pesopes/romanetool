@@ -8,6 +8,7 @@
             .replace(/\*(.*?)\*/g, "<span class='bold'>$1</span>")
             .replace(/_(.*?)_/g, "<span class='italic'>$1</span>")
             .replace(/~(.*?)~/g, "<del>$1</del>")
+            .replace(/\n/g, "<br/>")
             .replace(/%(.*?)%/g, (match, p1) => {
                 // Wrap each character in the wavy span
                 // Wrap the entire %...% content in a <span class="wave"> tag
