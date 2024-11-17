@@ -20,12 +20,14 @@
     .box {
         background-color: orange;
         position: absolute;
+        box-sizing: border-box;
         bottom: 0;
         left: 0;
+        width: calc(100% - 20px);
         height: 30%;
         border: 3px solid red;
-        margin: 5px;
+        margin: 10px;
         padding: 10px 30px;
-        border-radius: 5px;
+        border-radius: 15px;
     }
 </style>
