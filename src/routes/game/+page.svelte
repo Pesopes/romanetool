@@ -1,18 +1,34 @@
+<!-- Reads a script and passes the data to it's children -->
 <script lang="ts">
     import Dialogue from "./dialogue.svelte";
     import Background from "./background.svelte";
     import Choices from "./choices.svelte";
     import Profile from "./profile.svelte";
-    // Main game handler
-    // Reads the script and passes it to it's children
+    import type { PageData } from "./$types";
 
+    let { data }: { data: PageData } = $props();
+    let dialogueNum = $state(0)
+
+    const nextDialogue = ()=>{
+        dialogueNum++
+    }
+    const onKeyDown = (e:KeyboardEvent)=>{
+        console.log(e)
+        switch (e.code){
+            case "Space":
+                e.preventDefault()
+                nextDialogue()
+        }
+    }
 </script>
+
+<svelte:window on:keydown={onKeyDown} />
 
 <Profile src="/favicon.png" name="Sherlock" position="left"/>
 <Profile src="/favicon.png" name="Poirot" position="right"/>
 <div class="box">
-    <Dialogue text="toto je %test psaní%, kde je *vše* _zajímavý_. ~OHOHOHOOHO~ je to strašně dlouhý takže pořád píšu dál alalalalalalalalal něco % dasdaskjd laskdjaklsdj kasldj askldj lkasjdlk jas%" name="Sherlock"/>
-    <button>Continue</button>
+    <Dialogue text={data.script.dialogues[dialogueNum].text} name={data.script.dialogues[dialogueNum].speaker}/>
+    <button onclick={nextDialogue}>Continue</button>
 </div>
 <Background src="/favicon.png"/>
 
