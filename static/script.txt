@@ -24,4 +24,14 @@ Please do *not* do drugs mon ami.
 
 
 [POIROT right]
-They taste 'orrible! # The french dont pronounce 'h'
+They taste %'orrible%! # The french dont pronounce 'h'
+
+[RIMMER right]
+Hey i'm here _too_.
+
+[RIMMER left]
+OOOOOh now i'm on the *left*.
+
+
+[RIMMER right]
+Back on the right %hahaha%

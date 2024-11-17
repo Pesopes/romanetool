@@ -35,7 +35,7 @@
 {#if speakerPosition === "left"}
     <Profile src="/favicon.png" name={speakerName} position="left" />
 {:else}
-    ě<Profile src="/favicon.png" name={speakerName} position="right" />
+    <Profile src="/favicon.png" name={speakerName} position="right" />
 {/if}
 <div class="box">
     <Dialogue text={dialogueText} name={speakerName} />
