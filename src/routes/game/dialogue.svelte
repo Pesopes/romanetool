@@ -2,13 +2,41 @@
 <script lang="ts">
     let { name, text }: { name: string; text: string } = $props();
 
+    const calculateWordAnimationDelay = (word: string) => {
+        let specialDelay = 0;
+
+        // Wait longer when unescaped "." or ","
+        if (word.match(/(?<!\\)\./g)) {
+            specialDelay = 300;
+        } else if (word.match(/(?<!\\),/g)) {
+            specialDelay = 100;
+        }
+        return word.length * 30 + 50 + specialDelay;
+    };
+
     // Parses special formatting symbols into html
     let formattedText = $derived.by(() => {
+        // accumulate animation-delay to animate the words appearing gradually
+        let wordAnimationDelay = 0;
         return text
-            .replace(/\*(.*?)\*/g, "<span class='bold'>$1</span>")
-            .replace(/_(.*?)_/g, "<span class='italic'>$1</span>")
-            .replace(/~(.*?)~/g, "<del>$1</del>")
-            .replace(/\n/g, "<br/>")
+            .split(/(\s+)/)
+            .map((word) => {
+                if (word === " ") {
+                    return word; // Return spaces as they are
+                } else {
+                    // The word before dictates how long it should wait
+                    const html = `<span class="word" style="animation-delay: ${wordAnimationDelay}ms">${word}</span>`;
+                    wordAnimationDelay += calculateWordAnimationDelay(word);
+                    return html;
+                }
+            }) // Animate the words appearing gradually
+            .join(" ")
+            .replace(/\\\./g, ".") // Replace escaped "."
+            .replace(/\\,/g, ".") // Replace escaped ","
+            .replace(/\*(.*?)\*/g, "<span class='bold'>$1</span>") // *...* is bold
+            .replace(/_(.*?)_/g, "<span class='italic'>$1</span>") // _..._ is italic
+            .replace(/~(.*?)~/g, "<del>$1</del>") // ~...~ is strikethrough
+            .replace(/\n/g, "<br/>") // \n into
             .replace(/%(.*?)%/g, (match, p1) => {
                 // Wrap each character in the wavy span
                 // Wrap the entire %...% content in a <span class="wave"> tag
@@ -44,6 +72,12 @@
             transform: translateY(4px); /* Move up slightly */
         }
     }
+    @keyframes -global-fade-in-text {
+        100% {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+    }
     .box {
         font-size: 2em;
     }
@@ -58,6 +92,16 @@
             text-decoration: line-through;
             opacity: 0.65;
         }
+
+        .word {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(-10px) scale(0.9);
+
+            animation: fade-in-text 0.5s cubic-bezier(0.96, 0.12, 0.83, 0.92)
+                forwards;
+        }
+
         .wave :global {
             display: inline-block; /* Ensures the text stays inline */
         }
