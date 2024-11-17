@@ -7,30 +7,41 @@
     import type { PageData } from "./$types";
 
     let { data }: { data: PageData } = $props();
-    let dialogueNum = $state(0)
-
-    const nextDialogue = ()=>{
-        dialogueNum++
-    }
-    const onKeyDown = (e:KeyboardEvent)=>{
-        console.log(e)
-        switch (e.code){
+    let dialogueNum = $state(0);
+    let leftSpeaker = { src: "/favicon.png", name: "Test" };
+    let rightSpeaker = { src: "/favicon.png", name: "Test2" };
+    let dialogueText = $state("");
+    let speakerName = $state("");
+    let speakerPosition = $state("left");
+    const nextDialogue = () => {
+        dialogueNum++;
+        dialogueText = data.script.dialogues[dialogueNum].text;
+        speakerName = data.script.dialogues[dialogueNum].speakerName;
+        speakerPosition = data.script.dialogues[dialogueNum].position;
+    };
+    const onKeyDown = (e: KeyboardEvent) => {
+        console.log(e);
+        switch (e.code) {
             case "Space":
-                e.preventDefault()
-                nextDialogue()
+                e.preventDefault();
+                nextDialogue();
         }
-    }
+    };
+    nextDialogue();
 </script>
 
 <svelte:window on:keydown={onKeyDown} />
 
-<Profile src="/favicon.png" name="Sherlock" position="left"/>
-<Profile src="/favicon.png" name="Poirot" position="right"/>
+{#if speakerPosition === "left"}
+    <Profile src="/favicon.png" name={speakerName} position="left" />
+{:else}
+    ě<Profile src="/favicon.png" name={speakerName} position="right" />
+{/if}
 <div class="box">
-    <Dialogue text={data.script.dialogues[dialogueNum].text} name={data.script.dialogues[dialogueNum].speaker}/>
+    <Dialogue text={dialogueText} name={speakerName} />
     <button onclick={nextDialogue}>Continue</button>
 </div>
-<Background src="/favicon.png"/>
+<Background src="/favicon.png" />
 
 <style>
     .box {
