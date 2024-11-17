@@ -29,7 +29,7 @@
 </script>
 
 <div class="box">
-    <span  class="name">{name}</span>:
+    <span class="name">{name}</span>:
     <span class="text">{@html formattedText}</span>
 </div>
 
@@ -44,7 +44,7 @@
             transform: translateY(4px); /* Move up slightly */
         }
     }
-    .box{
+    .box {
         font-size: 2em;
     }
     .box :global {
@@ -68,7 +68,6 @@
             transform-origin: bottom; /* Make the wave effect pivot from the bottom of the character */
         }
     }
-
 
     .name {
         font-weight: bold;
