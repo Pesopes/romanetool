@@ -1,8 +1,17 @@
 import type { PageLoad } from './$types';
 
+interface Speaker {
+	name: string
+	image: string
+}
 
-type Dialogue = {
-	speakerName: string;
+export interface SpeakerProfile {
+	speaker: Speaker
+	active: boolean
+}
+
+interface Dialogue {
+	speaker: Speaker;
 	text: string;
 	position: 'left' | 'right';
 }
@@ -26,32 +35,41 @@ export const load: PageLoad = async ({ fetch }) => {
 function parseLines(lines: string[]): Dialogue[] {
 	let dialogues: Dialogue[] = [];
 
-	let speaker = "";
+	let availableSpeakers: Speaker[] = []
+	let availableCodenames: string[] = []
+
+
+	let codename: string = "";
 	let position: 'left' | 'right' = "left";
 	let text = ""
-	let insideBlock = false;
 	for (let i = 0; i < lines.length; i++) {
 		const line = lines[i];
+		if (line.startsWith("-")) {
+			let headerValues = line.split(" ")
+			availableCodenames.push(headerValues[1])
+			availableSpeakers.push({
+				name: headerValues[2],
+				image: headerValues[3],
+			})
+		}
+
 		if (line.startsWith("[")) {
-			if (speaker) {
-				dialogues.push({ speakerName: speaker, position: position, text: text })
+			// save previous speaker data to dialogues
+			if (codename != "") {
+				dialogues.push({ speaker: { ...availableSpeakers[availableCodenames.indexOf(codename)] }, position: position, text: text })
 			}
-			let words = line.slice(1, -1).split(" ")
-			speaker = words[0];
-			position = words[1] as 'left' | 'right';
+			// set new speaker values
+			let headerValues = line.slice(1, -1).split(" ")
+			codename = headerValues[0]; // read speaker codename
+			position = headerValues[1] as 'left' | 'right';
+			//
 			text = "";
-			insideBlock = true
 			continue
 		}
-		if (line.startsWith("[") && insideBlock) {
-			insideBlock = false
-		}
-		if (insideBlock) {
-			text += line + "\n"
-		}
+		text += line + "\n"
 	}
-	if (speaker) {
-		dialogues.push({ speakerName: speaker, position: position, text: text })
+	if (codename) {
+		dialogues.push({ speaker: { ...availableSpeakers[availableCodenames.indexOf(codename)] }, position: position, text: text })
 	}
 	return dialogues
 }

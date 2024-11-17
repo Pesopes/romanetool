@@ -10,6 +10,14 @@
 # *impact text*
 # \n creates a newline, without a page break
 
+# - CODENAME <name> <image_path>
+# Functional codenames:
+# REMOVE disables the portrait and deletes its data
+# 
+
+- SHERLOCK Sherlock /sherlock.jpg
+- POIROT Poirot /poirot.png
+- RIMMER Rimmer /rimmer.png
 
 
 [SHERLOCK left]
@@ -29,9 +37,12 @@ They taste %'orrible%! # The french dont pronounce 'h'
 [RIMMER right]
 Hey i'm here _too_.
 
+[REMOVE right]
+
 [RIMMER left]
 OOOOOh now i'm on the *left*.
 
+[REMOVE left]
 
 [RIMMER right]
 Back on the right %hahaha%
