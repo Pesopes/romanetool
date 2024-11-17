@@ -10,6 +10,22 @@
 
 <Profile src="/favicon.png" name="Sherlock" position="left"/>
 <Profile src="/favicon.png" name="Poirot" position="right"/>
-<Dialogue text="toto je test psaní, kde je vše zajímavý" name="Sherlock"/>
+<div class="box">
+    <Dialogue text="toto je %test psaní%, kde je *vše* _zajímavý_. ~OHOHOHOOHO~ je to strašně dlouhý takže pořád píšu dál alalalalalalalalal něco % dasdaskjd laskdjaklsdj kasldj askldj lkasjdlk jas%" name="Sherlock"/>
+    <button>Continue</button>
+</div>
 <Background src="/favicon.png"/>
 
+<style>
+    .box {
+        background-color: orange;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 30%;
+        border: 3px solid red;
+        margin: 5px;
+        padding: 10px 30px;
+        border-radius: 5px;
+    }
+</style>
