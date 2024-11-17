@@ -1,5 +1,27 @@
+# NOTES:
+# Shamelessly stolen from celeste
+# The # Symbol at the start of a line counts as a Comment. To include in dialog, use a \#
+# The . Symbol will cause a pause unless escaped with \. (ex: Mr. Oshiro has a pause, Mr\. Oshiro does not)
+# Newlines automatically create a Page Break
+# Commands: Anything inside of curly braces {...} is a command and should not be translated.
+
+# Inline Text Commands:
+# %wavy text%
+# *impact text*
+# \n creates a newline, without a page break
+
+
+
 [SHERLOCK left]
-How you doin' fellow kids. Let's do some drugs!!!
+How you doin' fellow kids.
+Let's do some drugs!!!
+
 
 [POIROT right]
-Please do not do drugs mon ami.
+Please do *not* do drugs mon ami.
+
+
+
+
+[POIROT right]
+They taste 'orrible! # The french dont pronounce 'h'
