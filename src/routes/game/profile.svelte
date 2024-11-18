@@ -1,4 +1,6 @@
 <script lang="ts">
+  import type { ProfilePosition } from "./speaker";
+
   let {
     name,
     src,
@@ -7,7 +9,7 @@
   }: {
     name: string;
     src: string;
-    position: string;
+    position: ProfilePosition;
     active: boolean;
   } = $props();
 </script>

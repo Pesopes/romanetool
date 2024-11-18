@@ -2,20 +2,13 @@
 <script lang="ts">
     import Dialogue from "./dialogue.svelte";
     import Background from "./background.svelte";
-    import Choices from "./choices.svelte";
     import Profile from "./profile.svelte";
     import type { PageData } from "./$types";
-    import type { Speaker, SpeakerProfile, DialogueContext } from './speaker';
-
     let { data }: { data: PageData } = $props();
 
-    let profilePositions = ["left", "right"];
-    let speakerProfiles: SpeakerProfile[] = $state([
-        { speaker: { name: "", image: "/favicon.png" }, active: false },
-        { speaker: { name: "", image: "/favicon.png" }, active: false },
-    ]);
-    
-    let dialogueContext = $state({speakerName: "", dialogue: ""});
+    // Just shorthands
+    let speakerProfiles = $derived(data.script.manager.speakers.values());
+    let dialogueContext = $derived(data.script.manager.currentDialogue);
 
     function sleep(ms: number) {
         return new Promise((resolve) => setTimeout(resolve, ms));
@@ -24,24 +17,26 @@
         switch (e.code) {
             case "Space":
                 e.preventDefault();
-                data.script.manager.runNextEvent(profilePositions, speakerProfiles, dialogueContext);
+                data.script.manager.runNextEvent();
         }
     };
 </script>
 
 <svelte:window on:keydown={onKeyDown} />
 
-{#each profilePositions as profilePosition, i (profilePosition)}
-    <Profile
-        src={speakerProfiles[i].speaker.image}
-        name={speakerProfiles[i].speaker.name}
-        position={profilePosition}
-        active={speakerProfiles[i].active}
-    />
+{#each speakerProfiles as speakerProfile, i}
+    {#if speakerProfile.position !== "none"}
+        <Profile
+            src={speakerProfile.image}
+            name={speakerProfile.name}
+            position={speakerProfile.position}
+            active={speakerProfile.active}
+        />
+    {/if}
 {/each}
 
 <div class="box">
-    <Dialogue text={dialogueContext.dialogue} name={dialogueContext.speakerName} />
+    <Dialogue text={dialogueContext.text} name={dialogueContext.speakerName} />
     <!-- <button onclick={nextDialogue}>Continue</button> -->
 </div>
 <Background src="/favicon.png" />

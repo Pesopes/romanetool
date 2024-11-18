@@ -1,0 +1,52 @@
+import type { ProfilePosition } from './speaker';
+import { ChangeSpeaker, GameManager, SayLine } from './manager.svelte';
+
+export function parseScript(script: string): GameManager {
+    // remove # comments
+    const withoutComments = script.replace(/(^|\s)(?<!\\)#.*$/gm, '').trim();
+    // split into lines
+    const lines = withoutComments.split('\n').filter(line => line.trim() !== '');
+
+
+    let manager: GameManager = new GameManager();
+
+    let codename: string = "";
+    let position: ProfilePosition = "none";
+    let text = ""
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        if (line.startsWith("-")) {
+            let headerValues = line.split(" ")
+            manager.setSpeaker(headerValues[1], {
+                name: headerValues[2],
+                image: headerValues[3],
+                active: false,
+                position: 'none'
+            })
+        }
+
+        if (line.startsWith("[")) {
+            // save previous speaker data to dialogues
+            if (codename != "") {
+                let event = new SayLine(codename, text);
+                manager.addEvent(event);
+            }
+            // Parse "[codename position]" syntax
+            let headerValues = line.slice(1, -1).split(" ")
+            // set new speaker values
+            codename = headerValues[0]; // read speaker codename
+            position = headerValues[1] as ProfilePosition;
+            let event = new ChangeSpeaker(codename, position)
+            manager.addEvent(event);
+            //
+            text = "";
+            continue
+        }
+        text += line + "\n"
+    }
+    if (codename) {
+        let event = new SayLine(codename, text);
+        manager.addEvent(event);
+    }
+    return manager
+}

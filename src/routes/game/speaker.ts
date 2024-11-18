@@ -1,15 +1,13 @@
+export type ProfilePosition = 'none' | 'left' | 'right'
 
 export interface DialogueContext {
 	speakerName: string
-	dialogue: string
+	text: string
 }
 
 export interface Speaker {
 	name: string
 	image: string
-}
-
-export interface SpeakerProfile {
-	speaker: Speaker
 	active: boolean
+	position: ProfilePosition
 }
