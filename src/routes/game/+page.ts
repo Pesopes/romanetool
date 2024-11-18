@@ -1,20 +1,6 @@
 import type { PageLoad } from './$types';
-
-interface Speaker {
-	name: string
-	image: string
-}
-
-export interface SpeakerProfile {
-	speaker: Speaker
-	active: boolean
-}
-
-interface Dialogue {
-	speaker: Speaker;
-	text: string;
-	position: 'left' | 'right';
-}
+import type { Speaker } from './speaker';
+import { ChangeSpeaker, EventManager, type GameEvent,SayLine } from './events';
 
 export const load: PageLoad = async ({ fetch }) => {
 	const res = await fetch('script.txt');
@@ -27,13 +13,13 @@ export const load: PageLoad = async ({ fetch }) => {
 
 	return {
 		script: {
-			dialogues: parseLines(lines)
+			manager: parseLines(lines)
 		}
 	};
 };
 
-function parseLines(lines: string[]): Dialogue[] {
-	let dialogues: Dialogue[] = [];
+function parseLines(lines: string[]): EventManager {
+	let manager: EventManager = new EventManager();
 
 	let availableSpeakers: Speaker[] = []
 	let availableCodenames: string[] = []
@@ -56,12 +42,15 @@ function parseLines(lines: string[]): Dialogue[] {
 		if (line.startsWith("[")) {
 			// save previous speaker data to dialogues
 			if (codename != "") {
-				dialogues.push({ speaker: { ...availableSpeakers[availableCodenames.indexOf(codename)] }, position: position, text: text })
+				let event = new SayLine({...availableSpeakers[availableCodenames.indexOf(codename)]}, text);
+				manager.addEvent(event);
 			}
 			// set new speaker values
 			let headerValues = line.slice(1, -1).split(" ")
 			codename = headerValues[0]; // read speaker codename
 			position = headerValues[1] as 'left' | 'right';
+			let event = new ChangeSpeaker({...availableSpeakers[availableCodenames.indexOf(codename)]},position)
+			manager.addEvent(event);
 			//
 			text = "";
 			continue
@@ -69,7 +58,8 @@ function parseLines(lines: string[]): Dialogue[] {
 		text += line + "\n"
 	}
 	if (codename) {
-		dialogues.push({ speaker: { ...availableSpeakers[availableCodenames.indexOf(codename)] }, position: position, text: text })
+		let event = new SayLine({...availableSpeakers[availableCodenames.indexOf(codename)]}, text);
+		manager.addEvent(event);
 	}
-	return dialogues
+	return manager
 }
