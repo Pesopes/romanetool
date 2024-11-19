@@ -33,9 +33,8 @@ export class GameManager {
         if (this.currentId >= this.events.length) {
             return true;
         }
-        const event = this.events[this.currentId]
+        const event = this.events[this.currentId++]
         event.execute(this);
-        this.currentId++;
         return false;
     }
 }
@@ -55,6 +54,9 @@ export class ChangeSpeaker implements GameEvent {
         // Change to the speaker
         const activeSpeaker = manager.getSpeaker(this.codename)
         manager.speakers.set(this.codename, { ...activeSpeaker, active: true, position: this.position })
+
+        // Changing a speaker won't require input
+        manager.runNextEvent()
     }
 }
 
