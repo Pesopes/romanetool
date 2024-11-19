@@ -7,7 +7,7 @@
     let { data }: { data: PageData } = $props();
 
     // Just shorthands
-    let speakerProfiles = $derived(data.script.manager.speakers.values());
+    let speakerProfiles = $derived(data.script.manager.speakers);
     let dialogueContext = $derived(data.script.manager.currentDialogue);
 
     function sleep(ms: number) {
@@ -24,7 +24,7 @@
 
 <svelte:window on:keydown={onKeyDown} />
 
-{#each speakerProfiles as speakerProfile, i}
+{#each speakerProfiles as [codename, speakerProfile] (codename)}
     {#if speakerProfile.position !== "none"}
         <Profile
             src={speakerProfile.image}
