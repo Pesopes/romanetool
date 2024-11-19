@@ -1,5 +1,5 @@
 import type { ProfilePosition } from './speaker';
-import { ChangeSpeaker, GameManager, HideSpeaker, SayLine } from './manager.svelte';
+import { ChangeSpeaker, GameManager, HideSpeaker, SayLine, SetBackgroundImage } from './manager.svelte';
 
 export function parseScript(script: string): GameManager {
     // remove # comments
@@ -16,7 +16,7 @@ export function parseScript(script: string): GameManager {
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
         if (line.startsWith("+")) {
-            let headerValues = line.split(" ")
+            let headerValues = line.split(";")
             manager.setSpeaker(headerValues[1], {
                 name: headerValues[2],
                 image: headerValues[3],
@@ -24,7 +24,7 @@ export function parseScript(script: string): GameManager {
                 position: 'none'
             })
         } else if (line.startsWith("-")) {
-            let headerValues = line.split(" ")
+            let headerValues = line.split(";")
             const codename = headerValues[1]
             manager.addEvent(new HideSpeaker(codename))
         } else if (line.startsWith("[")) {
@@ -38,11 +38,22 @@ export function parseScript(script: string): GameManager {
             // set new speaker values
             codename = headerValues[0]; // read speaker codename
             position = headerValues[1] as ProfilePosition;
-            let event = new ChangeSpeaker(codename, position)
+            let event = new ChangeSpeaker(codename, position);
             manager.addEvent(event);
             //
             text = "";
             continue
+        } else if (line.startsWith("$")){
+            let headerValues = line.slice(1).split(";")
+            switch (headerValues[0]) {
+                case "SetBackgroundImage":
+                    let event = new SetBackgroundImage(headerValues[1]);
+                    manager.addEvent(event);
+                    break;
+            
+                default:
+                    break;
+            }
         } else {
             text += line + "\n"
         }

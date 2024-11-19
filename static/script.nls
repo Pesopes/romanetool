@@ -16,10 +16,12 @@
 # - CODENAME
 # 
 
-+ SHERLOCK Sherlock /sherlock.jpg
-+ POIROT Poirot /poirot.png
-+ RIMMER Rimmer /rimmer.png
-+ WATSON Dr.Watson /sherlock.jpg
++;SHERLOCK;Sherlock;/sherlock.jpg
++;POIROT;Poirot;/poirot.png
++;RIMMER;Rimmer;/rimmer.png
++;WATSON;Dr. Watson;/sherlock.jpg
+
+$SetBackgroundImage;/poirot.png
 
 [SHERLOCK left]
 How you doin' fellow kids. This is me Mr\. mario.
@@ -28,7 +30,7 @@ Let's do some drugs!!!
 [POIROT right]
 Please do *not* do drugs mon ami.
 
-- SHERLOCK # Sherlock is no longer visible at all
+-;SHERLOCK # Sherlock is no longer visible at all
 
 [SHERLOCK right]
 A h h  hh h h THISISAREALLYLONGWORDIREALLYHAVETOWRITEALOTTOPADTHELENGTHOFTHISONE
@@ -40,6 +42,7 @@ I h a t e y o u. Mr\. Ho lmes
 [POIROT right]
 They taste *%'orrible%*! # The french dont pronounce 'h'
 
+$SetBackgroundImage;/rimmer.png
 [RIMMER right]
 Hey i'm here _too_.
 

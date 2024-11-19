@@ -1,8 +1,10 @@
 <script lang="ts">
-    let { src } = $props();
+    import type { Background } from "./background";
+    let { bg } : { bg : Background } = $props();
 </script>
 
-<div class="background" style="background-image: url({src});"></div>
+<div class="background" style="background-image: url({bg.src});"></div>
+
 <style>
     .background {
         position: absolute;

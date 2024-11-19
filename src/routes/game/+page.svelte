@@ -9,6 +9,7 @@
     // Just shorthands
     let speakerProfiles = $derived(data.script.manager.speakers);
     let dialogueContext = $derived(data.script.manager.currentDialogue);
+    let background = $derived(data.script.manager.background)
 
     function sleep(ms: number) {
         return new Promise((resolve) => setTimeout(resolve, ms));
@@ -39,7 +40,7 @@
     <Dialogue text={dialogueContext.text} name={dialogueContext.speakerName} />
     <!-- <button onclick={nextDialogue}>Continue</button> -->
 </div>
-<Background src="/favicon.png" />
+<Background bg={background} />
 
 <style>
     .box {

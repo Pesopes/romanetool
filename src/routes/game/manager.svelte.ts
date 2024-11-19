@@ -1,11 +1,13 @@
 import { SvelteMap } from 'svelte/reactivity';
 import type { Speaker, ProfilePosition, DialogueContext } from './speaker';
+import type { Background } from './background.ts';
 
 // Contains all the data of the game
 export class GameManager {
     private events: GameEvent[] = [];
     speakers: Map<string, Speaker> = new SvelteMap();
     currentDialogue: DialogueContext = $state({ text: "", speakerName: "" });
+    background: Background = $state({ src: "", frame: "", ambientMusic: "" });
     private currentId: number = 0;
 
     addEvent(event: GameEvent) {
@@ -78,5 +80,15 @@ export class SayLine implements GameEvent {
         // These variables are displayed in the text box in-game
         manager.currentDialogue.text = this.line;
         manager.currentDialogue.speakerName = manager.getSpeaker(this.codename).name;
+    }
+}
+
+export class SetBackgroundImage implements GameEvent {
+    type = "SetBackgroundImage";
+    constructor(public src: string) { }
+    execute(manager: GameManager) {
+        // These variables are displayed in the text box in-game
+        manager.background.src = this.src;
+        manager.runNextEvent()
     }
 }
