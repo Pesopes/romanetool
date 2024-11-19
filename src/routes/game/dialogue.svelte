@@ -62,6 +62,7 @@
 </div>
 
 <style>
+    @import url("https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap");
     /* Globally defined because of @html injection scoping */
     @keyframes -global-up-down-text {
         0%,
@@ -98,7 +99,7 @@
             opacity: 0;
             transform: translateY(-10px) scale(0.9);
 
-            animation: fade-in-text 0.5s cubic-bezier(0.96, 0.12, 0.83, 0.92)
+            animation: fade-in-text 0.5s cubic-bezier(0.2, 1.12, 0.27, 0.94)
                 forwards;
         }
 
@@ -114,9 +115,10 @@
     }
 
     .name {
+        font-family: "Courier Prime", monospace;
         font-weight: bold;
     }
     .text {
-        font-family: "Courier New", Courier, monospace;
+        font-family: "Courier Prime", monospace;
     }
 </style>
