@@ -60,6 +60,17 @@ export class ChangeSpeaker implements GameEvent {
     }
 }
 
+export class HideSpeaker implements GameEvent {
+    type = "HideSpeaker";
+    constructor(public codename: string) { }
+    execute(manager: GameManager) {
+        // Make inactive and invisible
+        manager.speakers.set(this.codename, { ...manager.getSpeaker(this.codename), active: false, position: "none" })
+        // Removing a speaker won't require input
+        manager.runNextEvent()
+    }
+}
+
 export class SayLine implements GameEvent {
     type = "SayLine";
     constructor(public codename: string, public line: string) { }

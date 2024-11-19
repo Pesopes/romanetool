@@ -10,39 +10,41 @@
 # *impact text*
 # \n creates a newline, without a page break
 
-# - CODENAME <name> <image_path>
-# Functional codenames:
-# REMOVE disables the portrait and deletes its data
+# Add character:
+# + CODENAME <name> <image_path>
+# Hide character:
+# - CODENAME
 # 
 
-- SHERLOCK Sherlock /sherlock.jpg
-- POIROT Poirot /poirot.png
-- RIMMER Rimmer /rimmer.png
-
++ SHERLOCK Sherlock /sherlock.jpg
++ POIROT Poirot /poirot.png
++ RIMMER Rimmer /rimmer.png
++ WATSON Dr.Watson /sherlock.jpg
 
 [SHERLOCK left]
-How you doin' fellow kids.
+How you doin' fellow kids. This is me Mr\. mario.
 Let's do some drugs!!!
-
 
 [POIROT right]
 Please do *not* do drugs mon ami.
 
+- SHERLOCK # Sherlock is no longer visible at all
 
+[SHERLOCK right]
+A h h  hh h h THISISAREALLYLONGWORDIREALLYHAVETOWRITEALOTTOPADTHELENGTHOFTHISONE
+hi
 
+[WATSON left]
+I h a t e y o u. Mr\. Ho lmes
 
 [POIROT right]
-They taste %'orrible%! # The french dont pronounce 'h'
+They taste *%'orrible%*! # The french dont pronounce 'h'
 
 [RIMMER right]
 Hey i'm here _too_.
 
-[REMOVE right]
-
 [RIMMER left]
 OOOOOh now i'm on the *left*.
-
-[REMOVE left]
 
 [RIMMER right]
 Back on the right %hahaha%

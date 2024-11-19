@@ -1,5 +1,5 @@
 import type { ProfilePosition } from './speaker';
-import { ChangeSpeaker, GameManager, SayLine } from './manager.svelte';
+import { ChangeSpeaker, GameManager, HideSpeaker, SayLine } from './manager.svelte';
 
 export function parseScript(script: string): GameManager {
     // remove # comments
@@ -15,7 +15,7 @@ export function parseScript(script: string): GameManager {
     let text = ""
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
-        if (line.startsWith("-")) {
+        if (line.startsWith("+")) {
             let headerValues = line.split(" ")
             manager.setSpeaker(headerValues[1], {
                 name: headerValues[2],
@@ -23,9 +23,11 @@ export function parseScript(script: string): GameManager {
                 active: false,
                 position: 'none'
             })
-        }
-
-        if (line.startsWith("[")) {
+        } else if (line.startsWith("-")) {
+            let headerValues = line.split(" ")
+            const codename = headerValues[1]
+            manager.addEvent(new HideSpeaker(codename))
+        } else if (line.startsWith("[")) {
             // save previous speaker data to dialogues
             if (codename != "") {
                 let event = new SayLine(codename, text);
@@ -41,8 +43,9 @@ export function parseScript(script: string): GameManager {
             //
             text = "";
             continue
+        } else {
+            text += line + "\n"
         }
-        text += line + "\n"
     }
     if (codename) {
         let event = new SayLine(codename, text);
