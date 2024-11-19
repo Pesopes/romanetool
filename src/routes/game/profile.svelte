@@ -12,9 +12,10 @@
     position: ProfilePosition;
     active: boolean;
   } = $props();
+  import { fade } from "svelte/transition";
 </script>
 
-<div class="profile {position}" style="opacity: {active ? 100 : 20}%">
+<div in:fade class="profile {position}" style="opacity: {active ? 100 : 20}%">
   <div class="name">{name}</div>
   <div class="profile-pic">
     <img {src} alt={name} />
