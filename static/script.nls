@@ -23,31 +23,89 @@
 
 $SetBackgroundImage;/poirot.png
 
-[SHERLOCK left]
+[SHERLOCK left
 How you doin' fellow kids. This is me Mr\. mario.
 Let's do some drugs!!!
+]
 
-[POIROT right]
+[POIROT right
 Please do *not* do drugs mon ami {SHERLOCK}.
+]
 
 -  SHERLOCK # Sherlock is no longer visible at all
 
-[SHERLOCK right]
+[SHERLOCK right
 A h h  hh h h THISISAREALLYLONGWORDIREALLYHAVETOWRITEALOTTOPADTHELENGTHOFTHISONE
 hi
+]
+=> @TESTLABEL
 
-[WATSON left]
+[RIMMER right
+You should not %EVER% see this
+]
+
+@TESTLABEL
+
+[WATSON left
 I h a t e y o u. Mr\. Ho lmes {SHERLOCK}
+]
 
-[POIROT right]
+[POIROT right
 They taste *%'orrible%*! # The french dont pronounce 'h'
+]
 
 $SetBackgroundImage;/rimmer.png
-[RIMMER right]
+[RIMMER right
 Hey i'm here _too_. %HEY% {POIROT}!
+]
 
-[RIMMER left]
+[RIMMER left
 OOOOOh now i'm on the *left*.
+]
 
-[RIMMER right]
+[RIMMER right
 Back on the right %hahaha%
+]
+
+# [SHERLOCK left]
+#Whitespace between <<...>> is trimmed
+<<
+Could you please...  
+* shut up?! => @RIMMER_LEAVE
+* stop yapping? => @RIMMER_ANGRY
+* tell me something about the Space Corps Directive 102930? => @RIMMER_HAPPY
+>>
+
+@RIMMER_LEAVE
+$AwardPoints 1
+[RIMMER right
+I'm leaving man.
+]
+- RIMMER
+=> @RIMMER_END
+
+@RIMMER_ANGRY
+$AwardPoints 1
+[RIMMER right
+AAAAAAAAAAAAAAAH I H A T E Y O U SHERLOCK {SHERLOCK}!!!! !!!!!!!! !!!!!!!
+]
+
+@RIMMER_HAPPY
+$AwardPoints 4
+[RIMMER right
+Ah, *directive 9323!* An absolute cornerstone of interstellar regulation, a guiding star of moral clarity amidst the vast, chaotic darkness of space. Allow me to enlighten you, my ungrateful and entirely uncultured comrades. _Ahem!_ %Space Corps Directive 9323% explicitly states—and I quote—“No officer of the corps may consume *any* dairy product within twenty-four hours of engaging in hyperspace travel.”
+]
+
+#[RIMMER right]
+<<
+Do you want to hear it again? 
+* NO! => @RIMMER_ANGRY
+* HELL NO => @RIMMER_ANGRY
+* AWWWWWWWWWWWWW HELLLLLLLLLLL NOOOOO => @RIMMER_END
+* Yeah I guess. => @RIMMER_HAPPY
+>>
+
+@RIMMER_END
+[SHERLOCK right
+Well that was really. . . %BORING%
+]

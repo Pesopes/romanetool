@@ -1,4 +1,16 @@
+import type { GameEvent } from "./manager.svelte"
+
 export type ProfilePosition = 'none' | 'left' | 'right'
+
+export interface Choice {
+	answer: string,
+	event: GameEvent
+}
+
+export interface PromptInfo {
+	question: string,
+	choices: Choice[]
+}
 
 export interface DialogueContext {
 	speakerName: string

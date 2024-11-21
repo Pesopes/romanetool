@@ -1,5 +1,5 @@
 import { SvelteMap } from 'svelte/reactivity';
-import type { Speaker, ProfilePosition, DialogueContext } from './speaker';
+import type { Speaker, ProfilePosition, DialogueContext, PromptInfo } from './speaker';
 import type { Background } from './background.ts';
 
 // Contains all the data of the game
@@ -7,6 +7,7 @@ export class GameManager {
     private events: GameEvent[] = [];
     speakers: Map<string, Speaker> = new SvelteMap();
     currentDialogue: DialogueContext = $state({ text: "", speakerName: "" });
+    currentPrompt: PromptInfo | undefined = $state(undefined)
     background: Background = $state({ src: "", frame: "", ambientMusic: "" });
     private currentId: number = 0;
 
@@ -36,8 +37,21 @@ export class GameManager {
             return true;
         }
         const event = this.events[this.currentId++]
+        console.log("Executing event", event)
         event.execute(this);
         return false;
+    }
+    jumpToLabel(label_name: string) {
+        const labelIndex = this.events.findIndex(event =>
+            event instanceof Label && event.label_name === label_name
+        );
+
+        if (labelIndex === -1) {
+            throw new Error(`Label "${label_name}" not found.`);
+        }
+
+        // Set the currentId to the index of the label, so we continue from there
+        this.currentId = labelIndex; // +1 because the label itself should not be executed again
     }
 }
 
@@ -62,6 +76,25 @@ export class ChangeSpeaker implements GameEvent {
     }
 }
 
+export class Label implements GameEvent {
+    type = "Label";
+    constructor(public label_name: string) { }
+    execute(manager: GameManager) {
+        // nada
+        manager.runNextEvent()
+    }
+}
+
+export class Jump implements GameEvent {
+    type = "Jump";
+    constructor(public label_name: string) { }
+    execute(manager: GameManager) {
+        manager.jumpToLabel(this.label_name)
+        manager.runNextEvent()
+    }
+}
+
+
 export class HideSpeaker implements GameEvent {
     type = "HideSpeaker";
     constructor(public codename: string) { }
@@ -80,6 +113,14 @@ export class SayLine implements GameEvent {
         // These variables are displayed in the text box in-game
         manager.currentDialogue.text = this.line;
         manager.currentDialogue.speakerName = manager.getSpeaker(this.codename).name;
+    }
+}
+
+export class Prompt implements GameEvent {
+    type = "Prompt";
+    constructor(public promptInfo: PromptInfo) { }
+    execute(manager: GameManager) {
+        manager.currentPrompt = this.promptInfo
     }
 }
 
