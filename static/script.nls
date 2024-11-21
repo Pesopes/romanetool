@@ -1,7 +1,7 @@
 # NOTES:
 # Shamelessly stolen from celeste
 # The # Symbol at the start of a line counts as a Comment. To include in dialog, use a \#
-# The . Symbol will cause a pause unless escaped with \. (ex: Mr. Oshiro has a pause, Mr\. Oshiro does not)
+# The . Symbol will cause a pause unless escaped with \. (ex: Mr. Holmes has a pause, Mr\. Holmes does not)
 # Newlines automatically create a Page Break
 # Commands: Anything inside of curly braces {...} is a command and should not be translated.
 
@@ -11,15 +11,15 @@
 # \n creates a newline, without a page break
 
 # Add character:
-# + CODENAME <name> <image_path>
+# + CODENAME; <name>; <image_path>
 # Hide character:
 # - CODENAME
 # 
 
-+;SHERLOCK;Sherlock;/sherlock.jpg
-+;POIROT;Poirot;/poirot.png
-+;RIMMER;Rimmer;/rimmer.png
-+;WATSON;Dr. Watson;/sherlock.jpg
++ SHERLOCK ;Sherlock; /sherlock.jpg 
++  POIROT;Poirot;/poirot.png
++   RIMMER;  Rimmer;    /rimmer.png
++ WATSON;Dr. Watson;/sherlock.jpg
 
 $SetBackgroundImage;/poirot.png
 
@@ -30,7 +30,7 @@ Let's do some drugs!!!
 [POIROT right]
 Please do *not* do drugs mon ami.
 
--;SHERLOCK # Sherlock is no longer visible at all
+-  SHERLOCK # Sherlock is no longer visible at all
 
 [SHERLOCK right]
 A h h  hh h h THISISAREALLYLONGWORDIREALLYHAVETOWRITEALOTTOPADTHELENGTHOFTHISONE
