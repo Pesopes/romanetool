@@ -56,7 +56,9 @@ export function parseScript(script: string): GameManager {
                     break;
             }
         } else {
-            text += line + "\n"
+            // Replace {CODENAME} with {imgsrc}
+            const modified = line.replace(/{(.*?)}/g, (match, code) => `{${manager.getSpeaker(code).image}}`)
+            text += modified + "\n"
         }
     }
     if (codename) {

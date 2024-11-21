@@ -52,7 +52,8 @@
                             })
                             .join("")}
                     </span>`;
-            });
+            })
+            .replace(/{(.*?)}/g, "<img src=$1 />"); // Replace {imgpath} with img element
     });
 </script>
 
@@ -80,9 +81,10 @@
         }
     }
     .box {
-        font-size: 2em;
+        font-size: var(--text-box-font-size);
     }
     .box :global {
+        --text-box-font-size: 2rem;
         .bold {
             font-weight: bold;
         }
@@ -92,6 +94,10 @@
         del {
             text-decoration: line-through;
             opacity: 0.65;
+        }
+
+        img {
+            height: var(--text-box-font-size);
         }
 
         .word {

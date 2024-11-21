@@ -3,12 +3,12 @@
 # The # Symbol at the start of a line counts as a Comment. To include in dialog, use a \#
 # The . Symbol will cause a pause unless escaped with \. (ex: Mr. Holmes has a pause, Mr\. Holmes does not)
 # Newlines automatically create a Page Break
-# Commands: Anything inside of curly braces {...} is a command and should not be translated.
 
 # Inline Text Commands:
 # %wavy text%
 # *impact text*
 # \n creates a newline, without a page break
+# {CODENAME} will display the corresponding profile image there
 
 # Add character:
 # + CODENAME; <name>; <image_path>
@@ -16,7 +16,7 @@
 # - CODENAME
 # 
 
-+ SHERLOCK ;Sherlock; /sherlock.jpg 
++ SHERLOCK ;Sherlock; /sherlock.png 
 +  POIROT;Poirot;/poirot.png
 +   RIMMER;  Rimmer;    /rimmer.png
 + WATSON;Dr. Watson;/sherlock.jpg
@@ -28,7 +28,7 @@ How you doin' fellow kids. This is me Mr\. mario.
 Let's do some drugs!!!
 
 [POIROT right]
-Please do *not* do drugs mon ami.
+Please do *not* do drugs mon ami {SHERLOCK}.
 
 -  SHERLOCK # Sherlock is no longer visible at all
 
@@ -37,14 +37,14 @@ A h h  hh h h THISISAREALLYLONGWORDIREALLYHAVETOWRITEALOTTOPADTHELENGTHOFTHISONE
 hi
 
 [WATSON left]
-I h a t e y o u. Mr\. Ho lmes
+I h a t e y o u. Mr\. Ho lmes {SHERLOCK}
 
 [POIROT right]
 They taste *%'orrible%*! # The french dont pronounce 'h'
 
 $SetBackgroundImage;/rimmer.png
 [RIMMER right]
-Hey i'm here _too_.
+Hey i'm here _too_. %HEY% {POIROT}!
 
 [RIMMER left]
 OOOOOh now i'm on the *left*.
