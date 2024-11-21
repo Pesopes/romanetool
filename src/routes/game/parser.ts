@@ -75,12 +75,23 @@ export function parseScript(script: string): GameManager {
         } else if (line.startsWith("<<")) { //START of choice block
             isChoiceBlock = true;
             choiceBuffer = [];
+            const headerValues = line.slice(2).trim().split(" ")
+            if (headerValues.length < 1)
+                throw new Error("Choice block speaker argument syntax not valid: not enough arguments")
+            if (headerValues.length > 2)
+                throw new Error("Choice block speaker argument syntax not valid: too many arguments")
+
+            // set new speaker values
+            codename = headerValues[0]; // read speaker codename
+            const position = headerValues[1] as ProfilePosition;
+            const event = new ChangeSpeaker(codename, position);
+            manager.addEvent(event);
         } else if (line.startsWith(">>")) { //END of choice block
             if (choiceBuffer.length < 1) {
                 throw new Error("Choice block syntax not valid: not enough arguments")
             }
             isChoiceBlock = false;
-            manager.addEvent(new Prompt(parseChoiceBuffer(choiceBuffer)));
+            manager.addEvent(new Prompt(parseChoiceBuffer(choiceBuffer, codename)));
         } else if (isDialogueBlock) { //IN dialogue block
             dialogueBuffer.push(line);
         } else if (isChoiceBlock) { //IN choice block
@@ -91,9 +102,9 @@ export function parseScript(script: string): GameManager {
     return manager
 }
 
-function parseChoiceBuffer(choiceBuffer: string[]): PromptInfo {
+function parseChoiceBuffer(choiceBuffer: string[], codename: string): PromptInfo {
     // Syntax example
-    /*<<
+    /*<< RIMMER right
 Could you please...  
 * shut up?! => @RIMMER_LEAVE
 * stop yapping? => @RIMMER_ANGRY
@@ -109,5 +120,5 @@ Could you please...
         const label = headerValues[1].trim().slice(1) // remove the @ symbol
         return { answer: answer, event: new Jump(label) }
     })
-    return { choices: choices, question: question }
+    return { speaker: codename, choices: choices, question: question }
 }

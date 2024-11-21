@@ -70,7 +70,7 @@ Back on the right %hahaha%
 
 # [SHERLOCK left]
 #Whitespace between <<...>> is trimmed
-<<
+<< SHERLOCK left
 Could you please...  
 * shut up?! => @RIMMER_LEAVE
 * stop yapping? => @RIMMER_ANGRY
@@ -90,6 +90,7 @@ $AwardPoints;1
 [RIMMER right
 AAAAAAAAAAAAAAAH I H A T E Y O U SHERLOCK {SHERLOCK}!!!! !!!!!!!! !!!!!!!
 ]
+=> @RIMMER_END
 
 @RIMMER_HAPPY
 $AwardPoints;4
@@ -98,7 +99,7 @@ Ah, *directive 9323!* An absolute cornerstone of interstellar regulation, a guid
 ]
 
 #[RIMMER right]
-<<
+<< SHERLOCK right
 Do you want to hear it again? 
 * NO! => @RIMMER_ANGRY
 * HELL NO => @RIMMER_ANGRY

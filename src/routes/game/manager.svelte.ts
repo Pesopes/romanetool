@@ -11,6 +11,7 @@ export class GameManager {
     background: Background = $state({ src: "", frame: "", ambientMusic: "" });
     points = $state(0);
     private currentId: number = 0;
+    private blockEvents = false;
 
     addEvent(event: GameEvent) {
         this.events.push(event);
@@ -37,6 +38,8 @@ export class GameManager {
         if (this.currentId >= this.events.length) {
             return true;
         }
+        if (this.blockEvents)
+            return false;
         const event = this.events[this.currentId++]
         console.log("Executing event", event)
         event.execute(this);
@@ -52,7 +55,16 @@ export class GameManager {
         }
 
         // Set the currentId to the index of the label, so we continue from there
-        this.currentId = labelIndex; // +1 because the label itself should not be executed again
+        this.currentId = labelIndex;
+    }
+    startPrompt() {
+        this.blockEvents = true
+    }
+    choosePrompt(i: number) {
+        console.log("CHOOSING", i, this.blockEvents)
+        this.blockEvents = false
+        this.currentPrompt?.choices[i].event.execute(this)
+        this.currentPrompt = undefined
     }
 }
 
@@ -122,6 +134,9 @@ export class Prompt implements GameEvent {
     constructor(public promptInfo: PromptInfo) { }
     execute(manager: GameManager) {
         manager.currentPrompt = this.promptInfo
+        const speaker = manager.getSpeaker(this.promptInfo.speaker)
+        manager.currentDialogue = { speakerName: speaker.name, text: this.promptInfo.question }
+        manager.startPrompt()
     }
 }
 
@@ -140,5 +155,6 @@ export class AwardPoints implements GameEvent {
     constructor(public delta: number) { }
     execute(manager: GameManager) {
         manager.points += this.delta;
+        manager.runNextEvent()
     }
 }

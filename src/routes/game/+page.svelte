@@ -4,12 +4,14 @@
     import Background from "./background.svelte";
     import Profile from "./profile.svelte";
     import type { PageData } from "./$types";
+    import Choices from "./choices.svelte";
     let { data }: { data: PageData } = $props();
 
     // Just shorthands
     let speakerProfiles = $derived(data.script.manager.speakers);
     let dialogueContext = $derived(data.script.manager.currentDialogue);
-    let background = $derived(data.script.manager.background)
+    let currentPrompt = $derived(data.script.manager.currentPrompt);
+    let background = $derived(data.script.manager.background);
 
     function sleep(ms: number) {
         return new Promise((resolve) => setTimeout(resolve, ms));
@@ -38,6 +40,14 @@
 
 <div class="box">
     <Dialogue text={dialogueContext.text} name={dialogueContext.speakerName} />
+    {#if currentPrompt}
+        <Choices
+            prompt={currentPrompt}
+            onchoose={data.script.manager.choosePrompt.bind(
+                data.script.manager,
+            )}
+        />
+    {/if}
     <!-- <button onclick={nextDialogue}>Continue</button> -->
 </div>
 <Background bg={background} />

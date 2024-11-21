@@ -8,6 +8,7 @@ export interface Choice {
 }
 
 export interface PromptInfo {
+	speaker: string
 	question: string,
 	choices: Choice[]
 }
