@@ -1,5 +1,5 @@
 import type { ProfilePosition, PromptInfo } from './speaker';
-import { ChangeSpeaker, GameManager, HideSpeaker, Jump, Label, Prompt, SayLine, SetBackgroundImage } from './manager.svelte';
+import { AwardPoints, ChangeSpeaker, GameManager, HideSpeaker, Jump, Label, Prompt, SayLine, SetBackgroundImage } from './manager.svelte';
 
 export function parseScript(script: string): GameManager {
     // remove # comments
@@ -20,10 +20,7 @@ export function parseScript(script: string): GameManager {
     let isDialogueBlock = false
     let dialogueBuffer: string[] = [];
 
-    console.log(lines)
     for (const line of lines) {
-        // const line = lines[i];
-        console.log("Now processing line: ", line)
         if (line.startsWith("[")) {
             isDialogueBlock = true;
             dialogueBuffer = [];
@@ -67,12 +64,13 @@ export function parseScript(script: string): GameManager {
             let headerValues = line.slice(1).trim().split(";")
             switch (headerValues[0]) {
                 case "SetBackgroundImage":
-                    let event = new SetBackgroundImage(headerValues[1]);
-                    manager.addEvent(event);
+                    manager.addEvent(new SetBackgroundImage(headerValues[1]));
                     break;
-
+                case "AwardPoints":
+                    manager.addEvent(new AwardPoints(Number(headerValues[1])));
+                    break;
                 default:
-                    break;
+                    throw new Error(`Command $${headerValues[0]} not recognized.`)
             }
         } else if (line.startsWith("<<")) { //START of choice block
             isChoiceBlock = true;
@@ -89,9 +87,7 @@ export function parseScript(script: string): GameManager {
             choiceBuffer.push(line.trim());
         }
     }
-
-
-    console.log("Parsing complete: ", manager)
+    console.log("Finished parsing:", manager)
     return manager
 }
 

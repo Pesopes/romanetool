@@ -20,6 +20,7 @@
 +  POIROT;Poirot;/poirot.png
 +   RIMMER;  Rimmer;    /rimmer.png
 + WATSON;Dr. Watson;/sherlock.jpg
++ CIMRMAN; Jára Cimrman; /anonymus.png
 
 $SetBackgroundImage;/poirot.png
 
@@ -28,7 +29,7 @@ How you doin' fellow kids. This is me Mr\. mario.
 Let's do some drugs!!!
 ]
 
-[POIROT right
++[POIROT right
 Please do *not* do drugs mon ami {SHERLOCK}.
 ]
 
@@ -77,7 +78,7 @@ Could you please...
 >>
 
 @RIMMER_LEAVE
-$AwardPoints 1
+$AwardPoints;1
 [RIMMER right
 I'm leaving man.
 ]
@@ -85,13 +86,13 @@ I'm leaving man.
 => @RIMMER_END
 
 @RIMMER_ANGRY
-$AwardPoints 1
+$AwardPoints;1
 [RIMMER right
 AAAAAAAAAAAAAAAH I H A T E Y O U SHERLOCK {SHERLOCK}!!!! !!!!!!!! !!!!!!!
 ]
 
 @RIMMER_HAPPY
-$AwardPoints 4
+$AwardPoints;4
 [RIMMER right
 Ah, *directive 9323!* An absolute cornerstone of interstellar regulation, a guiding star of moral clarity amidst the vast, chaotic darkness of space. Allow me to enlighten you, my ungrateful and entirely uncultured comrades. _Ahem!_ %Space Corps Directive 9323% explicitly states—and I quote—“No officer of the corps may consume *any* dairy product within twenty-four hours of engaging in hyperspace travel.”
 ]
@@ -108,4 +109,8 @@ Do you want to hear it again?
 @RIMMER_END
 [SHERLOCK right
 Well that was really. . . %BORING%
+]
+
+[CIMRMAN right
+Dobrý den přátelé.
 ]

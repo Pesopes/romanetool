@@ -9,6 +9,7 @@ export class GameManager {
     currentDialogue: DialogueContext = $state({ text: "", speakerName: "" });
     currentPrompt: PromptInfo | undefined = $state(undefined)
     background: Background = $state({ src: "", frame: "", ambientMusic: "" });
+    points = $state(0);
     private currentId: number = 0;
 
     addEvent(event: GameEvent) {
@@ -131,5 +132,13 @@ export class SetBackgroundImage implements GameEvent {
         // These variables are displayed in the text box in-game
         manager.background.src = this.src;
         manager.runNextEvent()
+    }
+}
+
+export class AwardPoints implements GameEvent {
+    type = "AwardPoints";
+    constructor(public delta: number) { }
+    execute(manager: GameManager) {
+        manager.points += this.delta;
     }
 }
