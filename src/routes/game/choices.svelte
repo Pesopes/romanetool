@@ -7,6 +7,22 @@
     }: { prompt: PromptInfo; onchoose: (i: number) => void } = $props();
 </script>
 
-{#each prompt.choices as choice, i}
-    <button onclick={() => onchoose(i)}>{choice.answer}</button>
-{/each}
+<div class="box">
+    {#each prompt.choices as choice, i}
+        <button onclick={() => onchoose(i)}>{choice.answer}</button>
+    {/each}
+</div>
+
+<style>
+    .box {
+        display: flex;
+        flex-direction: row;
+        height: 30%;
+    }
+    button {
+        border: 3px solid purple;
+        background-color: rebeccapurple;
+        border-radius: 10px;
+        flex: 1 1 auto;
+    }
+</style>
