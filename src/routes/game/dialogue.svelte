@@ -98,6 +98,13 @@
 
         img {
             height: var(--text-box-font-size);
+            border-radius: 100%; /* Makes it circular */
+            border: 2px solid black;
+            background-color: white;
+            transition: all 100ms ease-in-out;
+        }
+        img:hover {
+            scale: 4;
         }
 
         .word {
