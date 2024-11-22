@@ -1,5 +1,5 @@
 import type { ProfilePosition, PromptInfo } from './speaker';
-import { AwardPoints, ChangeSpeaker, GameManager, HideSpeaker, Jump, Label, Prompt, SayLine, SetBackgroundImage, SetBackgroundShader } from './manager.svelte';
+import { AwardPoints, ChangeSpeaker, GameManager, HideSpeaker, Jump, Label, Operation, Prompt, SayLine, SetBackgroundImage, SetBackgroundShader, SetVariable, type Operations } from './manager.svelte';
 
 export function parseScript(script: string): GameManager {
     // remove # comments
@@ -58,8 +58,18 @@ export function parseScript(script: string): GameManager {
             let name = line.slice(1).trim()
             manager.addEvent(new Label(name))
         } else if (line.startsWith("=>")) {
-            let name = line.slice(2).trim().slice(1)
-            manager.addEvent(new Jump(name))
+            let header = line.slice(2).trim()
+            if (header.startsWith("(")) {
+                let headerValues = header.slice(1).split(")")
+                let name = headerValues[1].trim().slice(1)
+                let conditionName = headerValues[0].trim()
+                manager.addEvent(new Jump(name, conditionName))
+            } else {
+                let name = line.slice(2).trim().slice(1)
+                manager.addEvent(new Jump(name, ""))
+            }
+
+
         } else if (line.startsWith("$")) {
             let headerValues = line.slice(1).trim().split(";")
             switch (headerValues[0]) {
@@ -71,6 +81,12 @@ export function parseScript(script: string): GameManager {
                     break;
                 case "AwardPoints":
                     manager.addEvent(new AwardPoints(Number(headerValues[1])));
+                    break;
+                case "SetVariable":
+                    manager.addEvent(new SetVariable(String(headerValues[1]), Number(headerValues[2])));
+                    break;
+                case "$":
+                    manager.addEvent(new Operation(headerValues[1], headerValues[2] as Operations, headerValues[3], headerValues[4]));
                     break;
                 default:
                     throw new Error(`Command $${headerValues[0]} not recognized.`)
@@ -121,7 +137,7 @@ Could you please...
             throw new Error("Too many arguments in choice block answer" + headerValues,)
         const answer = headerValues[0].slice(1).trim() // remove the * symbol
         const label = headerValues[1].trim().slice(1) // remove the @ symbol
-        return { answer: answer, event: new Jump(label) }
+        return { answer: answer, event: new Jump(label, "") }
     })
     return { speaker: codename, choices: choices, question: question }
 }

@@ -6,6 +6,7 @@ import type { Background } from './background.ts';
 export class GameManager {
     private events: GameEvent[] = [];
     speakers: Map<string, Speaker> = new SvelteMap();
+    variables: Map<string, any> = new SvelteMap();
     currentDialogue: DialogueContext = $state({ text: "", speakerName: "" });
     currentPrompt: PromptInfo | undefined = $state(undefined)
     background: Background = $state({ src: "", frame: "", ambientMusic: "", shaderCode: "" });
@@ -100,9 +101,12 @@ export class Label implements GameEvent {
 
 export class Jump implements GameEvent {
     type = "Jump";
-    constructor(public label_name: string) { }
+    constructor(public label_name: string, public conditionName: string) { }
     execute(manager: GameManager) {
-        manager.jumpToLabel(this.label_name)
+        const value = manager.variables.get(this.conditionName)
+        if (typeof value !== "undefined" && value === 1) {
+            manager.jumpToLabel(this.label_name)
+        }
         manager.runNextEvent()
     }
 }
@@ -167,5 +171,77 @@ export class AwardPoints implements GameEvent {
     execute(manager: GameManager) {
         manager.points += this.delta;
         manager.runNextEvent()
+    }
+}
+
+export class SetVariable implements GameEvent {
+    type = "SetVariable";
+    constructor(public name: string, public value: any) { }
+    execute(manager: GameManager) {
+        /* if (this.value.type() === String) {
+
+        } */
+        manager.variables.set(this.name, this.value);
+        manager.runNextEvent()
+    }
+}
+
+export type Operations = "+" | "-" | "*" | "/" | ">" | "<" | "<=" | ">=" | "="
+
+export class Operation implements GameEvent {
+    type = "$";
+    constructor(public name: string, public operation: Operations, public value: any, public out: string) { }
+    execute(manager: GameManager) {
+        let oldValue = manager.variables.get(this.name);
+
+        if (typeof this.value === "string") {
+            let tmp = manager.variables.get(this.value);
+            if (tmp) {
+                this.value = tmp;
+            }
+            else {
+                new Error("Accessing variable " + this.value + " which doesn't exist")
+            }
+        }
+        if (typeof this.out === "undefined") {
+            this.out = this.name;// Perform the operation on this value if the out value is not specified
+        }
+        if (typeof oldValue !== "undefined") {
+            switch (this.operation) {
+                case "+":
+                    manager.variables.set(this.out, oldValue + this.value);
+                    break;
+                case "-":
+                    manager.variables.set(this.out, oldValue - this.value);
+                    break;
+                case "*":
+                    manager.variables.set(this.out, oldValue * this.value);
+                    break;
+                case "/":
+                    manager.variables.set(this.out, oldValue / this.value);
+                    break;
+                case ">":
+                    manager.variables.set(this.out, oldValue > this.value ? 1 : 0);
+                    break;
+                case "<":
+                    manager.variables.set(this.out, oldValue < this.value ? 1 : 0);
+                    break;
+                case ">=":
+                    manager.variables.set(this.out, oldValue >= this.value ? 1 : 0);
+                    break;
+                case "<=":
+                    manager.variables.set(this.out, oldValue <= this.value ? 1 : 0);
+                    break;
+                case "=":
+                    manager.variables.set(this.out, oldValue === this.value ? 1 : 0);
+                    break;
+                default:
+                    throw Error("Unknown operation");
+            }
+        } else {
+            throw Error("Accessing variable " + this.name + " which doesn't exist");
+        }
+        console.log(this.out, " is ", manager.variables.get(this.out))
+        manager.runNextEvent();
     }
 }

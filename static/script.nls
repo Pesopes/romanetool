@@ -24,9 +24,15 @@
 
 $SetBackgroundImage;/poirot.png
 $SetBackgroundShader;/mist.frag
+$SetVariable;a;0
+$SetVariable;b;1
+$SetVariable;c;0
+$$;a;+;b;c
+
+=>    (   c   )    @TESTLABEL
 
 [SHERLOCK left
-How you %doin' fellow% kids. This is me Mr\. mario.
+How you %doin'% %fellow% kids. This is me Mr\. mario.
 Let's do some drugs!!!
 ]
 
