@@ -15,8 +15,8 @@
   import { fade } from "svelte/transition";
 </script>
 
-<div in:fade class="profile {position}" style="opacity: {active ? 100 : 20}%">
-  <div class="name">{name}</div>
+<div in:fade class="profile {position}" style="opacity: {active ? 100 : 60}%">
+  <!--   <div class="name">{name}</div> -->
   <div class="profile-pic">
     <img {src} alt={name} />
   </div>
@@ -29,15 +29,15 @@
     align-items: center;
     justify-content: center;
     position: absolute; /* Position absolute for layout control */
-    top: 30%;
+    bottom: 0%;
   }
   .profile-pic {
-    border-radius: 50%; /* Makes it circular */
+    border-radius: 0%; /* Makes it circular */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     overflow: hidden;
     transition: all 0.2s ease-in-out;
-    width: 150px;
-    height: 200px;
+    width: 300px;
+    height: 400px;
   }
 
   .profile.left {
@@ -59,7 +59,7 @@
   }
 
   .profile-pic:hover {
-    transform: scale(1.1); /* Add a hover effect if desired */
+    transform: scale(1.01); /* Add a hover effect if desired */
   }
 
   .name {

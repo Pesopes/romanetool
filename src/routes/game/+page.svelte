@@ -27,18 +27,23 @@
 
 <svelte:window on:keydown={onKeyDown} />
 
-{#each speakerProfiles as [codename, speakerProfile] (codename)}
-    {#if speakerProfile.position !== "none"}
-        <Profile
-            src={speakerProfile.image}
-            name={speakerProfile.name}
-            position={speakerProfile.position}
-            active={speakerProfile.active}
-        />
-    {/if}
-{/each}
+<Background bg={background} />
+
+<div class="profiles">
+    {#each speakerProfiles as [codename, speakerProfile] (codename)}
+        {#if speakerProfile.position !== "none"}
+            <Profile
+                src={speakerProfile.image}
+                name={speakerProfile.name}
+                position={speakerProfile.position}
+                active={speakerProfile.active}
+            />
+        {/if}
+    {/each}
+</div>
 
 <div class="box">
+    <div></div>
     <Dialogue text={dialogueContext.text} name={dialogueContext.speakerName} />
     {#if currentPrompt}
         <Choices
@@ -50,18 +55,25 @@
     {/if}
     <!-- <button onclick={nextDialogue}>Continue</button> -->
 </div>
-<Background bg={background} />
 
 <style>
+    .profiles {
+        position: absolute;
+        height: 20%;
+        bottom: 30%;
+        margin: 10px;
+        left: 0px;
+        width: calc(100% - 20px);
+    }
     .box {
-        background-color: orange;
+        background-color: rgba(255, 166, 0, 0.63);
         position: absolute;
         box-sizing: border-box;
         bottom: 0;
         left: 0;
         width: calc(100% - 20px);
         height: 30%;
-        border: 3px solid red;
+        border: 3px solid rgb(59, 13, 13);
         margin: 10px;
         padding: 10px 30px;
         border-radius: 15px;
