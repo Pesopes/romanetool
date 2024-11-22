@@ -25,11 +25,11 @@
 $SetBackgroundImage;/poirot.png
 
 [SHERLOCK left
-How you doin' fellow kids. This is me Mr\. mario.
+How you %doin' fellow% kids. This is me Mr\. mario.
 Let's do some drugs!!!
 ]
 
-+[POIROT right
+[POIROT right
 Please do *not* do drugs mon ami {SHERLOCK}.
 ]
 
@@ -68,8 +68,6 @@ OOOOOh now i'm on the *left*.
 Back on the right %hahaha%
 ]
 
-# [SHERLOCK left]
-#Whitespace between <<...>> is trimmed
 << SHERLOCK left
 Could you please...  
 * shut up?! => @RIMMER_LEAVE
@@ -80,7 +78,7 @@ Could you please...
 @RIMMER_LEAVE
 $AwardPoints;1
 [RIMMER right
-I'm leaving man.
+I'm %leaving% man.
 ]
 - RIMMER
 => @RIMMER_END
