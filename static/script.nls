@@ -23,6 +23,7 @@
 + CIMRMAN; Jára Cimrman; /anonymus.png
 
 $SetBackgroundImage;/poirot.png
+$SetBackgroundShader;/mist.frag
 
 [SHERLOCK left
 How you %doin' fellow% kids. This is me Mr\. mario.

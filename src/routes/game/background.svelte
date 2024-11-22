@@ -1,9 +1,11 @@
 <script lang="ts">
     import type { Background } from "./background";
+    import Shader from "./shader.svelte";
     let { bg } : { bg : Background } = $props();
 </script>
 
 <div class="background" style="background-image: url({bg.src});"></div>
+<Shader shaderCode={bg.shaderCode}></Shader>
 
 <style>
     .background {

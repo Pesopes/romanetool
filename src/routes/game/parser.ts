@@ -1,5 +1,5 @@
 import type { ProfilePosition, PromptInfo } from './speaker';
-import { AwardPoints, ChangeSpeaker, GameManager, HideSpeaker, Jump, Label, Prompt, SayLine, SetBackgroundImage } from './manager.svelte';
+import { AwardPoints, ChangeSpeaker, GameManager, HideSpeaker, Jump, Label, Prompt, SayLine, SetBackgroundImage, SetBackgroundShader } from './manager.svelte';
 
 export function parseScript(script: string): GameManager {
     // remove # comments
@@ -65,6 +65,9 @@ export function parseScript(script: string): GameManager {
             switch (headerValues[0]) {
                 case "SetBackgroundImage":
                     manager.addEvent(new SetBackgroundImage(headerValues[1]));
+                    break;
+                case "SetBackgroundShader":
+                    manager.addEvent(new SetBackgroundShader(headerValues[1]));
                     break;
                 case "AwardPoints":
                     manager.addEvent(new AwardPoints(Number(headerValues[1])));

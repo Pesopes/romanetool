@@ -8,7 +8,7 @@ export class GameManager {
     speakers: Map<string, Speaker> = new SvelteMap();
     currentDialogue: DialogueContext = $state({ text: "", speakerName: "" });
     currentPrompt: PromptInfo | undefined = $state(undefined)
-    background: Background = $state({ src: "", frame: "", ambientMusic: "" });
+    background: Background = $state({ src: "", frame: "", ambientMusic: "", shaderCode: "" });
     points = $state(0);
     private currentId: number = 0;
     private blockEvents = false;
@@ -146,6 +146,17 @@ export class SetBackgroundImage implements GameEvent {
     execute(manager: GameManager) {
         // These variables are displayed in the text box in-game
         manager.background.src = this.src;
+        manager.runNextEvent()
+    }
+}
+
+export class SetBackgroundShader implements GameEvent {
+    type = "SetBackgroundShader";
+    constructor(public shaderPath: string) { }
+    async execute(manager: GameManager) {
+        // These variables are displayed in the text box in-game
+        const code = await fetch(this.shaderPath)
+        manager.background.shaderCode = await code.text()
         manager.runNextEvent()
     }
 }
