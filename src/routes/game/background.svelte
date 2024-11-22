@@ -2,6 +2,16 @@
     import type { Background } from "./background";
     import Shader from "./shader.svelte";
     let { bg }: { bg: Background } = $props();
+
+    $effect(() => {
+        let a: HTMLAudioElement = new Audio();
+        a.src = bg.ambientMusic;
+        a.load();
+        a.play();
+        return () => {
+            a.pause();
+        };
+    });
 </script>
 
 <div class="background" style="background-image: url({bg.src});"></div>

@@ -1,5 +1,5 @@
 import type { ProfilePosition, PromptInfo } from './speaker';
-import { AwardPoints, ChangeSpeaker, GameManager, HideSpeaker, Jump, Label, Operation, Prompt, SayLine, SetBackgroundImage, SetBackgroundShader, SetVariable, type Operations } from './manager.svelte';
+import { AwardPoints, ChangeSpeaker, GameManager, HideSpeaker, Jump, Label, Operation, Prompt, SayLine, SetBackgroundAmbientMusic, SetBackgroundImage, SetBackgroundShader, SetVariable, type Operations } from './manager.svelte';
 
 export function parseScript(script: string): GameManager {
     // remove # comments
@@ -87,6 +87,9 @@ export function parseScript(script: string): GameManager {
                     break;
                 case "$":
                     manager.addEvent(new Operation(headerValues[1], headerValues[2] as Operations, headerValues[3], headerValues[4]));
+                    break;
+                case "SetBackgroundAmbientMusic":
+                    manager.addEvent(new SetBackgroundAmbientMusic(headerValues[1]));
                     break;
                 default:
                     throw new Error(`Command $${headerValues[0]} not recognized.`)

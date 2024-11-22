@@ -148,7 +148,6 @@ export class SetBackgroundImage implements GameEvent {
     type = "SetBackgroundImage";
     constructor(public src: string) { }
     execute(manager: GameManager) {
-        // These variables are displayed in the text box in-game
         manager.background.src = this.src;
         manager.runNextEvent()
     }
@@ -158,9 +157,17 @@ export class SetBackgroundShader implements GameEvent {
     type = "SetBackgroundShader";
     constructor(public shaderPath: string) { }
     async execute(manager: GameManager) {
-        // These variables are displayed in the text box in-game
         const code = await fetch(this.shaderPath)
         manager.background.shaderCode = await code.text()
+        manager.runNextEvent()
+    }
+}
+
+export class SetBackgroundAmbientMusic implements GameEvent {
+    type = "SetBackgroundAmbientMusic";
+    constructor(public musicPath: string) { }
+    async execute(manager: GameManager) {
+        manager.background.ambientMusic = this.musicPath;
         manager.runNextEvent()
     }
 }
