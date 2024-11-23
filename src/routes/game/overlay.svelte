@@ -36,7 +36,7 @@
         height: 100vh;
         margin: 0px;
         padding: 0px;
-        z-index: 1;
+        z-index: 220;
         transition: opacity cubic-bezier(0.075, 0.82, 0.165, 1) 5s;
     }
 </style>
