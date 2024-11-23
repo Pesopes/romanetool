@@ -39,7 +39,6 @@
   }
   .profile-pic {
     border-radius: 0%; /* Makes it circular */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     overflow: hidden;
     transition: all 0.2s ease-in-out;
     width: 300px;
