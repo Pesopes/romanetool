@@ -92,6 +92,9 @@
 <div style="--text-box-font-size:{fontSizeCSS}" class="box">
     <span class="name">{name}</span>:
     <span class="text">{@html formattedText}</span>
+    {#if !animplaying}
+        <div class="blinker">></div>
+    {/if}
 </div>
 
 <style>
@@ -165,5 +168,14 @@
     }
     .text {
         font-family: "Courier Prime", monospace;
+    }
+
+    @keyframes blinking {
+        50% {
+            opacity: 0;
+        }
+    }
+    .blinker {
+        animation: blinking 0.75s 400ms ease-out infinite;
     }
 </style>
