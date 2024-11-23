@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="100mm"
+   height="50mm"
+   viewBox="0 0 100 49.999999"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (e7c3feb100, 2024-10-09)"
+   sodipodi:docname="logo.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="1.0948152"
+     inkscape:cx="253.92414"
+     inkscape:cy="171.71848"
+     inkscape:window-width="1898"
+     inkscape:window-height="1023"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <rect
+       x="102.75707"
+       y="242.04999"
+       width="84.668808"
+       height="31.455946"
+       id="rect5" />
+    <rect
+       x="93.166412"
+       y="224.69547"
+       width="111.30695"
+       height="28.278887"
+       id="rect4" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       transform="matrix(0.8788325,0,0,0.8788325,-75.632927,-188.18921)"
+       id="text4"
+       style="font-size:14.6667px;text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect4);display:inline;fill:#280b0b"><tspan
+         x="93.166016"
+         y="238.23736"
+         id="tspan2"><tspan
+           style="font-family:'CaskaydiaMono Nerd Font Propo';-inkscape-font-specification:'CaskaydiaMono Nerd Font Propo'"
+           id="tspan1">Visual Novel</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.8788325,0,0,0.8788325,-44.179247,-188.52589)"
+       id="text5"
+       style="font-size:16px;text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect5);display:inline;fill:#280b0b"><tspan
+         x="102.75781"
+         y="256.60878"
+         id="tspan4"><tspan
+           style="font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono'"
+           id="tspan3">Thingy</tspan></tspan></text>
+    <rect
+       style="fill:#280b0b;stroke-width:0.878831"
+       id="rect7-5-1"
+       width="11.281256"
+       height="3.0509057"
+       x="-7.7560277"
+       y="48.167004"
+       transform="rotate(-52.296709)" />
+    <g
+       id="g7"
+       transform="matrix(2.9920432,1.4423995,-1.4423995,2.9920432,33.657701,-212.93682)"
+       style="fill:#008000">
+      <rect
+         style="fill:#008000;stroke-width:0.264583"
+         id="rect6"
+         width="9.5909815"
+         height="0.98259491"
+         x="25.526106"
+         y="66.58149" />
+      <rect
+         style="fill:#008000;stroke-width:0.264583"
+         id="rect7"
+         width="3.3963609"
+         height="0.9185127"
+         x="59.823051"
+         y="40.924191"
+         transform="rotate(29.282285)" />
+      <rect
+         style="fill:#008000;stroke-width:0.264583"
+         id="rect7-5"
+         width="3.3963609"
+         height="0.9185127"
+         x="-12.007869"
+         y="74.709198"
+         transform="rotate(-33.978746)" />
+    </g>
+    <rect
+       style="fill:#280b0b;stroke-width:0.878831"
+       id="rect6-8"
+       width="31.857132"
+       height="3.2637594"
+       x="-0.33908945"
+       y="37.362286"
+       transform="rotate(-18.317963)" />
+    <rect
+       style="fill:#280b0b;stroke-width:0.878831"
+       id="rect7-56"
+       width="11.281256"
+       height="3.0509057"
+       x="34.562534"
+       y="17.260818"
+       transform="rotate(10.964322)" />
+  </g>
+</svg>
