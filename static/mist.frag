@@ -76,10 +76,10 @@ void main() {
     color = mix(color,
                 vec3(0.666667,1,1),
                 clamp(length(r.x),0.0,1.0));
-    float alpha = 1.;
-    if((f*f*f+.6*f*f+.5*f)*(color.x+color.y+color.z) < 0.5){
-        alpha = 0.;
-    }
-
-    fragColor = vec4((f*f*f+.6*f*f+.5*f)*color,0.6);
+    //float alpha = 1.;
+    //if((f*f*f+.6*f*f+.5*f)*(color.x+color.y+color.z) < 0.5){
+    //    alpha = 0.;
+    //}
+    float distFromCenter = distance(gl_FragCoord.xy/u_resolution.xy, vec2(0.5,0.5));
+    fragColor = vec4(min(3.*distFromCenter*distFromCenter,1.)*(f*f*f+.6*f*f+.5*f)*color,0.);
 }
