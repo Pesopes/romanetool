@@ -7,6 +7,7 @@
     import Choices from "./choices.svelte";
     import { onMount } from "svelte";
     import Overlay from "./overlay.svelte";
+    import Topbar from "./topbar.svelte";
     let { data }: { data: PageData } = $props();
 
     // Just shorthands
@@ -49,8 +50,7 @@
     {/each}
 </div>
 
-<div class="box">
-    <div></div>
+<div class="box" onpointerdown={() => data.script.manager.runNextEvent()}>
     <Dialogue
         text={dialogueContext.text}
         name={dialogueContext.speakerName}
@@ -64,9 +64,11 @@
             )}
         />
     {/if}
-    <!-- <button onclick={nextDialogue}>Continue</button> -->
 </div>
-<Overlay overlay={data.script.manager.overlay}></Overlay>
+<div onpointerdown={() => data.script.manager.runNextEvent()}>
+    <Overlay overlay={data.script.manager.overlay}></Overlay>
+</div>
+<Topbar />
 
 <style>
     .profiles {
