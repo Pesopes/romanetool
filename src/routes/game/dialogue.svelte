@@ -1,5 +1,7 @@
 <!-- Parses and displays script text -->
 <script lang="ts">
+    import { settings } from "$lib/settings";
+
     let {
         name,
         text,
@@ -74,9 +76,20 @@
             clearTimeout(animationEndTimeout);
         };
     });
+
+    let fontSizeCSS = $derived.by(() => {
+        switch ($settings.fontSize) {
+            case "small":
+                return "1rem";
+            case "medium":
+                return "2rem";
+            case "large":
+                return "3rem";
+        }
+    });
 </script>
 
-<div class="box">
+<div style="--text-box-font-size:{fontSizeCSS}" class="box">
     <span class="name">{name}</span>:
     <span class="text">{@html formattedText}</span>
 </div>
@@ -101,9 +114,9 @@
     }
     .box {
         font-size: var(--text-box-font-size);
+        transition: font-size ease-in-out 300ms;
     }
     .box :global {
-        --text-box-font-size: 2rem;
         .bold {
             font-weight: bold;
         }
