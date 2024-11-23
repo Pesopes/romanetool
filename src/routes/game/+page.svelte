@@ -5,6 +5,7 @@
     import Profile from "./profile.svelte";
     import type { PageData } from "./$types";
     import Choices from "./choices.svelte";
+    import { onMount } from "svelte";
     let { data }: { data: PageData } = $props();
 
     // Just shorthands
@@ -23,6 +24,9 @@
                 data.script.manager.runNextEvent();
         }
     };
+    onMount(() => {
+        data.script.manager.runNextEvent();
+    });
 </script>
 
 <svelte:window on:keydown={onKeyDown} />
@@ -31,14 +35,12 @@
 
 <div class="profiles">
     {#each speakerProfiles as [codename, speakerProfile] (codename)}
-        {#if speakerProfile.position !== "none"}
-            <Profile
-                src={speakerProfile.image}
-                name={speakerProfile.name}
-                position={speakerProfile.position}
-                active={speakerProfile.active}
-            />
-        {/if}
+        <Profile
+            src={speakerProfile.image}
+            name={speakerProfile.name}
+            position={speakerProfile.position}
+            active={speakerProfile.active}
+        />
     {/each}
 </div>
 

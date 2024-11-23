@@ -28,7 +28,7 @@
         border-radius: 10px;
         flex: 1 1 auto;
         margin: 5px;
-        padding: 20px;
+        padding: 2px;
         transition-property: background-color box-shadow;
         transition-duration: 0.3s;
         transition-timing-function: ease-out;

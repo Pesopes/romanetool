@@ -12,7 +12,6 @@
     position: ProfilePosition;
     active: boolean;
   } = $props();
-  import { fade } from "svelte/transition";
 </script>
 
 {#key position}
@@ -43,6 +42,10 @@
     transition: all 0.2s ease-in-out;
     width: 300px;
     height: 400px;
+  }
+
+  .profile.none .profile-pic img {
+    opacity: 0%;
   }
 
   .profile.left {
