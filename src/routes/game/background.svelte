@@ -1,6 +1,7 @@
 <script lang="ts">
     import type { Background } from "./background";
     import Shader from "./shader.svelte";
+    import { blur } from "svelte/transition";
     let { bg }: { bg: Background } = $props();
 
     $effect(() => {
@@ -14,7 +15,15 @@
     });
 </script>
 
-<div class="background" style="background-image: url({bg.src});"></div>
+<div class="background" style="background-color:black"></div>
+{#key bg.src}
+    <div
+        transition:blur
+        class="background"
+        style="background-image: url({bg.src});"
+    ></div>
+{/key}
+
 <div class="shader"><Shader shaderCode={bg.shaderCode}></Shader></div>
 
 <style>

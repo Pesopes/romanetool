@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { ProfilePosition } from "./speaker";
-
+  import { slide } from "svelte/transition";
   let {
     name,
     src,
@@ -15,12 +15,18 @@
   import { fade } from "svelte/transition";
 </script>
 
-<div in:fade class="profile {position}" style="opacity: {active ? 100 : 60}%">
-  <!--   <div class="name">{name}</div> -->
-  <div class="profile-pic">
-    <img {src} alt={name} />
+{#key position}
+  <div
+    transition:slide
+    class="profile {position}"
+    style="opacity: {active ? 100 : 60}%"
+  >
+    <!--   <div class="name">{name}</div> -->
+    <div class="profile-pic">
+      <img {src} alt={name} />
+    </div>
   </div>
-</div>
+{/key}
 
 <style>
   .profile {
