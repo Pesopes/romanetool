@@ -20,7 +20,7 @@
   <div
     transition:slide
     class="profile {position} {speaking && active ? 'speaking' : ''}"
-    style="opacity: {active ? 100 : 60}%"
+    style="opacity: {active ? 100 : 60}%; z-index:{active ? 1 : 0};"
   >
     <!--   <div class="name">{name}</div> -->
     <div class="profile-pic">
