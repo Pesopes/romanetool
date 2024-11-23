@@ -1,5 +1,5 @@
 import type { ProfilePosition, PromptInfo } from './speaker';
-import { AwardPoints, ChangeSpeaker, GameManager, HideSpeaker, Jump, Label, Operation, Prompt, SayLine, SetBackgroundAmbientMusic, SetBackgroundImage, SetBackgroundShader, SetVariable, type Operations } from './manager.svelte';
+import { AddSpeaker, AwardPoints, MoveSpeaker, GameManager, HideSpeaker, Jump, Label, Operation, Prompt, SayLine, SetBackgroundAmbientMusic, SetBackgroundImage, SetBackgroundShader, SetVariable, type Operations, ShowScreen, HideScreen } from './manager.svelte';
 
 export function parseScript(script: string): GameManager {
     // remove # comments
@@ -21,6 +21,7 @@ export function parseScript(script: string): GameManager {
     let dialogueBuffer: string[] = [];
 
     for (const line of lines) {
+        // Dialogue
         if (line.startsWith("[")) {
             isDialogueBlock = true;
             dialogueBuffer = [];
@@ -34,22 +35,22 @@ export function parseScript(script: string): GameManager {
             // set new speaker values
             codename = headerValues[0]; // read speaker codename
             const position = headerValues[1] as ProfilePosition;
-            const event = new ChangeSpeaker(codename, position);
+            const event = new MoveSpeaker(codename, position);
             manager.addEvent(event);
         } else if (line.startsWith("]")) {
             isDialogueBlock = false; // out of the block
             const dialogueText = dialogueBuffer.join("\n")
-            const processedLine = dialogueText.replace(/{(.*?)}/g, (match, code) => `{${manager.getSpeaker(code).image}}`)
-            let event = new SayLine(codename, processedLine);
+            /* const processedLine = dialogueText.replace(/{(.*?)}/g, (match, code) => `{${manager.getSpeaker(code).image}}`) */
+            let event = new SayLine(codename, dialogueText);
             manager.addEvent(event);
         } else if (line.startsWith("+")) {
             let headerValues = semicolonSplit(line)
-            manager.setSpeaker(headerValues[0], {
+            manager.addEvent(new AddSpeaker(headerValues[0], {
                 name: headerValues[1],
                 image: headerValues[2],
                 active: false,
                 position: 'none'
-            })
+            }))
         } else if (line.startsWith("-")) {
             let headerValues = semicolonSplit(line)
             const removingCodename = headerValues[0]
@@ -91,6 +92,10 @@ export function parseScript(script: string): GameManager {
                 case "SetBackgroundAmbientMusic":
                     manager.addEvent(new SetBackgroundAmbientMusic(headerValues[1]));
                     break;
+                case "ShowScreen":
+                    manager.addEvent(new ShowScreen(headerValues[1], headerValues[2]));
+                    manager.addEvent(new HideScreen());
+                    break;
                 default:
                     throw new Error(`Command $${headerValues[0]} not recognized.`)
             }
@@ -106,7 +111,7 @@ export function parseScript(script: string): GameManager {
             // set new speaker values
             codename = headerValues[0]; // read speaker codename
             const position = headerValues[1] as ProfilePosition;
-            const event = new ChangeSpeaker(codename, position);
+            const event = new MoveSpeaker(codename, position);
             manager.addEvent(event);
         } else if (line.startsWith(">>")) { //END of choice block
             if (choiceBuffer.length < 1) {

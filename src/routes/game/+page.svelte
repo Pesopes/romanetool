@@ -6,6 +6,7 @@
     import type { PageData } from "./$types";
     import Choices from "./choices.svelte";
     import { onMount } from "svelte";
+    import Overlay from "./overlay.svelte";
     let { data }: { data: PageData } = $props();
 
     // Just shorthands
@@ -57,6 +58,7 @@
     {/if}
     <!-- <button onclick={nextDialogue}>Continue</button> -->
 </div>
+<Overlay overlay={data.script.manager.overlay}></Overlay>
 
 <style>
     .profiles {

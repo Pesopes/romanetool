@@ -1,6 +1,6 @@
 import { SvelteMap } from 'svelte/reactivity';
 import type { Speaker, ProfilePosition, DialogueContext, PromptInfo } from './speaker';
-import type { Background } from './background.ts';
+import type { Background, Overlay } from './background.ts';
 
 // Contains all the data of the game
 export class GameManager {
@@ -10,6 +10,7 @@ export class GameManager {
     currentDialogue: DialogueContext = $state({ text: "", speakerName: "" });
     currentPrompt: PromptInfo | undefined = $state(undefined)
     background: Background = $state({ src: "", frame: "", ambientMusic: "", shaderCode: "" });
+    overlay: Overlay = $state({ src: "", title: "", subtitle: "", visible: true })
     points = $state(0);
     private currentId: number = 0;
     private blockEvents = false;
@@ -74,8 +75,27 @@ export interface GameEvent {
     execute(manager: GameManager): void;
 }
 
-export class ChangeSpeaker implements GameEvent {
-    type = "ChangeSpeaker";
+export class ShowScreen implements GameEvent {
+    type = "ShowScreen";
+    constructor(public title: string, public subtitle: string) { }
+    execute(manager: GameManager) {
+        manager.overlay.visible = true;
+        manager.overlay.title = this.title;
+        manager.overlay.subtitle = this.subtitle;
+    }
+}
+
+export class HideScreen implements GameEvent {
+    type = "HideScreen";
+    constructor() { }
+    execute(manager: GameManager) {
+        manager.overlay.visible = false;
+        manager.runNextEvent();
+    }
+}
+
+export class MoveSpeaker implements GameEvent {
+    type = "MoveSpeaker";
     constructor(public codename: string, public position: ProfilePosition) { }
     execute(manager: GameManager) {
         // Reset all others and set their position to none if changing to that position
@@ -87,6 +107,38 @@ export class ChangeSpeaker implements GameEvent {
 
         // Changing a speaker won't require input
         manager.runNextEvent()
+    }
+}
+
+export class HideSpeaker implements GameEvent {
+    type = "HideSpeaker";
+    constructor(public codename: string) { }
+    execute(manager: GameManager) {
+        // Make inactive and invisible
+        manager.speakers.set(this.codename, { ...manager.getSpeaker(this.codename), active: false, position: "none" })
+        // Removing a speaker won't require input
+        manager.runNextEvent()
+    }
+}
+
+export class AddSpeaker implements GameEvent {
+    type = "AddSpeaker";
+    constructor(public codename: string, public speaker: Speaker) { }
+    execute(manager: GameManager) {
+        // Make inactive and invisible
+        manager.setSpeaker(this.codename, this.speaker);
+        // Removing a speaker won't require input
+        manager.runNextEvent()
+    }
+}
+
+export class SayLine implements GameEvent {
+    type = "SayLine";
+    constructor(public codename: string, public line: string) { }
+    execute(manager: GameManager) {
+        // These variables are displayed in the text box in-game
+        manager.currentDialogue.text = this.line.replace(/{(.*?)}/g, (match, code) => `{${manager.getSpeaker(code).image}}`);
+        manager.currentDialogue.speakerName = manager.getSpeaker(this.codename).name;
     }
 }
 
@@ -108,28 +160,6 @@ export class Jump implements GameEvent {
             manager.jumpToLabel(this.label_name)
         }
         manager.runNextEvent()
-    }
-}
-
-
-export class HideSpeaker implements GameEvent {
-    type = "HideSpeaker";
-    constructor(public codename: string) { }
-    execute(manager: GameManager) {
-        // Make inactive and invisible
-        manager.speakers.set(this.codename, { ...manager.getSpeaker(this.codename), active: false, position: "none" })
-        // Removing a speaker won't require input
-        manager.runNextEvent()
-    }
-}
-
-export class SayLine implements GameEvent {
-    type = "SayLine";
-    constructor(public codename: string, public line: string) { }
-    execute(manager: GameManager) {
-        // These variables are displayed in the text box in-game
-        manager.currentDialogue.text = this.line;
-        manager.currentDialogue.speakerName = manager.getSpeaker(this.codename).name;
     }
 }
 
