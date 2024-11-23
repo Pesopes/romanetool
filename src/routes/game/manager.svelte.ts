@@ -104,7 +104,7 @@ export class Jump implements GameEvent {
     constructor(public label_name: string, public conditionName: string) { }
     execute(manager: GameManager) {
         const value = manager.variables.get(this.conditionName)
-        if (typeof value !== "undefined" && value === 1) {
+        if (value === undefined || value === 1) {
             manager.jumpToLabel(this.label_name)
         }
         manager.runNextEvent()
