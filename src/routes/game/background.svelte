@@ -3,8 +3,11 @@
     import Shader from "./shader.svelte";
     import { blur } from "svelte/transition";
     let { bg }: { bg: Background } = $props();
-
+    import { settings } from "$lib/settings";
     $effect(() => {
+        // if music is disabled
+        if (!$settings.music) return;
+
         let a: HTMLAudioElement = new Audio();
         a.src = bg.ambientMusic;
         a.load();
