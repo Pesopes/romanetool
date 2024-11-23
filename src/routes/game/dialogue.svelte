@@ -1,6 +1,10 @@
 <!-- Parses and displays script text -->
 <script lang="ts">
-    let { name, text }: { name: string; text: string } = $props();
+    let {
+        name,
+        text,
+        animplaying = $bindable(),
+    }: { name: string; text: string; animplaying: boolean } = $props();
 
     const calculateWordAnimationDelay = (word: string) => {
         let specialDelay = 0;
@@ -14,11 +18,13 @@
         return word.length * 30 + 50 + specialDelay;
     };
 
+    // let wordAnimationDelay = $state(0);
+    let formattedText = $state("");
     // Parses special formatting symbols into html
-    let formattedText = $derived.by(() => {
+    $effect(() => {
         // accumulate animation-delay to animate the words appearing gradually
         let wordAnimationDelay = 0;
-        return text
+        formattedText = text
             .split(/(\s+)/)
             .map((word) => {
                 if (word === " ") {
@@ -54,6 +60,19 @@
                     </span>`;
             })
             .replace(/{(.*?)}/g, "<img src=$1 />"); // Replace {imgpath} with img element
+
+        // Don't set timeout if onanimationend is not defined
+        let animationEndTimeout: ReturnType<typeof setTimeout> | null = null;
+
+        animplaying = true;
+        animationEndTimeout = setTimeout(() => {
+            animplaying = false;
+        }, wordAnimationDelay);
+
+        // Remove timer when new dialogue is in
+        return () => {
+            clearTimeout(animationEndTimeout);
+        };
     });
 </script>
 

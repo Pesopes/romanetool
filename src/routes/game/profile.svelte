@@ -6,18 +6,20 @@
     src,
     position,
     active = true,
+    speaking = false,
   }: {
     name: string;
     src: string;
     position: ProfilePosition;
     active: boolean;
+    speaking: boolean;
   } = $props();
 </script>
 
 {#key position}
   <div
     transition:slide
-    class="profile {position}"
+    class="profile {position} {speaking && active ? 'speaking' : ''}"
     style="opacity: {active ? 100 : 60}%"
   >
     <!--   <div class="name">{name}</div> -->
@@ -69,8 +71,39 @@
   .profile-pic:hover {
     transform: scale(1.01); /* Add a hover effect if desired */
   }
-
   .name {
     font-size: 3em;
+  }
+
+  /* Speak bob */
+  .speaking {
+    --speaking-rotation: 3deg;
+    --speaking-bob: -15px;
+  }
+  @keyframes speaking-right {
+    0%,
+    100% {
+      transform: translateY(0px) rotateZ(0deg);
+    }
+    50% {
+      transform: translateY(var(--speaking-bob))
+        rotateZ(var(--speaking-rotation));
+    }
+  }
+  @keyframes speaking-left {
+    0%,
+    100% {
+      transform: translateY(0px) rotateZ(0deg);
+    }
+    50% {
+      transform: translateY(var(--speaking-bob))
+        rotateZ(calc(-1 * var(--speaking-rotation)));
+    }
+  }
+  .speaking.right {
+    animation: speaking-right 250ms infinite;
+  }
+  .speaking.left {
+    animation: speaking-left 250ms infinite;
   }
 </style>

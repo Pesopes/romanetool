@@ -15,6 +15,9 @@
     let currentPrompt = $derived(data.script.manager.currentPrompt);
     let background = $derived(data.script.manager.background);
 
+    // Binded to <Dialogue>, passed to <Profile>
+    let speaking = $state(false);
+
     function sleep(ms: number) {
         return new Promise((resolve) => setTimeout(resolve, ms));
     }
@@ -41,13 +44,18 @@
             name={speakerProfile.name}
             position={speakerProfile.position}
             active={speakerProfile.active}
+            {speaking}
         />
     {/each}
 </div>
 
 <div class="box">
     <div></div>
-    <Dialogue text={dialogueContext.text} name={dialogueContext.speakerName} />
+    <Dialogue
+        text={dialogueContext.text}
+        name={dialogueContext.speakerName}
+        bind:animplaying={speaking}
+    />
     {#if currentPrompt}
         <Choices
             prompt={currentPrompt}
