@@ -83,6 +83,7 @@
         background-color: rgba(255, 166, 0, 0.63);
         position: absolute;
         box-sizing: border-box;
+        overflow-y: scroll;
         bottom: 0;
         left: 0;
         width: calc(100% - 20px);
