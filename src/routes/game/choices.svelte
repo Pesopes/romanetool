@@ -1,10 +1,19 @@
 <script lang="ts">
+    import { onMount } from "svelte";
     import type { PromptInfo } from "./speaker";
 
     let {
         prompt,
         onchoose,
     }: { prompt: PromptInfo; onchoose: (i: number) => void } = $props();
+
+    const promptSound = new Howl({
+        src: ["sounds/prompt.ogg"],
+        volume: 0.7,
+    });
+    onMount(() => {
+        promptSound.play();
+    });
 </script>
 
 <div class="box">

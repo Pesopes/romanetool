@@ -4,6 +4,7 @@ import { browser } from "$app/environment"
 export interface Settings {
     fontSize: 'small' | 'medium' | 'large';
     music: boolean;
+    sounds: boolean;
     fastText: boolean;
 }
 
@@ -11,6 +12,7 @@ export interface Settings {
 const defaultSettings: Settings = {
     fontSize: 'medium',
     music: true,
+    sounds: true,
     fastText: false,
 }
 // Loads from localStorage, if not there it returns the default values

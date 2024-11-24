@@ -2,6 +2,10 @@
 
 A wacky story.
 
+## Credits
+### Sound effects
+- [Digital Audio Pack](https://kenney.nl/assets/digital-audio)
+
 
 ## Developing
 

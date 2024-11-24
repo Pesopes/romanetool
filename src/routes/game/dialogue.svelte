@@ -2,12 +2,19 @@
 <script lang="ts">
     import { settings } from "$lib/settings";
     import { fade } from "svelte/transition";
+    import { Howl } from "howler";
 
     let {
         name,
         text,
         animplaying = $bindable(),
     }: { name: string; text: string; animplaying: boolean } = $props();
+
+    const beep = new Howl({
+        src: ["sounds/beep.ogg"],
+        pool: 3,
+        volume: 0.3,
+    });
 
     const calculateWordAnimationDelay = (word: string) => {
         let specialDelay = 0;
@@ -25,6 +32,7 @@
     let formattedText = $state("");
     // Parses special formatting symbols into html
     $effect(() => {
+        const beepTimeouts: ReturnType<typeof setTimeout>[] = [];
         // accumulate animation-delay to animate the words appearing gradually
         let wordAnimationDelay = 0;
         formattedText = text
@@ -35,6 +43,11 @@
                 } else {
                     // The word before dictates how long it should wait
                     const html = `<span class="word" style="animation-delay: ${wordAnimationDelay}ms">${word}</span>`;
+                    beepTimeouts.push(
+                        setTimeout(() => {
+                            if ($settings.sounds) beep.play();
+                        }, wordAnimationDelay),
+                    );
                     wordAnimationDelay += calculateWordAnimationDelay(word);
                     return html;
                 }
@@ -75,6 +88,7 @@
         // Remove timer when new dialogue is in
         return () => {
             clearTimeout(animationEndTimeout);
+            beepTimeouts.forEach((timeout) => clearTimeout(timeout));
         };
     });
 
