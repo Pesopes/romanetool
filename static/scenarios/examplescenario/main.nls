@@ -16,18 +16,18 @@
 # - CODENAME
 # 
 
-+ SHERLOCK ;Sherlock; /sherlock.png 
-+  POIROT;Poirot;/poirot.png
-+   RIMMER;  Rimmer;    /rimmer.png
-+ WATSON;Dr. Watson;/sherlock.jpg
-+ CIMRMAN; Jára Cimrman; /anonymus.png
++ SHERLOCK ;Sherlock; ./sherlock.png 
++  POIROT;Poirot;./poirot.png
++   RIMMER;  Rimmer;    ./rimmer.png
++ WATSON;Dr. Watson;./sherlock.jpg
++ CIMRMAN; Jára Cimrman; ./anonymus.png
 
 $ShowScreen;Act 0; Making of a drug addict
 $PlaySound;/sounds/intro.ogg
 
-$SetBackgroundAmbientMusic;/dragonborn.mp3
-$SetBackgroundImage;/poirot.png
-$SetBackgroundShader;/mist.frag
+$SetBackgroundAmbientMusic;./dragonborn.mp3
+$SetBackgroundImage;./poirot.png
+$SetBackgroundShader;./mist.frag
 $SetVariable;a;0
 $SetVariable;b;1
 $SetVariable;c;0
@@ -67,8 +67,8 @@ I h a t e y o u. Mr\. Ho lmes {SHERLOCK}
 They taste *%'orrible%*! # The french dont pronounce 'h'
 ]
 
-$SetBackgroundAmbientMusic;/fallout.mp3
-$SetBackgroundImage;/rimmer.png
+$SetBackgroundAmbientMusic;./fallout.mp3
+$SetBackgroundImage;./rimmer.png
 [RIMMER right
 Hey i'm here _too_. %HEY% {POIROT}!
 ]
@@ -127,7 +127,7 @@ Well that was really. . . %BORING%
 Dobrý den přátelé.
 ]
 - CIMRMAN
-+ CIMRMAN ;Jára Cimrman; /sherlock.jpg
++ CIMRMAN ;Jára Cimrman; ./sherlock.jpg
 
 [CIMRMAN right
 Já jsem ve skutečnosti Sherlock Holmes.

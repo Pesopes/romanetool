@@ -11,7 +11,7 @@
     }: { name: string; text: string; animplaying: boolean } = $props();
 
     const beep = new Howl({
-        src: ["sounds/beep.ogg"],
+        src: ["/sounds/beep.ogg"],
         pool: 5,
         volume: 0.3,
     });

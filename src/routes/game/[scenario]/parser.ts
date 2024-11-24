@@ -1,7 +1,13 @@
 import type { ProfilePosition, PromptInfo } from './speaker';
 import { AddSpeaker, AwardPoints, MoveSpeaker, GameManager, HideSpeaker, Jump, Label, Operation, Prompt, SayLine, SetBackgroundAmbientMusic, SetBackgroundImage, SetBackgroundShader, SetVariable, type Operations, ShowScreen, HideScreen, PlaySound } from './manager.svelte';
 
-export function parseScript(script: string): GameManager {
+export function parseScript(script: string, scriptName: string): GameManager {
+    const convertPath = (path: string) => {
+        if (path.startsWith("./")) {
+            return `/scenarios/${scriptName}/${path.slice(2)}`
+        }
+        return path
+    }
     // remove # comments
     const withoutComments = script.replace(/(^|\s)(?<!\\)#.*$/gm, '').trim();
     // split into lines
@@ -47,7 +53,7 @@ export function parseScript(script: string): GameManager {
             let headerValues = semicolonSplit(line)
             manager.addEvent(new AddSpeaker(headerValues[0], {
                 name: headerValues[1],
-                image: headerValues[2],
+                image: convertPath(headerValues[2]),
                 active: false,
                 position: 'none'
             }))
@@ -75,10 +81,10 @@ export function parseScript(script: string): GameManager {
             let headerValues = line.slice(1).trim().split(";")
             switch (headerValues[0]) {
                 case "SetBackgroundImage":
-                    manager.addEvent(new SetBackgroundImage(headerValues[1]));
+                    manager.addEvent(new SetBackgroundImage(convertPath(headerValues[1])));
                     break;
                 case "SetBackgroundShader":
-                    manager.addEvent(new SetBackgroundShader(headerValues[1]));
+                    manager.addEvent(new SetBackgroundShader(convertPath(headerValues[1])));
                     break;
                 case "AwardPoints":
                     manager.addEvent(new AwardPoints(Number(headerValues[1])));
@@ -90,10 +96,10 @@ export function parseScript(script: string): GameManager {
                     manager.addEvent(new Operation(headerValues[1], headerValues[2] as Operations, headerValues[3], headerValues[4]));
                     break;
                 case "SetBackgroundAmbientMusic":
-                    manager.addEvent(new SetBackgroundAmbientMusic(headerValues[1]));
+                    manager.addEvent(new SetBackgroundAmbientMusic(convertPath(headerValues[1])));
                     break;
                 case "PlaySound":
-                    manager.addEvent(new PlaySound(headerValues[1]));
+                    manager.addEvent(new PlaySound(convertPath(headerValues[1])));
                     break;
                 case "ShowScreen":
                     manager.addEvent(new ShowScreen(headerValues[1], headerValues[2]));

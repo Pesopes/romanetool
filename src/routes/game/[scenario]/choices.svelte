@@ -8,7 +8,7 @@
     }: { prompt: PromptInfo; onchoose: (i: number) => void } = $props();
 
     const promptSound = new Howl({
-        src: ["sounds/prompt.ogg"],
+        src: ["/sounds/prompt.ogg"],
         volume: 0.7,
     });
     onMount(() => {
