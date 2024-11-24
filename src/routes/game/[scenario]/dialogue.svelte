@@ -8,7 +8,7 @@
         name,
         text,
         animplaying = $bindable(),
-    }: { name: string; text: string; animplaying: boolean } = $props();
+    }: { name: string; text: string; animplaying?: boolean } = $props();
 
     const beep = new Howl({
         src: ["/sounds/beep.ogg"],
