@@ -32,6 +32,15 @@
                 $settings.music = !$settings.music;
             }}
         ></button>
+        <button
+            class="toggle {$settings.sounds
+                ? 'sound-icon'
+                : 'sound-crossed-icon'}"
+            aria-label="Toggle sound effects"
+            onclick={() => {
+                $settings.sounds = !$settings.sounds;
+            }}
+        ></button>
     </div>
 </div>
 
@@ -98,6 +107,12 @@
     }
     .music-crossed-icon {
         background-image: url("/icons/music-crossed.svg");
+    }
+    .sound-icon {
+        background-image: url("/icons/sound.svg");
+    }
+    .sound-crossed-icon {
+        background-image: url("/icons/sound-crossed.svg");
     }
     .text-size-small-icon {
         background-image: url("/icons/text-size.svg");
