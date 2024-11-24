@@ -1,5 +1,4 @@
 <script lang="ts">
-    // export const csr = false; //Maybe not needed idk
     let { data } = $props();
 </script>
 
@@ -13,5 +12,8 @@
     >
     <p>{scenario.metadata.description}</p>
     <p>Made by: {scenario.metadata.author}</p>
-    <img src={scenario.metadata.icon} alt="An icon for the scenario" />
+    <img
+        src="scenarios/{scenario.dirName}/{scenario.metadata.icon}"
+        alt="An icon for the scenario"
+    />
 {/each}
