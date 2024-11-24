@@ -12,6 +12,17 @@
             $settings.fontSize = "small";
         }
     }
+    // Also dumb but works
+    function cycleTextSpeeds() {
+        let size = $settings.textSpeed;
+        if (size === "slow") {
+            $settings.textSpeed = "medium";
+        } else if (size === "medium") {
+            $settings.textSpeed = "fast";
+        } else if (size === "fast") {
+            $settings.textSpeed = "slow";
+        }
+    }
 </script>
 
 <div class="bar">
@@ -19,8 +30,13 @@
     <div class="logo"></div>
     <div class="options">
         <button
+            class="toggle text-speed-{$settings.textSpeed}-icon"
+            aria-label="Change text speed"
+            onclick={cycleTextSpeeds}
+        ></button>
+        <button
             class="toggle text-size-{$settings.fontSize}-icon"
-            aria-label="Toggle text size"
+            aria-label="Change text size"
             onclick={cycleFontSizes}
         ></button>
         <button
@@ -124,5 +140,14 @@
     }
     .text-size-large-icon {
         background-image: url("/icons/text-size.svg");
+    }
+    .text-speed-slow-icon {
+        background-image: url("/icons/speedometer-slow.svg");
+    }
+    .text-speed-medium-icon {
+        background-image: url("/icons/speedometer-medium.svg");
+    }
+    .text-speed-fast-icon {
+        background-image: url("/icons/speedometer-fast.svg");
     }
 </style>

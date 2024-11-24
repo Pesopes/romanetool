@@ -12,10 +12,30 @@
 
     const beep = new Howl({
         src: ["sounds/beep.ogg"],
-        pool: 3,
+        pool: 5,
         volume: 0.3,
     });
+    let textSpeedModifier = $derived.by(() => {
+        switch ($settings.textSpeed) {
+            case "slow":
+                return 1.5;
+            case "medium":
+                return 1;
+            case "fast":
+                return 0.5;
+        }
+    });
 
+    let fontSizeCSS = $derived.by(() => {
+        switch ($settings.fontSize) {
+            case "small":
+                return "1rem";
+            case "medium":
+                return "2rem";
+            case "large":
+                return "3rem";
+        }
+    });
     const calculateWordAnimationDelay = (word: string) => {
         let specialDelay = 0;
 
@@ -25,7 +45,7 @@
         } else if (word.match(/(?<!\\),/g)) {
             specialDelay = 100;
         }
-        return word.length * 30 + 50 + specialDelay;
+        return (word.length * 30 + 50 + specialDelay) * textSpeedModifier;
     };
 
     // let wordAnimationDelay = $state(0);
@@ -90,17 +110,6 @@
             clearTimeout(animationEndTimeout);
             beepTimeouts.forEach((timeout) => clearTimeout(timeout));
         };
-    });
-
-    let fontSizeCSS = $derived.by(() => {
-        switch ($settings.fontSize) {
-            case "small":
-                return "1rem";
-            case "medium":
-                return "2rem";
-            case "large":
-                return "3rem";
-        }
     });
 </script>
 
