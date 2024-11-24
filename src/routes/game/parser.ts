@@ -1,5 +1,5 @@
 import type { ProfilePosition, PromptInfo } from './speaker';
-import { AddSpeaker, AwardPoints, MoveSpeaker, GameManager, HideSpeaker, Jump, Label, Operation, Prompt, SayLine, SetBackgroundAmbientMusic, SetBackgroundImage, SetBackgroundShader, SetVariable, type Operations, ShowScreen, HideScreen } from './manager.svelte';
+import { AddSpeaker, AwardPoints, MoveSpeaker, GameManager, HideSpeaker, Jump, Label, Operation, Prompt, SayLine, SetBackgroundAmbientMusic, SetBackgroundImage, SetBackgroundShader, SetVariable, type Operations, ShowScreen, HideScreen, PlaySound } from './manager.svelte';
 
 export function parseScript(script: string): GameManager {
     // remove # comments
@@ -91,6 +91,9 @@ export function parseScript(script: string): GameManager {
                     break;
                 case "SetBackgroundAmbientMusic":
                     manager.addEvent(new SetBackgroundAmbientMusic(headerValues[1]));
+                    break;
+                case "PlaySound":
+                    manager.addEvent(new PlaySound(headerValues[1]));
                     break;
                 case "ShowScreen":
                     manager.addEvent(new ShowScreen(headerValues[1], headerValues[2]));

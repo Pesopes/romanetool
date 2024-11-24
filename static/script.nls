@@ -23,6 +23,7 @@
 + CIMRMAN; Jára Cimrman; /anonymus.png
 
 $ShowScreen;Act 0; Making of a drug addict
+$PlaySound;/sounds/intro.ogg
 
 $SetBackgroundAmbientMusic;/dragonborn.mp3
 $SetBackgroundImage;/poirot.png
