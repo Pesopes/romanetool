@@ -14,6 +14,7 @@
 		"@sveltejs/kit": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^4.0.0",
 		"@types/howler": "^2.2.12",
+		"@types/node": "^22.9.3",
 		"svader": "^0.5.0",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",

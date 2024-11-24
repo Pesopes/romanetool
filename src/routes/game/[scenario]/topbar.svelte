@@ -26,7 +26,7 @@
 </script>
 
 <div class="bar">
-    <a href="/" class="back" aria-label="Go back"></a>
+    <a href="/game" class="back" aria-label="Go back"></a>
     <div class="logo"></div>
     <div class="options">
         <button
