@@ -14,7 +14,7 @@ export class GameManager {
     overlay: Overlay = $state({ src: "", title: "", subtitle: "", visible: true })
     points = $state(0);
     private currentId: number = 0;
-    private blockEvents = false;
+    private blockEvents = { prompt: false, speaking: false };
 
     addEvent(event: GameEvent) {
         this.events.push(event);
@@ -41,7 +41,7 @@ export class GameManager {
         if (this.currentId >= this.events.length) {
             return true;
         }
-        if (this.blockEvents)
+        if (this.isBlocked())
             return false;
         const event = this.events[this.currentId++]
         console.log("Executing event", event)
@@ -60,12 +60,21 @@ export class GameManager {
         // Set the currentId to the index of the label, so we continue from there
         this.currentId = labelIndex;
     }
+    isBlocked() {
+        return this.blockEvents.prompt || this.blockEvents.speaking
+    }
     startPrompt() {
-        this.blockEvents = true
+        this.blockEvents.prompt = true
+    }
+    startSpeaking() {
+        this.blockEvents.speaking = true
+    }
+    stopSpeaking() {
+        this.blockEvents.speaking = false
     }
     choosePrompt(i: number) {
         console.log("CHOOSING", i, this.blockEvents)
-        this.blockEvents = false
+        this.blockEvents.prompt = false
         this.currentPrompt?.choices[i].event.execute(this)
         this.currentPrompt = undefined
     }
@@ -140,6 +149,7 @@ export class SayLine implements GameEvent {
         // These variables are displayed in the text box in-game
         manager.currentDialogue.text = this.line.replace(/{(.*?)}/g, (match, code) => `{${manager.getSpeaker(code).image}}`);
         manager.currentDialogue.speakerName = manager.getSpeaker(this.codename).name;
+        manager.startSpeaking()
     }
 }
 
