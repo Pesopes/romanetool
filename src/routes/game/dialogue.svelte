@@ -1,6 +1,7 @@
 <!-- Parses and displays script text -->
 <script lang="ts">
     import { settings } from "$lib/settings";
+    import { fade } from "svelte/transition";
 
     let {
         name,
@@ -93,7 +94,7 @@
     <span class="name">{name}</span>:
     <span class="text">{@html formattedText}</span>
     {#if !animplaying}
-        <div class="blinker">></div>
+        <div in:fade class="blinker">></div>
     {/if}
 </div>
 
