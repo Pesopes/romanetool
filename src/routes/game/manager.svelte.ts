@@ -1,7 +1,8 @@
 import { SvelteMap } from 'svelte/reactivity';
 import type { Speaker, ProfilePosition, DialogueContext, PromptInfo } from './speaker';
 import type { Background, Overlay } from './background.ts';
-
+import { settings } from '$lib/settings';
+import { get } from 'svelte/store';
 // Contains all the data of the game
 export class GameManager {
     private events: GameEvent[] = [];
@@ -198,6 +199,17 @@ export class SetBackgroundAmbientMusic implements GameEvent {
     constructor(public musicPath: string) { }
     async execute(manager: GameManager) {
         manager.background.ambientMusic = this.musicPath;
+        manager.runNextEvent()
+    }
+}
+export class PlaySound implements GameEvent {
+    type = "PlaySound";
+    constructor(public soundPath: string) { }
+    async execute(manager: GameManager) {
+        if (get(settings).sounds) {
+            const sound = new Audio(this.soundPath);
+            sound.play()
+        }
         manager.runNextEvent()
     }
 }
