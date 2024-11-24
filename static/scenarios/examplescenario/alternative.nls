@@ -1,0 +1,26 @@
++ SHERLOCK ;Sherlock; ./sherlock.png
++   RIMMER;  Rimmer;    ./rimmer.png
+
+$ShowScreen;Act 0; HMMMMMMM?
+$PlaySound;/sounds/intro.ogg
+
+$SetBackgroundAmbientMusic;./dragonborn.mp3
+$SetBackgroundImage;./sherlock.png
+$SetBackgroundShader;./mist.frag
+
+
+[SHERLOCK left
+To be, or not to be? That is a question. yes it is a question wait...
+]
+
+<<SHERLOCK left
+To be, or not to be?
+* OH now it is a question => @END
+* Still isn't a question => @END
+>>
+
+@END
+
+[RIMMER right
+_*SHUT UP*_
+]
