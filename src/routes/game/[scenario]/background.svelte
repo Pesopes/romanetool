@@ -4,17 +4,19 @@
     import { blur } from "svelte/transition";
     let { bg }: { bg: Background } = $props();
     import { settings } from "$lib/settings";
-    $effect(() => {
-        // if music is disabled
-        if (!$settings.music) return;
 
-        let a: HTMLAudioElement = new Audio();
-        a.src = bg.ambientMusic;
-        a.load();
-        a.play();
-        return () => {
-            a.pause();
-        };
+    // The effect will only run when .music changes not any other setting
+    let music = $derived($settings.music);
+    $effect(() => {
+        if (music) {
+            let a: HTMLAudioElement = new Audio();
+            a.src = bg.ambientMusic;
+            a.load();
+            a.play();
+            return () => {
+                a.pause();
+            };
+        }
     });
 </script>
 
