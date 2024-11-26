@@ -4,17 +4,20 @@
     import { blur } from "svelte/transition";
     let { bg }: { bg: Background } = $props();
     import { settings } from "$lib/settings";
+    import { Howl } from "howler";
 
     // The effect will only run when .music changes not any other setting
     let music = $derived($settings.music);
     $effect(() => {
         if (music) {
-            let a: HTMLAudioElement = new Audio();
-            a.src = bg.ambientMusic;
-            a.load();
-            a.play();
+            let m = new Howl({
+                src: [bg.ambientMusic],
+                loop: true,
+                html5: true,
+            });
+            m.play();
             return () => {
-                a.pause();
+                m.stop();
             };
         }
     });
