@@ -1,3 +1,4 @@
+<!-- @component A picture that bobs while speaking, has some transition effects and can mirror itself based on position. -->
 <script lang="ts">
   import type { ProfilePosition } from "./speaker";
   import { slide } from "svelte/transition";

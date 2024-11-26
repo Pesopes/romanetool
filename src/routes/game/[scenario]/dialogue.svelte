@@ -1,4 +1,4 @@
-<!-- Parses and displays script text -->
+<!-- @component Parses and displays script text with a nice animation -->
 <script lang="ts">
     import { settings } from "$lib/settings";
     import { fade } from "svelte/transition";

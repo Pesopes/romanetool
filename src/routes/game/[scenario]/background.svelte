@@ -1,3 +1,4 @@
+<!-- @component Displays the provided image on the entire screen, also handles background music. -->
 <script lang="ts">
     import type { Background } from "./background";
     import Shader from "./shader.svelte";

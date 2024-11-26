@@ -1,3 +1,4 @@
+<!-- @component A cinematic black screen with some text that slowly fades in or out. Use with an {#if} block. -->
 <script lang="ts">
     import { fade } from "svelte/transition";
     import type { Overlay } from "./background";

@@ -1,3 +1,4 @@
+<!-- @component A dynamic amount of buttons with defined text. onchoose returns the id of the button clicked in the provided array. -->
 <script lang="ts">
     import { onMount } from "svelte";
     import type { PromptInfo } from "./speaker";

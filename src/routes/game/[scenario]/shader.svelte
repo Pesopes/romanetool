@@ -1,3 +1,4 @@
+<!-- @component Displays a webGL shader in the entire window -->
 <script>
     import { WebGlShader } from "svader";
     import { onMount } from "svelte";

@@ -1,3 +1,4 @@
+<!-- @component A nav bar with some settings, a logo and the back button. -->
 <script lang="ts">
     import { settings } from "$lib/settings";
 
