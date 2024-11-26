@@ -22,17 +22,17 @@
 + WATSON;Dr. Watson;./sherlock.jpg
 + CIMRMAN; Jára Cimrman; ./anonymus.png
 
-$ShowScreen;Act 0; Making of a drug addict
 $PlaySound;/sounds/intro.ogg
 
 $SetBackgroundAmbientMusic;./dragonborn.mp3
 $SetBackgroundImage;./poirot.png
-$SetBackgroundShader;./rain.frag
+$SetBackgroundShader;./mist.frag
 $SetVariable;a;0
 $SetVariable;b;1
 $SetVariable;c;0
 $$;a;+;b;c
-
+# ShowScreen blocks events so it has to be at the end
+$ShowScreen;Act 0; Making of a drug addict
 
 [SHERLOCK left
 How you %doin'% %fellow% kids. This is me Mr\. mario.
@@ -131,6 +131,5 @@ Dobrý den přátelé.
 Já jsem ve skutečnosti Sherlock Holmes.
 ]
 
-$ShowScreen;End of Act 0;
 
 $ChangeScript;alternative.nls

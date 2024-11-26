@@ -6,7 +6,7 @@
 </script>
 
 {#if overlay.visible}
-    <div transition:fade={{ duration: 5000 }} class="overlay">
+    <div transition:fade={{ duration: overlay.fadeDuration }} class="overlay">
         <h1 class="title">{overlay.title}</h1>
         <h2 class="subtitle">{overlay.subtitle}</h2>
     </div>

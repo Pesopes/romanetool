@@ -12,10 +12,10 @@ export class GameManager {
     currentDialogue: DialogueContext = $state({ text: "", speakerName: "" });
     currentPrompt: PromptInfo | undefined = $state(undefined)
     background: Background = $state({ src: "", frame: "", ambientMusic: "", shaderCode: "" });
-    overlay: Overlay = $state({ src: "", title: "", subtitle: "", visible: true })
+    overlay: Overlay = $state({ src: "", title: "", subtitle: "", visible: true, fadeDuration: 5000 })
     points = $state(0);
     private currentId: number = 0;
-    private blockEvents = { prompt: false, speaking: false };
+    private blockEvents = { prompt: false, speaking: false, timed: false };
 
     addEvent(event: GameEvent) {
         this.events.push(event);
@@ -62,7 +62,15 @@ export class GameManager {
         this.currentId = labelIndex;
     }
     isBlocked() {
-        return this.blockEvents.prompt || this.blockEvents.speaking
+        return this.blockEvents.prompt || this.blockEvents.speaking || this.blockEvents.timed
+    }
+    // Blocks events for the given amount of miliseconds
+    timedBlockFor(ms: number) {
+        this.blockEvents.timed = true
+        setTimeout(() => this.blockEvents.timed = false, ms)
+    }
+    removeTimedBlock() {
+        this.blockEvents.timed = false
     }
     startPrompt() {
         this.blockEvents.prompt = true
@@ -88,20 +96,23 @@ export interface GameEvent {
 
 export class ShowScreen implements GameEvent {
     type = "ShowScreen";
-    constructor(public title: string, public subtitle: string) { }
+    constructor(public title: string, public subtitle: string, public fadeDuration: number) { }
     execute(manager: GameManager) {
-        manager.overlay.visible = true;
         manager.overlay.title = this.title;
         manager.overlay.subtitle = this.subtitle;
+        manager.overlay.fadeDuration = this.fadeDuration;
+        manager.overlay.visible = true;
     }
 }
 
 export class HideScreen implements GameEvent {
     type = "HideScreen";
-    constructor() { }
+    constructor(public fadeDuration: number) { }
     execute(manager: GameManager) {
         manager.overlay.visible = false;
         manager.runNextEvent();
+        // So the player doesn't play while the fade is happening
+        manager.timedBlockFor(this.fadeDuration);
     }
 }
 

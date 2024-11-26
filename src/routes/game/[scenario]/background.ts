@@ -10,4 +10,5 @@ export interface Overlay {
     title: string
     subtitle: string
     visible: boolean
+    fadeDuration: number
 }

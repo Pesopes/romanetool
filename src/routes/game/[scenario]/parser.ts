@@ -1,5 +1,5 @@
 import type { ProfilePosition, PromptInfo } from './speaker';
-import { AddSpeaker, AwardPoints, MoveSpeaker, GameManager, HideSpeaker, Jump, Label, Operation, Prompt, SayLine, SetBackgroundAmbientMusic, SetBackgroundImage, SetBackgroundShader, SetVariable, type Operations, ShowScreen, HideScreen, PlaySound, ChangeScript, } from './manager.svelte';
+import { AddSpeaker, AwardPoints, MoveSpeaker, GameManager, HideSpeaker, Jump, Label, Operation, Prompt, SayLine, SetBackgroundAmbientMusic, SetBackgroundImage, SetBackgroundShader, SetVariable, type Operations, ShowScreen, PlaySound, ChangeScript, HideScreen, } from './manager.svelte';
 
 export function parseScript(script: string, scriptName: string): GameManager {
     const convertPath = (path: string) => {
@@ -102,14 +102,22 @@ export function parseScript(script: string, scriptName: string): GameManager {
                     manager.addEvent(new PlaySound(convertPath(headerValues[1])));
                     break;
                 case "ShowScreen":
-                    manager.addEvent(new ShowScreen(headerValues[1], headerValues[2]));
-                    manager.addEvent(new HideScreen());
+                    // The fadeDuration is optional
+                    if (headerValues.length <= 3) {
+                        const defaultFadeDuration = 5000;
+                        manager.addEvent(new ShowScreen(headerValues[1], headerValues[2], defaultFadeDuration));
+                        manager.addEvent(new HideScreen(defaultFadeDuration))
+                    } else {
+                        const fadeDuration = Number(headerValues[3])
+                        manager.addEvent(new ShowScreen(headerValues[1], headerValues[2], fadeDuration));
+                        manager.addEvent(new HideScreen(fadeDuration))
+                    }
                     break;
                 case "ChangeScript":
                     manager.addEvent(new ChangeScript(scriptName, headerValues[1]));
                     break;
                 case "ChangeScenario":
-                    if (headerValues.length <= 1) {
+                    if (headerValues.length <= 2) {
                         manager.addEvent(new ChangeScript(headerValues[1], undefined));
                     } else {
                         manager.addEvent(new ChangeScript(headerValues[1], headerValues[2]));
