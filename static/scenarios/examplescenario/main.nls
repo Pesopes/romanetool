@@ -27,7 +27,7 @@ $PlaySound;/sounds/intro.ogg
 
 $SetBackgroundAmbientMusic;./dragonborn.mp3
 $SetBackgroundImage;./poirot.png
-$SetBackgroundShader;./mist.frag
+$SetBackgroundShader;./rain.frag
 $SetVariable;a;0
 $SetVariable;b;1
 $SetVariable;c;0
@@ -131,4 +131,6 @@ Dobrý den přátelé.
 Já jsem ve skutečnosti Sherlock Holmes.
 ]
 
-$ShowScreen;End of Act 0; 
+$ShowScreen;End of Act 0;
+
+$ChangeScript;alternative.nls

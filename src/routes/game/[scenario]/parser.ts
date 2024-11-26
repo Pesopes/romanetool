@@ -1,5 +1,5 @@
 import type { ProfilePosition, PromptInfo } from './speaker';
-import { AddSpeaker, AwardPoints, MoveSpeaker, GameManager, HideSpeaker, Jump, Label, Operation, Prompt, SayLine, SetBackgroundAmbientMusic, SetBackgroundImage, SetBackgroundShader, SetVariable, type Operations, ShowScreen, HideScreen, PlaySound } from './manager.svelte';
+import { AddSpeaker, AwardPoints, MoveSpeaker, GameManager, HideSpeaker, Jump, Label, Operation, Prompt, SayLine, SetBackgroundAmbientMusic, SetBackgroundImage, SetBackgroundShader, SetVariable, type Operations, ShowScreen, HideScreen, PlaySound, ChangeScript, } from './manager.svelte';
 
 export function parseScript(script: string, scriptName: string): GameManager {
     const convertPath = (path: string) => {
@@ -105,8 +105,18 @@ export function parseScript(script: string, scriptName: string): GameManager {
                     manager.addEvent(new ShowScreen(headerValues[1], headerValues[2]));
                     manager.addEvent(new HideScreen());
                     break;
+                case "ChangeScript":
+                    manager.addEvent(new ChangeScript(scriptName, headerValues[1]));
+                    break;
+                case "ChangeScenario":
+                    if (headerValues.length <= 1) {
+                        manager.addEvent(new ChangeScript(headerValues[1], undefined));
+                    } else {
+                        manager.addEvent(new ChangeScript(headerValues[1], headerValues[2]));
+                    }
+                    break;
                 default:
-                    throw new Error(`Command $${headerValues[0]} not recognized.`)
+                    throw new Error(`Command "$${headerValues[0]}" not recognized.`)
             }
         } else if (line.startsWith("<<")) { //START of choice block
             isChoiceBlock = true;

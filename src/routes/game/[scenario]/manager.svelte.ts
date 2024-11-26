@@ -3,6 +3,7 @@ import type { Speaker, ProfilePosition, DialogueContext, PromptInfo } from './sp
 import type { Background, Overlay } from './background.ts';
 import { settings } from '$lib/settings';
 import { get } from 'svelte/store';
+import { goto } from '$app/navigation';
 // Contains all the data of the game
 export class GameManager {
     private events: GameEvent[] = [];
@@ -242,6 +243,21 @@ export class SetVariable implements GameEvent {
         } */
         manager.variables.set(this.name, this.value);
         manager.runNextEvent()
+    }
+}
+
+export class ChangeScript implements GameEvent {
+    type = "ChangeScript";
+    constructor(public scenarioId: string, public scriptName?: string) { }
+    // Default to metadata.json if no scriptName provided
+    execute(manager: GameManager) {
+        let path;
+        if (this.scriptName != null) {
+            path = `${this.scenarioId}?script=${this.scriptName}`
+        } else {
+            path = `${this.scenarioId}`
+        }
+        goto(path)
     }
 }
 
