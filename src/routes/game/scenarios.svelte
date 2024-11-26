@@ -1,6 +1,7 @@
 <script lang="ts">
     import type { Scenario } from "./proxy+page.server";
     let { scenarios }: { scenarios: Scenario[] } = $props();
+    let activeCard = $state(0); // TODO
 </script>
 
 <div class="card-container">
@@ -10,17 +11,12 @@
             'main.nls'
                 ? `?script=${scenario.metadata.entrypoint}`
                 : ''}"
-            class="card"
-            style="top: {i * 50}px;"
+            class="card {activeCard == i ? 'active-card' : 'inactive-card'}"
+            style="top: {i * 350}px;"
         >
-            <img class="file-top" src="icons/file-top.svg" />
-            <div class="file-top"></div>
+            <!-- <div class="file-top-main">hello</div> -->
             <!-- The script searchParam is only used when it is not the default main.nsl (so just so the url looks nicer) -->
-            <!--<img
-                    class="preview"
-                    src="scenarios/{scenario.dirName}/{scenario.metadata.icon}"
-                    alt="{scenario.dirName}/{scenario.metadata.icon}"
-                /> -->
+
             <div class="title">{scenario.metadata.name}</div>
             <div class="text">
                 <p class="description">
@@ -32,6 +28,18 @@
                 </p>
                 <p class="year">{scenario.metadata.year}</p>
             </div>
+            <img
+                class="preview"
+                src="scenarios/{scenario.dirName}/{scenario.metadata.icon}"
+                alt="{scenario.dirName}/{scenario.metadata.icon}"
+            />
+            <img
+                class="file-top"
+                src="/icons/file-top.svg"
+                alt="the top of a file"
+                height="200%"
+                width="100%"
+            />
         </a>
     {/each}
 </div>
@@ -41,9 +49,16 @@
 
     .file-top {
         position: absolute;
+        left: 0px;
+        top: -80%;
         width: 100%;
-        height: 100%;
     }
+
+    .card:hover .file-top {
+        transition: all 0.1s;
+        top: 0%;
+    }
+
     .card-container {
         position: relative;
         display: flex;
@@ -62,7 +77,7 @@
         top: 0;
         left: 0;
         width: 100%;
-        min-height: 500px;
+        min-height: 400px;
         background-color: #fff;
         border: 2px solid #ddd;
         border-radius: 8px;
@@ -75,10 +90,6 @@
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         z-index: 1;
         margin-top: 10px;
-    }
-
-    .card:nth-child(n) {
-        z-index: n;
     }
 
     .card:hover {
@@ -112,5 +123,9 @@
         font-size: 12px;
         color: #777;
         text-align: center;
+    }
+
+    .preview {
+        width: 50%;
     }
 </style>
