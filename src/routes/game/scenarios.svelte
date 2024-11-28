@@ -2,22 +2,34 @@
     import type { Scenario } from "./proxy+page.server";
     let { scenarios }: { scenarios: Scenario[] } = $props();
     let scrollY = $state(0);
+    // This is very poorly done and DOES NOT UPDATE the CSS
+    // TODO: make it easier to refactor
+    const CARD_HEIGHT = 400;
+    const GAP = 112;
 </script>
 
 <svelte:window bind:scrollY />
-<div class="card-container">
-    {#each scenarios as scenario, i}
+<div
+    class="card-container"
+    style="height:{(CARD_HEIGHT + GAP) * scenarios.length}px"
+>
+    {#each scenarios.toReversed() as scenario, i}
+        <!-- The script searchParam is only used when it is not the default main.nsl (so just so the url looks nicer) -->
         <a
             href="/game/{scenario.dirName}{scenario.metadata.entrypoint !==
             'main.nls'
                 ? `?script=${scenario.metadata.entrypoint}`
                 : ''}"
-            class="card"
-            style="transform: translateX({10 * i - scrollY / 50}px)"
+            class="card {scrollY > 500 * (scenarios.length - i - 1) &&
+            scrollY < 500 * (scenarios.length - i)
+                ? 'card-active'
+                : ''}"
+            style="transform: translateX({(i / scenarios.length) *
+                200}px) translateY({Math.min(
+                scrollY,
+                500 * (scenarios.length - i - 1),
+            ) + i}px);"
         >
-            <!-- <div class="file-top-main">hello</div> -->
-            <!-- The script searchParam is only used when it is not the default main.nsl (so just so the url looks nicer) -->
-
             <div class="title">{scenario.metadata.name}</div>
             <div class="text">
                 <p class="description">
@@ -34,11 +46,6 @@
                 src="scenarios/{scenario.dirName}/{scenario.metadata.icon}"
                 alt="{scenario.dirName}/{scenario.metadata.icon}"
             />
-            <!-- <img
-                class="file-top"
-                src="/icons/file-top.svg"
-                alt="the top of a file"
-            /> -->
             <div class="folder"></div>
         </a>
     {/each}
@@ -54,23 +61,15 @@
         width: 100px;
         height: 100%;
     }
-    @keyframes flip {
-        0% {
-            transform: perspective(1000px) rotate3d(1, 0, 0, 0deg)
-                translateY(0px);
-        }
-        50% {
-            transform: perspective(1000px) rotate3d(1, 0, 0, -180deg);
-        }
 
-        100% {
-            transform: perspective(1000px) rotate3d(1, 0, 0, -300deg);
-            opacity: 0;
-        }
+    /* Enable the link and change the cursor to reflect that */
+    .card-active {
+        cursor: pointer !important;
+        pointer-events: all !important;
     }
-    .card:hover .folder,
-    .card:focus-within .folder {
-        animation: flip 1s ease-out forwards;
+    .card-active .folder {
+        transform: perspective(1000px) rotate3d(1, 0, 0, -200deg);
+        opacity: 0;
     }
     .folder {
         width: 105%;
@@ -83,6 +82,11 @@
         top: 10px;
         left: -10px;
         transform-origin: bottom;
+        transition:
+            transform 1000ms ease-out,
+            opacity 1000ms ease-in-out;
+        transform: perspective(1000px) rotate3d(1, 0, 0, 0deg);
+        opacity: 1;
     }
     /* Source: https://stackoverflow.com/questions/71550110/is-it-possible-to-achieve-a-folder-shape-div-container-using-css */
     .folder::before {
@@ -105,32 +109,34 @@
         justify-content: flex-start;
         min-height: 100vh;
         padding: 1rem 0;
-        padding-bottom: 400px; /* Extra padding to allow scrolling further */
+        padding-bottom: 300px; /* Extra padding to allow scrolling further */
         margin: 0;
         width: 100vw;
         gap: 10px;
     }
 
     .card {
-        position: sticky;
-        top: 200px;
+        position: absolute;
+        top: 300px;
         left: 0;
         width: 50%;
         min-height: 400px;
-        background-color: #fff;
+        background-color: #ffffff;
+        background-image: url("/assets/textured-paper.png");
+        /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
         border: 2px solid #ddd;
         border-radius: 8px 8px 50px 50px;
         padding: 20px;
         text-decoration: none;
         color: inherit;
-        transition:
-            transform 0.3s ease,
-            box-shadow 0.3s ease;
+        transition: box-shadow 0.3s ease;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         z-index: 1;
         margin-top: 10px;
         scroll-snap-align: center;
         height: 8vh;
+        cursor: default;
+        pointer-events: none;
     }
 
     .card:hover {
