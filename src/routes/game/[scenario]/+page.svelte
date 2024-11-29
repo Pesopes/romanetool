@@ -102,6 +102,7 @@
         margin: 10px;
         padding: 10px 30px;
         border-radius: 15px;
+        scrollbar-width: none;
     }
     .active {
         cursor: pointer;
