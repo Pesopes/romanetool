@@ -1,17 +1,26 @@
 <script lang="ts">
+    import { onMount } from "svelte";
     import type { Scenario } from "./proxy+page.server";
     let { scenarios }: { scenarios: Scenario[] } = $props();
     let scrollY = $state(0);
-    // This is very poorly done and DOES NOT UPDATE the CSS
+    // This is very poorly done and DOES NOT REFLECT the CSS that much
     // TODO: make it easier to refactor
-    const CARD_HEIGHT = 400;
+    let cardHeight = $state(480);
     const GAP = 112;
+    const EXTRA_RANDOM = 4; // some border shit that cardElement.clientHeight doesn't count
+    const FINAL_HEIGHT = $derived(cardHeight + GAP + EXTRA_RANDOM);
+    onMount(() => {
+        const cardElement = document.querySelector(".card");
+        if (cardElement) {
+            cardHeight = cardElement.clientHeight; // Get the height of the card
+        }
+    });
 </script>
 
 <svelte:window bind:scrollY />
 <div
     class="card-container"
-    style="height:{(CARD_HEIGHT + GAP) * scenarios.length}px"
+    style="height:{FINAL_HEIGHT * (scenarios.length + 1)}px"
 >
     {#each scenarios.toReversed() as scenario, i}
         <!-- The script searchParam is only used when it is not the default main.nsl (so just so the url looks nicer) -->
@@ -73,13 +82,13 @@
     }
     .folder {
         width: 105%;
-        height: 350px;
-        margin: 5em auto 2em;
+        height: 420px;
+        margin: 5em auto 0;
         border-radius: 25px 5px 25px 25px;
         filter: drop-shadow(0 0 0.75rem grey);
         background: rgb(202, 171, 58);
         position: absolute;
-        top: 10px;
+        bottom: -10px;
         left: -10px;
         transform-origin: bottom;
         transition:
@@ -121,6 +130,8 @@
         left: 0;
         width: 50%;
         min-height: 400px;
+        height: 440px;
+
         background-color: #ffffff;
         background-image: url("/assets/textured-paper.png");
         /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
@@ -134,7 +145,6 @@
         z-index: 1;
         margin-top: 10px;
         scroll-snap-align: center;
-        height: 8vh;
         cursor: default;
         pointer-events: none;
     }
