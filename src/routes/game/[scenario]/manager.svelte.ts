@@ -15,7 +15,8 @@ export class GameManager {
     overlay: Overlay = $state({ src: "", title: "", subtitle: "", visible: true, fadeDuration: 5000 })
     points = $state(0);
     private currentId: number = 0;
-    private blockEvents = { prompt: false, speaking: false, timed: false };
+    private blockEvents = $state({ prompt: false, speaking: false, timed: false });
+    isBlocked = $derived(this.blockEvents.prompt || this.blockEvents.speaking || this.blockEvents.timed)
 
     addEvent(event: GameEvent) {
         this.events.push(event);
@@ -42,7 +43,7 @@ export class GameManager {
         if (this.currentId >= this.events.length) {
             return true;
         }
-        if (this.isBlocked())
+        if (this.isBlocked)
             return false;
         const event = this.events[this.currentId++]
         console.log("Executing event", event)
@@ -61,9 +62,7 @@ export class GameManager {
         // Set the currentId to the index of the label, so we continue from there
         this.currentId = labelIndex;
     }
-    isBlocked() {
-        return this.blockEvents.prompt || this.blockEvents.speaking || this.blockEvents.timed
-    }
+
     // Blocks events for the given amount of miliseconds
     timedBlockFor(ms: number) {
         this.blockEvents.timed = true

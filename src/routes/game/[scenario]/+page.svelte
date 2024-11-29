@@ -15,7 +15,7 @@
     let dialogueContext = $derived(data.script.manager.currentDialogue);
     let currentPrompt = $derived(data.script.manager.currentPrompt);
     let background = $derived(data.script.manager.background);
-
+    let isBlocked = $derived(data.script.manager.isBlocked);
     // Binded to <Dialogue>, passed to <Profile>
     let speaking = $state(false);
     $effect(() => {
@@ -54,20 +54,24 @@
         />
     {/each}
 </div>
-
-<div class="box" onpointerdown={() => data.script.manager.runNextEvent()}>
-    <Dialogue
-        text={dialogueContext.text}
-        name={dialogueContext.speakerName}
-        bind:animplaying={speaking}
-    />
-    {#if currentPrompt}
-        <Choices
-            prompt={currentPrompt}
-            onchoose={data.script.manager.choosePrompt.bind(
-                data.script.manager,
-            )}
+<div
+    class="box {isBlocked ? 'blocked' : 'active'}"
+    onpointerdown={() => data.script.manager.runNextEvent()}
+>
+    {#if dialogueContext.text !== ""}
+        <Dialogue
+            text={dialogueContext.text}
+            name={dialogueContext.speakerName}
+            bind:animplaying={speaking}
         />
+        {#if currentPrompt}
+            <Choices
+                prompt={currentPrompt}
+                onchoose={data.script.manager.choosePrompt.bind(
+                    data.script.manager,
+                )}
+            />
+        {/if}
     {/if}
 </div>
 <div onpointerdown={() => data.script.manager.runNextEvent()}>
@@ -97,5 +101,11 @@
         margin: 10px;
         padding: 10px 30px;
         border-radius: 15px;
+    }
+    .active {
+        cursor: pointer;
+    }
+    .blocked {
+        cursor: not-allowed;
     }
 </style>
