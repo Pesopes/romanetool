@@ -152,7 +152,7 @@ export function parseScript(script: string, scriptName: string): GameManager {
             choiceBuffer.push(line.trim());
         }
     }
-    console.log("Finished parsing:", manager)
+    // console.log("Finished parsing:", manager)
     return manager
 }
 

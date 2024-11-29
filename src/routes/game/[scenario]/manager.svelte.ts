@@ -46,7 +46,7 @@ export class GameManager {
         if (this.isBlocked)
             return false;
         const event = this.events[this.currentId++]
-        console.log("Executing event", event)
+        // console.log("Executing event", event)
         event.execute(this);
         return false;
     }
@@ -81,7 +81,6 @@ export class GameManager {
         this.blockEvents.speaking = false
     }
     choosePrompt(i: number) {
-        console.log("CHOOSING", i, this.blockEvents)
         this.blockEvents.prompt = false
         this.currentPrompt?.choices[i].event.execute(this)
         this.currentPrompt = undefined
@@ -326,7 +325,7 @@ export class Operation implements GameEvent {
         } else {
             throw Error("Accessing variable " + this.name + " which doesn't exist");
         }
-        console.log(this.out, " is ", manager.variables.get(this.out))
+        // console.log(this.out, " is ", manager.variables.get(this.out))
         manager.runNextEvent();
     }
 }
