@@ -134,7 +134,6 @@
 
         background-color: #ffffff;
         background-image: url("/assets/textured-paper.png");
-        /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
         border: 2px solid #ddd;
         border-radius: 8px 8px 50px 50px;
         padding: 20px;

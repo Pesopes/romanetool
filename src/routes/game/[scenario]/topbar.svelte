@@ -103,7 +103,7 @@
         border: none;
         border-radius: 30%;
 
-        background-color: rgba(255, 255, 255, 0.263);
+        background-color: #ebc3db29;
         background-position: 50%;
         background-repeat: no-repeat;
         background-size: 2.3rem 2.3rem;

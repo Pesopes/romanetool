@@ -34,9 +34,15 @@
     }
     button {
         font-family: "Courier Prime", monospace;
-        font-size: 2rem;
+        font-size: clamp(
+            0.6rem,
+            4vw,
+            1.5rem
+        ); /* Dynamically scales font size */
+        line-height: 1.2;
         border: 3px solid rgb(0, 0, 0);
         background-color: rgb(211, 144, 0);
+        background: linear-gradient(135deg, #fb6107, #fb9107);
         border-radius: 10px;
         flex: 1 1 auto;
         margin: 5px;
@@ -45,10 +51,19 @@
         transition-duration: 0.3s;
         transition-timing-function: ease-out;
         cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        word-wrap: break-word; /* Ensures text wraps inside the button */
+        letter-spacing: 0.5px;
     }
-
     button:hover {
         background-color: rgb(247, 187, 58);
         box-shadow: 5px 5px;
+    }
+    button:active {
+        transform: scale(0.97);
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3) inset;
     }
 </style>

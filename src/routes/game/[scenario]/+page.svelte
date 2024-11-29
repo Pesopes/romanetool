@@ -90,7 +90,9 @@
         width: calc(100% - 20px);
     }
     .box {
-        background-color: rgba(255, 166, 0, 0.63);
+        background-color: #b1f1fbe5;
+        background-image: url("/assets/textured-paper.png");
+
         position: absolute;
         box-sizing: border-box;
         overflow-y: scroll;
@@ -98,7 +100,7 @@
         left: 0;
         width: calc(100% - 20px);
         height: 30%;
-        border: 3px solid rgb(59, 13, 13);
+        border: 3px solid #3f7cab;
         margin: 10px;
         padding: 10px 30px;
         border-radius: 15px;
