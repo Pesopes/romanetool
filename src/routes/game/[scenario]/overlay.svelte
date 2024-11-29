@@ -1,12 +1,12 @@
 <!-- @component A cinematic black screen with some text that slowly fades in or out. Use with an {#if} block. -->
 <script lang="ts">
-    import { fade } from "svelte/transition";
     import type { Overlay } from "./background";
     let { overlay }: { overlay: Overlay } = $props();
+    let opacity = $derived(overlay.opacity);
 </script>
 
-{#if overlay.visible}
-    <div transition:fade={{ duration: overlay.fadeDuration }} class="overlay">
+{#if $opacity !== 0}
+    <div style="opacity:{$opacity}" class="overlay">
         <h1 class="title">{overlay.title}</h1>
         <h2 class="subtitle">{overlay.subtitle}</h2>
     </div>

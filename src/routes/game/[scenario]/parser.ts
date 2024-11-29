@@ -1,5 +1,5 @@
 import type { ProfilePosition, PromptInfo } from './speaker';
-import { AddSpeaker, AwardPoints, MoveSpeaker, GameManager, HideSpeaker, Jump, Label, Operation, Prompt, SayLine, SetBackgroundAmbientMusic, SetBackgroundImage, SetBackgroundShader, SetVariable, type Operations, ShowScreen, PlaySound, ChangeScript, HideScreen, } from './manager.svelte';
+import { AddSpeaker, AwardPoints, MoveSpeaker, GameManager, HideSpeaker, Jump, Label, Operation, Prompt, SayLine, SetBackgroundAmbientMusic, SetBackgroundImage, SetBackgroundShader, SetVariable, type Operations, PlaySound, ChangeScript, FadeInScreen, FadeOutScreen, } from './manager.svelte';
 
 export function parseScript(script: string, scriptName: string): GameManager {
     const convertPath = (path: string) => {
@@ -101,16 +101,21 @@ export function parseScript(script: string, scriptName: string): GameManager {
                 case "PlaySound":
                     manager.addEvent(new PlaySound(convertPath(headerValues[1])));
                     break;
-                case "ShowScreen":
+                case "FadeInScreen":
                     // The fadeDuration is optional
                     if (headerValues.length <= 3) {
-                        const defaultFadeDuration = 5000;
-                        manager.addEvent(new ShowScreen(headerValues[1], headerValues[2], defaultFadeDuration));
-                        manager.addEvent(new HideScreen(defaultFadeDuration))
+                        manager.addEvent(new FadeInScreen(headerValues[1], headerValues[2], 5000));
                     } else {
-                        const fadeDuration = Number(headerValues[3])
-                        manager.addEvent(new ShowScreen(headerValues[1], headerValues[2], fadeDuration));
-                        manager.addEvent(new HideScreen(fadeDuration))
+                        manager.addEvent(new FadeInScreen(headerValues[1], headerValues[2], Number(headerValues[3])));
+                    }
+                    break;
+                case "FadeOutScreen":
+                    // The fadeDuration is optional
+                    if (headerValues.length <= 3) {
+                        // Hard code 5s duration
+                        manager.addEvent(new FadeOutScreen(headerValues[1], headerValues[2], 5000));
+                    } else {
+                        manager.addEvent(new FadeOutScreen(headerValues[1], headerValues[2], Number(headerValues[3])));
                     }
                     break;
                 case "ChangeScript":

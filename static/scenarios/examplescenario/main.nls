@@ -32,7 +32,7 @@ $SetVariable;b;1
 $SetVariable;c;0
 $$;a;+;b;c
 # ShowScreen blocks events so it has to be at the end
-$ShowScreen;Act 0; Making of a drug addict
+$FadeOutScreen;Act 0; Making of a drug addict
 
 [SHERLOCK left
 How you %doin'% %fellow% kids. This is me Mr\. mario.
@@ -131,5 +131,5 @@ Dobrý den přátelé.
 Já jsem ve skutečnosti Sherlock Holmes.
 ]
 
-
+$FadeInScreen;End of act 0; Making of a drug addict
 $ChangeScript;alternative.nls

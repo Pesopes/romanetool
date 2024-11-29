@@ -1,3 +1,5 @@
+import type { Tweened } from "svelte/motion"
+
 export interface Background {
     src: string
     frame: string
@@ -9,6 +11,5 @@ export interface Overlay {
     src: string
     title: string
     subtitle: string
-    visible: boolean
-    fadeDuration: number
+    opacity: Tweened<number>
 }

@@ -4,6 +4,8 @@ import type { Background, Overlay } from './background.ts';
 import { settings } from '$lib/settings';
 import { get } from 'svelte/store';
 import { goto } from '$app/navigation';
+import { tweened } from 'svelte/motion';
+import { cubicOut, linear } from 'svelte/easing';
 // Contains all the data of the game
 export class GameManager {
     private events: GameEvent[] = [];
@@ -12,7 +14,7 @@ export class GameManager {
     currentDialogue: DialogueContext = $state({ text: "", speakerName: "" });
     currentPrompt: PromptInfo | undefined = $state(undefined)
     background: Background = $state({ src: "", frame: "", ambientMusic: "", shaderCode: "" });
-    overlay: Overlay = $state({ src: "", title: "", subtitle: "", visible: true, fadeDuration: 5000 })
+    overlay: Overlay = $state({ src: "", title: "", subtitle: "", opacity: tweened(0, { duration: 500, easing: linear }) })
     points = $state(0);
     private currentId: number = 0;
     private blockEvents = $state({ prompt: false, speaking: false, timed: false });
@@ -92,23 +94,30 @@ export interface GameEvent {
     execute(manager: GameManager): void;
 }
 
-export class ShowScreen implements GameEvent {
+// Usually runs at the END
+export class FadeInScreen implements GameEvent {
     type = "ShowScreen";
     constructor(public title: string, public subtitle: string, public fadeDuration: number) { }
     execute(manager: GameManager) {
+
         manager.overlay.title = this.title;
         manager.overlay.subtitle = this.subtitle;
-        manager.overlay.fadeDuration = this.fadeDuration;
-        manager.overlay.visible = true;
+        manager.overlay.opacity.set(1.0, { duration: this.fadeDuration })
+        // So the player doesn't play while the fade is happening
+        manager.timedBlockFor(this.fadeDuration);
     }
 }
+// Usually runs at the START
+export class FadeOutScreen implements GameEvent {
+    type = "ShowScreen";
+    constructor(public title: string, public subtitle: string, public fadeDuration: number) { }
+    async execute(manager: GameManager) {
+        manager.runNextEvent()
 
-export class HideScreen implements GameEvent {
-    type = "HideScreen";
-    constructor(public fadeDuration: number) { }
-    execute(manager: GameManager) {
-        manager.overlay.visible = false;
-        manager.runNextEvent();
+        manager.overlay.title = this.title;
+        manager.overlay.subtitle = this.subtitle;
+        manager.overlay.opacity.set(1.0, { duration: 0 })
+        manager.overlay.opacity.set(0, { duration: this.fadeDuration })
         // So the player doesn't play while the fade is happening
         manager.timedBlockFor(this.fadeDuration);
     }
@@ -266,7 +275,7 @@ export class ChangeScript implements GameEvent {
         } else {
             path = `${this.scenarioId}`
         }
-        goto(path)
+        goto(path, { replaceState: true })
     }
 }
 
