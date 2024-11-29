@@ -12,6 +12,8 @@
         src: ["/sounds/prompt.ogg"],
         volume: 0.7,
     });
+
+    // Runs when the prompt appears
     onMount(() => {
         promptSound.play();
     });
@@ -42,6 +44,7 @@
         transition-property: background-color box-shadow;
         transition-duration: 0.3s;
         transition-timing-function: ease-out;
+        cursor: pointer;
     }
 
     button:hover {

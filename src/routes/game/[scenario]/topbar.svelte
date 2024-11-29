@@ -3,6 +3,7 @@
     import { settings } from "$lib/settings";
 
     // Dumb but works
+    // Goes like this: small -> medium -> large -> small
     function cycleFontSizes() {
         let size = $settings.fontSize;
         if (size === "small") {
@@ -14,6 +15,7 @@
         }
     }
     // Also dumb but works
+    // Goes like this: slow -> medium -> fast -> slow
     function cycleTextSpeeds() {
         let size = $settings.textSpeed;
         if (size === "slow") {

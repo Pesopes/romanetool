@@ -13,7 +13,6 @@
 
     .back {
         opacity: 0.8;
-
         width: 100vw;
         height: 100%;
         margin: 0;

@@ -18,15 +18,14 @@
     let isBlocked = $derived(data.script.manager.isBlocked);
     // Binded to <Dialogue>, passed to <Profile>
     let speaking = $state(false);
+    // Unblocks events after speaking
     $effect(() => {
         if (!speaking) {
             data.script.manager.stopSpeaking();
         }
     });
 
-    function sleep(ms: number) {
-        return new Promise((resolve) => setTimeout(resolve, ms));
-    }
+    // Space to run next event
     const onKeyDown = (e: KeyboardEvent) => {
         switch (e.code) {
             case "Space":
@@ -34,6 +33,7 @@
                 data.script.manager.runNextEvent();
         }
     };
+    // Run the first event automatically
     onMount(() => {
         data.script.manager.runNextEvent();
     });
@@ -74,6 +74,7 @@
         {/if}
     {/if}
 </div>
+<!-- Clicking on the dialogue box runs next event -->
 <div onpointerdown={() => data.script.manager.runNextEvent()}>
     <Overlay overlay={data.script.manager.overlay}></Overlay>
 </div>

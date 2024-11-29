@@ -7,7 +7,7 @@
     import { settings } from "$lib/settings";
     import { Howl } from "howler";
 
-    // The effect will only run when .music changes not any other setting
+    // The effect will only run when settings.music changes not any other setting
     let music = $derived($settings.music);
     $effect(() => {
         if (music) {

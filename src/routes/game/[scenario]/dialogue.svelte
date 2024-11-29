@@ -10,12 +10,15 @@
         animplaying = $bindable(),
     }: { name: string; text: string; animplaying?: boolean } = $props();
 
+    // Pooled because more play at once
     const beep = new Howl({
         src: ["/sounds/beep.ogg"],
         pool: 5,
         volume: 0.3,
     });
+    // Parse settings strings into actual numbers
     let textSpeedModifier = $derived.by(() => {
+        // Bigger number means slower because it modifies the animation _delay_ not the speed
         switch ($settings.textSpeed) {
             case "slow":
                 return 1.5;
@@ -26,6 +29,7 @@
         }
     });
 
+    // Parse settings strings into CSS font-size
     let fontSizeCSS = $derived.by(() => {
         switch ($settings.fontSize) {
             case "small":
@@ -48,8 +52,7 @@
         return (word.length * 30 + 50 + specialDelay) * textSpeedModifier;
     };
 
-    // let wordAnimationDelay = $state(0);
-    let formattedText = $state("");
+    let formattedText = $state(""); // This is the text shown in game
     // Parses special formatting symbols into html
     $effect(() => {
         const beepTimeouts: ReturnType<typeof setTimeout>[] = [];
