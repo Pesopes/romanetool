@@ -42,8 +42,9 @@
         line-height: 1.2;
         border: 3px solid rgb(0, 0, 0);
         background-color: rgb(211, 144, 0);
-        background: linear-gradient(135deg, #fb6107, #fb9107);
-        border-radius: 10px;
+        background: #f5f0e1;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 1px;
         flex: 1 1 auto;
         margin: 5px;
         padding: 2px;
@@ -59,11 +60,10 @@
         letter-spacing: 0.5px;
     }
     button:hover {
-        background-color: rgb(247, 187, 58);
-        box-shadow: 5px 5px;
+        transform: translateY(-2px); /* Button "press" effect */
     }
     button:active {
-        transform: scale(0.97);
+        transform: translateY(2px); /* Slight push-down effect */
         box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3) inset;
     }
 </style>

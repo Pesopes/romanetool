@@ -90,7 +90,7 @@
         width: calc(100% - 20px);
     }
     .box {
-        background-color: #b1f1fbe5;
+        background-color: #98b1b6e5;
         background-image: url("/assets/textured-paper.png");
 
         position: absolute;
@@ -100,10 +100,10 @@
         left: 0;
         width: calc(100% - 20px);
         height: 30%;
-        border: 3px solid #3f7cab;
+        border: 3px solid #86b0d0;
         margin: 10px;
         padding: 10px 30px;
-        border-radius: 15px;
+        border-radius: 5px;
         scrollbar-width: none;
     }
     .active {
