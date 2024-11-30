@@ -50,11 +50,13 @@
                 </p>
                 <p class="year">{scenario.metadata.year}</p>
             </div>
-            <img
-                class="preview"
-                src="scenarios/{scenario.dirName}/{scenario.metadata.icon}"
-                alt="{scenario.dirName}/{scenario.metadata.icon}"
-            />
+            {#if scenario.metadata.icon !== ""}
+                <img
+                    class="preview"
+                    src="scenarios/{scenario.dirName}/{scenario.metadata.icon}"
+                    alt="{scenario.dirName}/{scenario.metadata.icon}"
+                />
+            {/if}
             <div class="folder"></div>
         </a>
     {/each}
