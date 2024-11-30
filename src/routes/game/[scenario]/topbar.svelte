@@ -28,7 +28,7 @@
     }
 </script>
 
-<div class="bar">
+<div class="bar" style="--background-color: #ebc3db29">
     <a href="/game" class="back" aria-label="Go back"></a>
     <div class="logo"></div>
     <div class="options">
@@ -67,8 +67,9 @@
     .bar {
         position: fixed;
         z-index: 169;
-        grid-template-columns: auto 1fr 1fr;
-        display: grid;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         top: 0;
         left: 0;
         margin: 0 auto;
@@ -85,14 +86,22 @@
         background: url("/icons/back.svg") no-repeat 0 50% / auto 100%;
         display: inline-block;
         width: 6rem;
-        height: auto;
+        height: 3.2rem;
+
+        background-color: var(--background-color);
+        background-position: 50%;
+        background-repeat: no-repeat;
+        background-size: 3.3rem 3.3rem;
+        clip-path: polygon(0 0, 75% 0, 100% 100%, 25% 100%);
+        margin: auto 1rem;
     }
     .logo {
-        background: url("/logo.svg") no-repeat 0 50% / auto 100%;
-        display: inline-block;
-        width: 10rem;
-        height: auto;
-        align-items: center;
+        background: url("/logo_alt.svg") no-repeat center center / contain;
+        /* background-color: var(--background-color); */
+        width: 15rem;
+        height: 3.2rem; /* Adjust height to match bar */
+        display: flex; /* Ensures proper centering */
+        margin: 0 auto; /* Centers the logo horizontally */
     }
     .toggle {
         display: inline-block;
@@ -101,16 +110,17 @@
         transition: transform 100ms;
 
         border: none;
-        border-radius: 30%;
+        /* border-radius: 30%; */
 
-        background-color: #ebc3db29;
+        background-color: var(--background-color);
         background-position: 50%;
         background-repeat: no-repeat;
         background-size: 2.3rem 2.3rem;
+        clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
 
-        width: 3.2rem;
+        width: 4.2rem;
         height: 3.2rem;
-        margin: auto 0.5rem;
+        margin: auto -0.3rem;
     }
     .toggle:hover {
         filter: brightness(0.8);
@@ -121,6 +131,9 @@
         transform: scale(0.95);
         cursor: pointer;
     }
+
+    /* The icons for the toggles are seperate classes */
+
     .music-icon {
         background-image: url("/icons/music.svg");
     }
