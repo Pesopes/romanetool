@@ -1,12 +1,11 @@
 + SHERLOCK ;Sherlock; ./sherlock.png
 +   RIMMER;  Rimmer;    ./rimmer.png
 
-$FadeOutScreen;Act 0; HMMMMMMM?
 $PlaySound;/sounds/intro.ogg
 
-$SetBackgroundAmbientMusic;./dragonborn.mp3
 $SetBackgroundImage;./sherlock.png
 $SetBackgroundShader;./mist.frag
+$FadeOutScreen;Act 0; HMMMMMMM?
 
 
 [SHERLOCK left

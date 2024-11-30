@@ -1,55 +1,44 @@
-# NOTES:
-# Shamelessly stolen from celeste
-# The # Symbol at the start of a line counts as a Comment. To include in dialog, use a \#
-# The . Symbol will cause a pause unless escaped with \. (ex: Mr. Holmes has a pause, Mr\. Holmes does not)
-# Newlines automatically create a Page Break
-
-# Inline Text Commands:
-# %wavy text%
-# *impact text*
-# \n creates a newline, without a page break
-# {CODENAME} will display the corresponding profile image there
-
-# Add character:
-# + CODENAME; <name>; <image_path>
-# Hide character:
-# - CODENAME
-# 
+# For making custom scripts and scenarios view CUSTOM_SCENARIOS_GUIDE.md
 
 + SHERLOCK ;Sherlock; ./sherlock.png 
 +  POIROT;Poirot;./poirot.png
-+   RIMMER;  Rimmer;    ./rimmer.png
-+ WATSON;Dr. Watson;./sherlock.jpg
-+ CIMRMAN; Jára Cimrman; ./anonymus.png
++  RIMMER;  Rimmer;    ./rimmer.png
++ WATSON;Dr. Watson;./watson.png
 
+# This sound is in the static directory and globally referenced
 $PlaySound;/sounds/intro.ogg
 
-$SetBackgroundAmbientMusic;./dragonborn.mp3
-$SetBackgroundImage;./poirot.png
+# This is would play "epicmusic.mp3" if I had any!!!
+$SetBackgroundAmbientMusic;./epicmusic.mp3
+$SetBackgroundImage;./background.jpg
 $SetBackgroundShader;./mist.frag
+
 $SetVariable;points;0
 $SetVariable;a;0
 $SetVariable;b;1
 $SetVariable;c;0
 $$;a;+;b;c
-# ShowScreen blocks events so it has to be at the end
+
+# A black screen with text will slowly fade away and reveal the game
 $FadeOutScreen;Act 0; Making of a drug addict
 
+# Sherlock will appear on the left and the text will say this
 [SHERLOCK left
-How you %doin'% %fellow% kids. This is me Mr\. mario.
-Let's do some drugs!!!
+Oh hello Poriot!
 ]
 
+# Sherlock will become faded and Poirot will appear on the right and say this
 [POIROT right
 Please do *not* do drugs mon ami {SHERLOCK}.
 ]
 
--  SHERLOCK # Sherlock is no longer visible at all
+# Sherlock is no longer visible at all
+-  SHERLOCK
 
 [SHERLOCK right
-A h h  hh h h THISISAREALLYLONGWORDIREALLYHAVETOWRITEALOTTOPADTHELENGTHOFTHISONE
-hi
+Hi I'm going to say reeeeaaaaaly looooong woooords sooooooooooooo that y o u c a n s e e that the text speed reflects that
 ]
+# This will always jump
 => @TESTLABEL
 
 [RIMMER right
@@ -63,11 +52,9 @@ I h a t e y o u. Mr\. Ho lmes {SHERLOCK}
 ]
 
 [POIROT right
-They taste *%'orrible%*! # The french dont pronounce 'h'
+They taste *%'orrible%*!
 ]
 
-$SetBackgroundAmbientMusic;./fallout.mp3
-$SetBackgroundImage;./rimmer.png
 [RIMMER right
 Hey i'm here _too_. %HEY% {POIROT}!
 ]
@@ -98,19 +85,21 @@ I'm %leaving% man.
 => @RIMMER_END
 
 @RIMMER_ANGRY
-$$;points;+;1;points
+$SetVariable;one;1
+$$;points;+;one;points
 [RIMMER right
 AAAAAAAAAAAAAAAH I H A T E Y O U SHERLOCK {SHERLOCK}!!!! !!!!!!!! !!!!!!!
 ]
 => @RIMMER_END
 
 @RIMMER_HAPPY
+# TODO: make this syntax work and then fix this in the script
 $$;points;+;4;points
+# This was made by ChatGPT
 [RIMMER right
 Ah, *directive 9323!* An absolute cornerstone of interstellar regulation, a guiding star of moral clarity amidst the vast, chaotic darkness of space. Allow me to enlighten you, my ungrateful and entirely uncultured comrades. _Ahem!_ %Space% %Corps% %Directive% %9323% explicitly states—and I quote—“No officer of the corps may consume *any* dairy product within twenty-four hours of engaging in hyperspace travel.”
 ]
 
-#[RIMMER right]
 << SHERLOCK right
 Do you want to hear it again? 
 * NO! => @RIMMER_ANGRY
@@ -124,15 +113,6 @@ Do you want to hear it again?
 Well that was really. . . %BORING%
 ]
 
-[CIMRMAN right
-Dobrý den přátelé.
-]
-- CIMRMAN
-+ CIMRMAN ;Jára Cimrman; ./sherlock.jpg
-
-[CIMRMAN right
-Já jsem ve skutečnosti Sherlock Holmes.
-]
 @GAME_END
 $FadeInScreen;End of act 0; Making of a drug addict
 $ChangeScript;alternative.nls
