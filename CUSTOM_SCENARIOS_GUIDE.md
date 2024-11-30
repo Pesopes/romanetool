@@ -44,6 +44,7 @@ These are the options you have to include
 - "icon" – A small image that is visible only in the scenario picker. **Leave blank to not show any picture**
 - "author" – Just a small acknowledgment for your hard work. Visible only in the scenario picker.
 - "year" –  Visible only in the scenario picker.
+- "hidden" – if true it will not be visible in the scneario picker. Useful if it is under development and not ready for others to view but it is still accessible by using a direct link.
   
   > The "icon" and "entrypoint" options both pick from the root of the your scenario folder
 
@@ -56,9 +57,11 @@ This is how a _metadata.json_ should look
     "entrypoint": "main.nls",
     "icon": "nice_image.png",
     "author": "YOU!",
-    "year": 3030
+    "year": 3030,
+    "hiddden": false
 }
 ```
+> You can hide the examplescenario by setting its "hidden" metadata to true
 
 # Script syntax
 

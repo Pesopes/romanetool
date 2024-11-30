@@ -1,8 +1,9 @@
 {
-    "name": "Don't do drugs kids.",
+    "name": "Example scenario.",
     "description": "Sherlock Holmes and Hercule Poirot argue about drugs when, suddenly, a wild Rimmer appears...",
     "entrypoint": "main.nls",
     "icon": "poirot.png",
     "author": "Pesopes and Trollak",
-    "year": 2024
+    "year": 2024,
+    "hidden": false
 }

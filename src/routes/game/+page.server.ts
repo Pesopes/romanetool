@@ -7,7 +7,8 @@ export interface ScenarioMetadata {
     entrypoint: string,
     icon: string,
     author: string,
-    year: number
+    year: number,
+    hidden: boolean
 }
 export interface Scenario {
     dirName: string,
@@ -26,6 +27,10 @@ export const load: PageServerLoad = async () => {
             const metadataPath = join(dirPath, metadataFileName);
             const metadataFile = readFileSync(metadataPath, "utf-8");
             const metadata: ScenarioMetadata = JSON.parse(metadataFile);
+            // Ignore scenarios that are hidden
+            if (metadata.hidden) {
+                return null;
+            }
             return {
                 dirName: dir,
                 metadata: metadata
