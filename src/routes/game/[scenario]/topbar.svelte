@@ -29,8 +29,8 @@
 </script>
 
 <div class="bar" style="--background-color: #ebc3db29">
-    <a href="/game" class="back" aria-label="Go back"></a>
-    <div class="logo"></div>
+    <a href="/game" class="back" aria-label="Go back to scenario select"></a>
+    <a href="/" class="logo" aria-label="Navigate to the main page"></a>
     <div class="options">
         <button
             class="toggle text-speed-{$settings.textSpeed}-icon"
