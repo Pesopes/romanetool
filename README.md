@@ -14,6 +14,9 @@ A wacky story.
 - [x] change cursor when able to interact with stuff
 - [x] better screen fade thingies, and animations between script transition
 
+## How to make custom scenarios
+See [Custom scenarios guide](./CUSTOM_SCENARIOS_GUIDE.md)
+
 ## Developing
 
 ### first install dependencies
