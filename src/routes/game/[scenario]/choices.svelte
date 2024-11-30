@@ -2,7 +2,8 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import type { PromptInfo } from "./speaker";
-
+    import { get } from "svelte/store";
+    import { settings } from "$lib/settings";
     let {
         prompt,
         onchoose,
@@ -15,7 +16,9 @@
 
     // Runs when the prompt appears
     onMount(() => {
-        promptSound.play();
+        if (get(settings).sounds) {
+            promptSound.play();
+        }
     });
 </script>
 
