@@ -1,5 +1,5 @@
 import type { ProfilePosition, PromptInfo } from './speaker';
-import { AddSpeaker, AwardPoints, MoveSpeaker, GameManager, HideSpeaker, Jump, Label, Operation, Prompt, SayLine, SetBackgroundAmbientMusic, SetBackgroundImage, SetBackgroundShader, SetVariable, type Operations, PlaySound, ChangeScript, FadeInScreen, FadeOutScreen, } from './manager.svelte';
+import { AddSpeaker, MoveSpeaker, GameManager, HideSpeaker, Jump, Label, Operation, Prompt, SayLine, SetBackgroundAmbientMusic, SetBackgroundImage, SetBackgroundShader, SetVariable, type Operations, PlaySound, ChangeScript, FadeInScreen, FadeOutScreen, } from './manager.svelte';
 
 export function parseScript(script: string, scriptName: string): GameManager {
     const convertPath = (path: string) => {
@@ -85,9 +85,6 @@ export function parseScript(script: string, scriptName: string): GameManager {
                     break;
                 case "SetBackgroundShader":
                     manager.addEvent(new SetBackgroundShader(convertPath(headerValues[1])));
-                    break;
-                case "AwardPoints":
-                    manager.addEvent(new AwardPoints(Number(headerValues[1])));
                     break;
                 case "SetVariable":
                     manager.addEvent(new SetVariable(String(headerValues[1]), Number(headerValues[2])));

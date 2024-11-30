@@ -243,15 +243,6 @@ export class PlaySound implements GameEvent {
     }
 }
 
-export class AwardPoints implements GameEvent {
-    type = "AwardPoints";
-    constructor(public delta: number) { }
-    execute(manager: GameManager) {
-        manager.points += this.delta;
-        manager.runNextEvent()
-    }
-}
-
 export class SetVariable implements GameEvent {
     type = "SetVariable";
     constructor(public name: string, public value: any) { }

@@ -27,6 +27,7 @@ $PlaySound;/sounds/intro.ogg
 $SetBackgroundAmbientMusic;./dragonborn.mp3
 $SetBackgroundImage;./poirot.png
 $SetBackgroundShader;./mist.frag
+$SetVariable;points;0
 $SetVariable;a;0
 $SetVariable;b;1
 $SetVariable;c;0
@@ -83,11 +84,13 @@ Back on the right %hahaha%
 Could you please...  
 * shut up?! => @RIMMER_LEAVE
 * stop yapping? => @RIMMER_ANGRY
-* tell me something about the Space Corps Directive 102930? => @RIMMER_HAPPY
+* tell me something about the Space Corps Directive 102930? Also  => @RIMMER_HAPPY
 >>
 
 @RIMMER_LEAVE
-$AwardPoints;1
+$SetVariable;one;1
+$$;points;+;one;points
+=> (points) @GAME_END
 [RIMMER right
 I'm %leaving% man.
 ]
@@ -95,14 +98,14 @@ I'm %leaving% man.
 => @RIMMER_END
 
 @RIMMER_ANGRY
-$AwardPoints;1
+$$;points;+;1;points
 [RIMMER right
 AAAAAAAAAAAAAAAH I H A T E Y O U SHERLOCK {SHERLOCK}!!!! !!!!!!!! !!!!!!!
 ]
 => @RIMMER_END
 
 @RIMMER_HAPPY
-$AwardPoints;4
+$$;points;+;4;points
 [RIMMER right
 Ah, *directive 9323!* An absolute cornerstone of interstellar regulation, a guiding star of moral clarity amidst the vast, chaotic darkness of space. Allow me to enlighten you, my ungrateful and entirely uncultured comrades. _Ahem!_ %Space% %Corps% %Directive% %9323% explicitly states—and I quote—“No officer of the corps may consume *any* dairy product within twenty-four hours of engaging in hyperspace travel.”
 ]
@@ -130,6 +133,6 @@ Dobrý den přátelé.
 [CIMRMAN right
 Já jsem ve skutečnosti Sherlock Holmes.
 ]
-
+@GAME_END
 $FadeInScreen;End of act 0; Making of a drug addict
 $ChangeScript;alternative.nls
