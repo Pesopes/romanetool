@@ -266,7 +266,8 @@ export class ChangeScript implements GameEvent {
         } else {
             path = `${this.scenarioId}`
         }
-        goto(path, { replaceState: true })
+        // replaceState will make it so that the back button goes back to the scenario picker
+        goto(path, { replaceState: true, invalidateAll: true })
     }
 }
 

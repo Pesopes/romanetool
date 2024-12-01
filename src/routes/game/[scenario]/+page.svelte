@@ -16,6 +16,7 @@
     let currentPrompt = $derived(data.script.manager.currentPrompt);
     let background = $derived(data.script.manager.background);
     let isBlocked = $derived(data.script.manager.isBlocked);
+    let overlay = $derived(data.script.manager.overlay);
     // Binded to <Dialogue>, passed to <Profile>
     let speaking = $state(false);
     // Unblocks events after speaking
@@ -76,7 +77,7 @@
 </div>
 <!-- Clicking on the dialogue box runs next event -->
 <div onpointerdown={() => data.script.manager.runNextEvent()}>
-    <Overlay overlay={data.script.manager.overlay}></Overlay>
+    <Overlay {overlay}></Overlay>
 </div>
 <Topbar />
 
