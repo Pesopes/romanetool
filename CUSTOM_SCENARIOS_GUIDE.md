@@ -2,7 +2,7 @@
 
 ## Get the project
 
-First clone this project locally using git
+First, clone this project locally using Git:
 
 ```bash
 git clone https://github.com/Pesopes/romanetool
@@ -10,7 +10,7 @@ git clone https://github.com/Pesopes/romanetool
 
 ### Install dependencies
 
-then inside the directory run
+Then, inside the directory run:
 
 ```bash
 npm install
@@ -46,9 +46,9 @@ These are the options you have to include
 - "year" –  Visible only in the scenario picker.
 - "hidden" – if true it will not be visible in the scneario picker. Useful if it is under development and not ready for others to view but it is still accessible by using a direct link.
   
-  > The "icon" and "entrypoint" options both pick from the root of the your scenario folder
+  > The "icon" and "entrypoint" options both pick from the root of your scenario folder
 
-This is how a _metadata.json_ should look
+This is how a _metadata.json_ file should look:
 
 ```JSON
 {
@@ -71,7 +71,7 @@ The script executes commands line by line from the top of the file. The file ext
 
 A lot of the syntax splits parts of the command by a semicolon (";") and _strips_ it afterwards, this means that you don't have to worry too much about whitespace.
 
-> While programming keep the dev tools in your browser open (F12). Any errors with the script will be shown there. 
+> While programming keep the dev tools in your browser open (F12). Any errors in the script will appear there. 
 
 ## Comments
 
@@ -200,7 +200,7 @@ Dialog text or question...
 - Labels – See Labels
 
 
-**Behavior:**
+**Behaviour:**
 - Once a player selects an option, the script jumps to the corresponding label.
 - Choices allow branching storylines or different outcomes.
 	- If you want to assign points for the different answers just put those operations after the label which the prompt jumps to (You can see something like this in _examplescenario_)
@@ -248,7 +248,7 @@ $SetBackgroundImage; path_to_image
 ---
 
 ### SetBackgroundShader
-Displays a shader in front of the background. Uses [svader](https://github.com/sockmaster27/svader) and WebGL with [GLSL](https://developer.mozilla.org/en-US/docs/Games/Techniques/3D_on_the_web/GLSL_Shaders) under the hood. Look for files ending with _.frag_ in the examplescenario for inspiration.
+Displays a shader in front of the background. Uses [svader](https://github.com/sockmaster27/svader) and WebGL with [GLSL](https://developer.mozilla.org/en-US/docs/Games/Techniques/3D_on_the_web/GLSL_Shaders) under the hood. Look for files ending with _.frag_ in the examplescenario folder for inspiration.
 
 Syntax:
 ```
