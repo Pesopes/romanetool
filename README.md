@@ -15,7 +15,7 @@ A wacky story.
 
 ## TODO
 - [ ] Some kind of tutorial (at least what to press)
-- [ ] Better script variables. Printing, operations with numbers etc.
+- [x] Better script variables. ~~Printing~~, operations with numbers etc.
 - [ ] Clean up the examplescenario scrips and stuff before publishing
 - [x] change cursor when able to interact with stuff
 - [x] better screen fade thingies, and animations between script transition

@@ -76,8 +76,9 @@ Could you please...
 
 @RIMMER_LEAVE
 $SetVariable;one;1
-$$;points;+;one;points
-=> (points) @GAME_END
+$$;points;+;1;points
+=> (points < 3) @TESTLABEL
+
 [RIMMER right
 I'm %leaving% man.
 ]

@@ -19,6 +19,8 @@ export class GameManager {
     private currentId: number = 0;
     private blockEvents = $state({ prompt: false, speaking: false, timed: false });
     isBlocked = $derived(this.blockEvents.prompt || this.blockEvents.speaking || this.blockEvents.timed)
+    mostRecentAnswerName: string = "ans"
+    debug: boolean = false
 
     addEvent(event: GameEvent) {
         this.events.push(event);
@@ -86,6 +88,9 @@ export class GameManager {
         this.blockEvents.prompt = false
         this.currentPrompt?.choices[i].event.execute(this)
         this.currentPrompt = undefined
+    }
+    constructor() {
+        this.variables.set(this.mostRecentAnswerName, 0)
     }
 }
 
@@ -271,7 +276,7 @@ export class ChangeScript implements GameEvent {
     }
 }
 
-export type Operations = "+" | "-" | "*" | "/" | ">" | "<" | "<=" | ">=" | "="
+export type Operations = "+" | "-" | "*" | "/" | ">" | "<" | "<=" | ">=" | "=" | "=="
 
 export class Operation implements GameEvent {
     type = "$";
@@ -285,7 +290,10 @@ export class Operation implements GameEvent {
                 this.value = tmp;
             }
             else {
-                new Error("Accessing variable " + this.value + " which doesn't exist")
+                this.value = Number(this.value)
+                if (isNaN(this.value)) {
+                    new Error("Accessing variable " + this.value + " which doesn't exist")
+                }
             }
         }
         if (typeof this.out === "undefined") {
@@ -318,15 +326,20 @@ export class Operation implements GameEvent {
                     manager.variables.set(this.out, oldValue <= this.value ? 1 : 0);
                     break;
                 case "=":
+                case "==":
                     manager.variables.set(this.out, oldValue === this.value ? 1 : 0);
                     break;
                 default:
                     throw Error("Unknown operation");
             }
+            if (manager.debug) {
+                console.log("Performed: " + String(oldValue) + "(" + String(this.name) + ")" + " " +
+                    String(this.operation) + " " +
+                    String(this.value) + "(" + String(this.value) + ") -->" + String(manager.variables.get(this.out)) + "(" + String(this.out) + ")")
+            }
         } else {
             throw Error("Accessing variable " + this.name + " which doesn't exist");
         }
-        // console.log(this.out, " is ", manager.variables.get(this.out))
         manager.runNextEvent();
     }
 }

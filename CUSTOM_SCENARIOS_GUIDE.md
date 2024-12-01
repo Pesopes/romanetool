@@ -155,21 +155,32 @@ Syntax:
 
 ## Jumps
 
-Syntax:
+Used symbols:
+
+- var, var_1, var_2 – the names of the variables to check or just numbers
+
+- LABEL_NAME – label to jump to See Labels
+
+Performs the operation before the jump and the result is used as a condition for it (saved in "ans" variable):
+
+```
+=> (var_1 operation var_2) @LABEL_NAME
+```
+If the result is 1 this will **jump** to the place in the script denoted by the *LABEL_NAME*.
+If there is only one variable, it is taken as the condition for the jump
 
 ```
 => (var) @LABEL_NAME
 ```
 
-- var – the name of the variable to check
-
-- LABEL_NAME – label to jump to See Labels
-
-If the *var* is 1 this will **jump** to the place in the script denoted by the *LABEL_NAME*
-
 You can also omit the "(var)" to **always** jump:
 ```
 => @LABEL_NAME
+```
+
+Example:
+```
+=> (points >= 1600) @HIGHEST_SAT_SCORE_ENDING
 ```
 
 ## Prompts
@@ -264,10 +275,12 @@ Syntax:
 ```
 $SetVariable;name;number
 ```
+
+> The variable named "ans" is used to store the most recent answer (like in Matlab). Therefore, **don't use it**.
 ### $
 > Yes, that is the name of the command. You have to have a ; after it
 
-Stores the result of the _operation_ between _operand_1_ and _operand_2_ in _result_
+Stores the result of the _operation_ between _operand_1_ and _operand_2_ in _result_. Operands can be names of predeclared variables or just numbers.
 
 > **Booleans are represented with 1 (true) and 0 (false)**
 
@@ -289,9 +302,13 @@ The available operations for the `$` command are:
 - **<**: Checks if `operand_1` is less than `operand_2` and stores `1` (true) or `0` (false) in `result`.
 - **>=**: Checks if `operand_1` is greater than or equal to `operand_2` and stores `1` (true) or `0` (false) in `result`.
 - **<=**: Checks if `operand_1` is less than or equal to `operand_2` and stores `1` (true) or `0` (false) in `result`.
-- **=**: Checks if `operand_1` is equal to `operand_2` and stores `1` (true) or `0` (false) in `result`.
+- **=** or **==**: Checks if `operand_1` is equal to `operand_2` and stores `1` (true) or `0` (false) in `result`.
 
-Here's a list of the missing commands with explanations and syntax filled in based on the provided context:
+Examples:
+
+```
+$$;points;+;1;points
+```
 
 ---
 

@@ -66,17 +66,23 @@ export function parseScript(script: string, scriptName: string): GameManager {
             manager.addEvent(new Label(name))
         } else if (line.startsWith("=>")) {
             let header = line.slice(2).trim()
+
             if (header.startsWith("(")) {
+                // Conditional jumps
                 let headerValues = header.slice(1).split(")")
                 let name = headerValues[1].trim().slice(1)
-                let conditionName = headerValues[0].trim()
-                manager.addEvent(new Jump(name, conditionName))
+                let op = parseOperation(headerValues[0].trim())
+                if (op) {
+                    manager.addEvent(new Operation(op.left, op.operation, op.right, manager.mostRecentAnswerName))
+                } else {
+                    manager.addEvent(new Operation(headerValues[0].trim(), "==" as Operations, "1", manager.mostRecentAnswerName))
+                }
+                manager.addEvent(new Jump(name, manager.mostRecentAnswerName))
             } else {
+                // Unconditional jump
                 let name = line.slice(2).trim().slice(1)
                 manager.addEvent(new Jump(name, ""))
             }
-
-
         } else if (line.startsWith("$")) {
             let headerValues = line.slice(1).trim().split(";")
             switch (headerValues[0]) {
@@ -177,4 +183,25 @@ Could you please...
         return { answer: answer, event: new Jump(label, "") }
     })
     return { speaker: codename, choices: choices, question: question }
+}
+
+export function parseOperation(input: string): { operation: Operations, left: string, right: string } | null {
+    const regex = /([a-zA-Z_][a-zA-Z0-9_]*|-?\d+\.?\d*)\s*(\+|-|\*|\/|>|<|<=|>=|=)\s*([a-zA-Z_][a-zA-Z0-9_]*|-?\d+\.?\d*)/;
+    const match = input.match(regex);
+
+    if (!match) return null;
+
+    const [, left, operation, right] = match;
+    if (isOperation(operation)) {
+        return {
+            operation: operation as Operations,
+            left: left.trim(),
+            right: right.trim()
+        };
+    }
+    return null;
+}
+
+function isOperation(op: string): op is Operations {
+    return ["+", "-", "*", "/", ">", "<", "<=", ">=", "=", "=="].includes(op);
 }
