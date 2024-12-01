@@ -37,10 +37,7 @@
 
     <div class="credits">
         <h2>Credits</h2>
-        <p>
-            Developed by <a href="https://github.com/Pesopes">Pesopes</a> and
-            <a href="https://github.com/MarekOnd">Trollak</a>.
-        </p>
+        <h3>Sound effects</h3>
         <p>
             <a href="https://kenney.nl/assets/digital-audio"
                 >Digital Audio Pack</a
@@ -51,6 +48,30 @@
                 href="https://pixabay.com/users/universfield-28281460/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=153277"
                 >Universfield</a
             >
+        </p>
+        <h3>Example scenario assets</h3>
+        <p>
+            Sherlock (Benedict Cumberbatch) – Fat Les (<a
+                href="https://creativecommons.org/licenses/by/2.0">CC BY 2.0</a
+            >), via Wikimedia Commons (edited – removed background)
+        </p>
+        <p>
+            Rimmer (Chris Barrie) – ...some guy (<a
+                href="https://creativecommons.org/licenses/by/2.0">CC BY 2.0</a
+            >), via Wikimedia Commons (edited – removed background)
+        </p>
+        <p>
+            Dr. Watson (Martin Freeman) – Harald Krichel (<a
+                href="https://creativecommons.org/licenses/by-sa/3.0"
+                >CC BY-SA 3.0</a
+            >), via Wikimedia Commons, modified and distributed under the same
+            license
+        </p>
+        <p>
+            Poirot – <a
+                href="https://t.novaskin.me/88f57c7c2cd4e701ca7a5433a7eaaba617416e73521cd52b4377c6bc1a515fad"
+                >original skin</a
+            >, screenshot and edit by me
         </p>
     </div>
 </main>

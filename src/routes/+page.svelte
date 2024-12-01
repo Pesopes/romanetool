@@ -3,8 +3,8 @@
     <!-- <h1>Romanetool</h1> -->
     <p>A tool for making simple interactive stories.</p>
     <small>Pick your scenario and start.</small>
-    <a href="./game">Choose a Scenario</a>
-    <a class="about-link" href="/about">Learn More About Romanetool</a>
+    <a class="play-link" href="./game">Choose a Scenario</a>
+    <a class="about-link" href="/about">What is Romanetool?</a>
 </main>
 
 <style>
@@ -56,7 +56,8 @@
         box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
         transition:
             transform 0.2s ease,
-            background 0.3s ease;
+            background 0.3s ease,
+            color 0.3s;
     }
 
     a:hover {
@@ -67,12 +68,15 @@
     a:active {
         transform: scale(0.95);
     }
+    .play-link {
+        font-size: 2rem;
+    }
     .about-link {
         font-size: 1.2rem;
         color: #ff6f61;
         text-decoration: none;
         margin-top: 1.5rem;
-        transition: color 0.3s;
+        background: #95fffb;
     }
 
     .about-link:hover {

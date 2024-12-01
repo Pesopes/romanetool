@@ -10,8 +10,9 @@ A wacky story.
 ### Example scenario assets
 - Sherlock (Benedict Cumberbatch) – Fat Les (bellaphon) from London, UK, CC BY 2.0 <https://creativecommons.org/licenses/by/2.0>, via Wikimedia Commons (edited – removed background)
 - Rimmer (Chris Barrie) – ...some guy, CC BY 2.0 <https://creativecommons.org/licenses/by/2.0>, via Wikimedia Commons (edited – removed background)
-- Dr. Watson (Martin Freeman) – Harald Krichel, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons, modified and distributed with the same license 
+- Dr. Watson (Martin Freeman) – Harald Krichel, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons, modified and distributed under the same license 
 - Poirot – [original skin](https://t.novaskin.me/88f57c7c2cd4e701ca7a5433a7eaaba617416e73521cd52b4377c6bc1a515fad) screenshot and edit by me
+
 ## TODO
 - [ ] Some kind of tutorial (at least what to press)
 - [ ] Better script variables. Printing, operations with numbers etc.
