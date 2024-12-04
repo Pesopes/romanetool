@@ -332,6 +332,18 @@ $PlaySound; path_to_sound
 
 ---
 
+### AutoContinueAfter
+Use before saying a line
+Will auto run the next event after speaking ends.
+You can also specify a custom text speed modifier.
+
+Syntax:
+```
+$AutoContinueAfter; text_speed_modifier(optional)
+```
+
+---
+
 ### FadeInScreen
 Fades in a screen overlay with a title and subtitle over a specified duration. Prevents interaction while fading. Usually used when ending the story.
 

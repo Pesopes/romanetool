@@ -5,7 +5,7 @@ $PlaySound;/sounds/intro.ogg
 
 $SetBackgroundImage;./sherlock.png
 $SetBackgroundShader;./mist.frag
-$FadeOutScreen;Act 0; HMMMMMMM?
+$FadeOutScreen;Act 0; HMMMMMMM?;1000
 
 
 [SHERLOCK left
@@ -24,4 +24,33 @@ To be, or not to be?
 _*SHUT UP*_
 ]
 
-$ChangeScript;main.nls
+$AutoContinueAfter
+[SHERLOCK left
+HO Ho Ho you wanna see some action!
+]
+$AutoContinueAfter
+[SHERLOCK left
+You gonna see some action
+]
+[RIMMER right
+OOOH please dont huwt me
+]
+
+$AutoContinueAfter;2000
+[SHERLOCK left
+You gonna HI
+]
+$AutoContinueAfter;0.1
+[SHERLOCK left
+This is something Honorificabilitudinitatibus Uncharacteristically Inconsequentialities
+]
+$AutoContinueAfter
+[SHERLOCK left
+NOW Honorificabilitudinitatibus Uncharacteristically Inconsequentialities
+]
+
+
+
+$FadeInScreen;The end...; HMMMMMMM?;1000
+
+# $ChangeScript;main.nls

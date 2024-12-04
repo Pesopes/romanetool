@@ -1,7 +1,7 @@
 import { SvelteMap } from 'svelte/reactivity';
 import type { Speaker, ProfilePosition, DialogueContext, PromptInfo } from './speaker';
 import type { Background, Overlay } from './background.ts';
-import { settings } from '$lib/settings';
+import { convertTextSpeedSetting, settings } from '$lib/settings';
 import { get } from 'svelte/store';
 import { goto } from '$app/navigation';
 import { tweened } from 'svelte/motion';
@@ -11,13 +11,14 @@ export class GameManager {
     private events: GameEvent[] = [];
     speakers: Map<string, Speaker> = new SvelteMap();
     variables: Map<string, any> = new SvelteMap();
-    currentDialogue: DialogueContext = $state({ text: "", speakerName: "" });
+    currentDialogue: DialogueContext = $state({ text: "", speakerName: "", overrideTextSpeed: null });
     currentPrompt: PromptInfo | undefined = $state(undefined)
     background: Background = $state({ src: "", frame: "", ambientMusic: "", shaderCode: "" });
     overlay: Overlay = $state({ src: "", title: "", subtitle: "", opacity: tweened(0, { duration: 500, easing: linear }) })
     points = $state(0);
     private currentId: number = 0;
     private blockEvents = $state({ prompt: false, speaking: false, timed: false });
+    continueAfterSpeaking = false; // Used in stopSpeaking, auto runs next event after speaking has finished
     isBlocked = $derived(this.blockEvents.prompt || this.blockEvents.speaking || this.blockEvents.timed)
     mostRecentAnswerName: string = "ans"
     debug: boolean = false
@@ -50,7 +51,9 @@ export class GameManager {
         if (this.isBlocked)
             return false;
         const event = this.events[this.currentId++]
-        // console.log("Executing event", event)
+        if (this.debug)
+            console.log("Executing event", event);
+
         event.execute(this);
         return false;
     }
@@ -83,6 +86,12 @@ export class GameManager {
     }
     stopSpeaking() {
         this.blockEvents.speaking = false
+        if (this.continueAfterSpeaking) {
+            this.continueAfterSpeaking = false
+            this.currentDialogue.overrideTextSpeed = null
+            this.removeTimedBlock()
+            this.runNextEvent()
+        }
     }
     choosePrompt(i: number) {
         this.blockEvents.prompt = false
@@ -171,9 +180,26 @@ export class SayLine implements GameEvent {
     constructor(public codename: string, public line: string) { }
     execute(manager: GameManager) {
         // These variables are displayed in the text box in-game
-        manager.currentDialogue.text = this.line.replace(/{(.*?)}/g, (match, code) => `{${manager.getSpeaker(code).image}}`);
-        manager.currentDialogue.speakerName = manager.getSpeaker(this.codename).name;
-        manager.startSpeaking()
+        // Change codenames in text to corresponding images
+        // FIXME: this will always take the last image in the script for that codename
+        const text = this.line.replace(/{(.*?)}/g, (match, code) => `{${manager.getSpeaker(code).image}}`);
+        const speakerName = manager.getSpeaker(this.codename).name;
+        // Doesn't change the override text speed property
+        manager.currentDialogue = { ...manager.currentDialogue, text, speakerName }
+        manager.startSpeaking() // Ensures blocking of events while speaking
+    }
+}
+
+// Runs the next event but blocks all events for some time and runs the next event automatically (without user input) 
+export class AutoContinueAfter implements GameEvent {
+    type = "AutoContinueAfter";
+    constructor(public textSpeed?: number) { }
+    execute(manager: GameManager) {
+        if (this.textSpeed != null) {
+            manager.currentDialogue.overrideTextSpeed = this.textSpeed;
+        }
+        manager.continueAfterSpeaking = true
+        manager.runNextEvent()
     }
 }
 
@@ -204,7 +230,7 @@ export class Prompt implements GameEvent {
     execute(manager: GameManager) {
         manager.currentPrompt = this.promptInfo
         const speaker = manager.getSpeaker(this.promptInfo.speaker)
-        manager.currentDialogue = { speakerName: speaker.name, text: this.promptInfo.question }
+        manager.currentDialogue = { speakerName: speaker.name, text: this.promptInfo.question, overrideTextSpeed: null }
         manager.startPrompt()
     }
 }

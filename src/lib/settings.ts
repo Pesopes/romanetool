@@ -33,3 +33,27 @@ settings.subscribe(value => {
     // only run if client side
     if (browser) localStorage.setItem("settings", JSON.stringify(value));
 });
+
+export const convertFontSizeSetting = (fontSize: 'small' | 'medium' | 'large') => {
+    switch (fontSize) {
+        case "small":
+            return "1rem";
+        case "medium":
+            return "2rem";
+        case "large":
+            return "3rem";
+    }
+}
+
+export const convertTextSpeedSetting = (textSpeed: 'slow' | 'medium' | 'fast') => {
+    // Parse settings strings into actual numbers
+    // Bigger number means slower because it modifies the animation _delay_ not the speed
+    switch (textSpeed) {
+        case "slow":
+            return 1.5;
+        case "medium":
+            return 1;
+        case "fast":
+            return 0.5;
+    }
+}

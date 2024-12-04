@@ -1,5 +1,5 @@
 import type { ProfilePosition, PromptInfo } from './speaker';
-import { AddSpeaker, MoveSpeaker, GameManager, HideSpeaker, Jump, Label, Operation, Prompt, SayLine, SetBackgroundAmbientMusic, SetBackgroundImage, SetBackgroundShader, SetVariable, type Operations, PlaySound, ChangeScript, FadeInScreen, FadeOutScreen, } from './manager.svelte';
+import { AddSpeaker, MoveSpeaker, GameManager, HideSpeaker, Jump, Label, Operation, Prompt, SayLine, SetBackgroundAmbientMusic, SetBackgroundImage, SetBackgroundShader, SetVariable, type Operations, PlaySound, ChangeScript, FadeInScreen, FadeOutScreen, AutoContinueAfter, } from './manager.svelte';
 
 export function parseScript(script: string, scriptName: string): GameManager {
     const convertPath = (path: string) => {
@@ -103,6 +103,10 @@ export function parseScript(script: string, scriptName: string): GameManager {
                     break;
                 case "PlaySound":
                     manager.addEvent(new PlaySound(convertPath(headerValues[1])));
+                    break;
+                case "AutoContinueAfter":
+                    const fontSpeed = Number(headerValues[1]) || undefined
+                    manager.addEvent(new AutoContinueAfter(fontSpeed));
                     break;
                 case "FadeInScreen":
                     // The fadeDuration is optional

@@ -1,14 +1,21 @@
 <!-- @component Parses and displays script text with a nice animation -->
 <script lang="ts">
-    import { settings } from "$lib/settings";
+    import { convertFontSizeSetting, settings } from "$lib/settings";
     import { fade } from "svelte/transition";
     import { Howl } from "howler";
+    import { calculateWordAnimationDelay } from "$lib/textUtils";
 
     let {
         name,
         text,
+        textSpeed = 1,
         animplaying = $bindable(),
-    }: { name: string; text: string; animplaying?: boolean } = $props();
+    }: {
+        name: string;
+        text: string;
+        textSpeed: number;
+        animplaying?: boolean;
+    } = $props();
 
     // Pooled because more play at once
     const beep = new Howl({
@@ -16,45 +23,9 @@
         pool: 5,
         volume: 0.3,
     });
-    // Parse settings strings into actual numbers
-    let textSpeedModifier = $derived.by(() => {
-        // Bigger number means slower because it modifies the animation _delay_ not the speed
-        switch ($settings.textSpeed) {
-            case "slow":
-                return 1.5;
-            case "medium":
-                return 1;
-            case "fast":
-                return 0.5;
-        }
-    });
 
     // Parse settings strings into CSS font-size
-    let fontSizeCSS = $derived.by(() => {
-        switch ($settings.fontSize) {
-            case "small":
-                return "1rem";
-            case "medium":
-                return "2rem";
-            case "large":
-                return "3rem";
-        }
-    });
-    const calculateWordAnimationDelay = (word: string) => {
-        let specialDelay = 0;
-
-        // Wait longer when unescaped "." or ","
-        if (
-            word.match(/(?<!\\)\./g) ||
-            word.includes("?") ||
-            word.includes("!")
-        ) {
-            specialDelay = 300;
-        } else if (word.match(/(?<!\\),/g)) {
-            specialDelay = 100;
-        }
-        return (word.length * 30 + 50 + specialDelay) * textSpeedModifier;
-    };
+    let fontSizeCSS = $derived(convertFontSizeSetting($settings.fontSize));
 
     let formattedText = $state(""); // This is the text shown in game
     // Parses special formatting symbols into html
@@ -75,7 +46,10 @@
                             if ($settings.sounds) beep.play();
                         }, wordAnimationDelay),
                     );
-                    wordAnimationDelay += calculateWordAnimationDelay(word);
+                    wordAnimationDelay += calculateWordAnimationDelay(
+                        word,
+                        textSpeed,
+                    );
                     return html;
                 }
             }) // Animate the words appearing gradually

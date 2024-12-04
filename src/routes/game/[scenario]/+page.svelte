@@ -8,6 +8,7 @@
     import { onMount } from "svelte";
     import Overlay from "./overlay.svelte";
     import Topbar from "./topbar.svelte";
+    import { convertTextSpeedSetting, settings } from "$lib/settings";
     let { data }: { data: PageData } = $props();
 
     // Just shorthands
@@ -17,6 +18,13 @@
     let background = $derived(data.script.manager.background);
     let isBlocked = $derived(data.script.manager.isBlocked);
     let overlay = $derived(data.script.manager.overlay);
+    let textSpeed = $derived.by(() => {
+        if (data.script.manager.currentDialogue.overrideTextSpeed != null) {
+            return data.script.manager.currentDialogue.overrideTextSpeed;
+        }
+
+        return convertTextSpeedSetting($settings.textSpeed);
+    });
     // Binded to <Dialogue>, passed to <Profile>
     let speaking = $state(false);
     // Unblocks events after speaking
@@ -63,6 +71,7 @@
         <Dialogue
             text={dialogueContext.text}
             name={dialogueContext.speakerName}
+            {textSpeed}
             bind:animplaying={speaking}
         />
         {#if currentPrompt}

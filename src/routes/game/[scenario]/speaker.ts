@@ -16,6 +16,7 @@ export interface PromptInfo {
 export interface DialogueContext {
 	speakerName: string
 	text: string
+	overrideTextSpeed: number | null // null means to not override the text speed
 }
 
 export interface Speaker {
