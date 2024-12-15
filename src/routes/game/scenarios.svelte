@@ -14,6 +14,19 @@
         if (cardElement) {
             cardHeight = cardElement.clientHeight; // Get the height of the card
         }
+        // Load which files should be redacted (have a hidden description)
+        scenarios.forEach((element) => {
+            console.log(element.metadata.descriptionUnlockPath);
+            if (element.metadata.descriptionUnlockPath !== undefined) {
+                const data = localStorage.getItem(
+                    "is_completed::" + element.metadata.descriptionUnlockPath,
+                );
+                // Convert it to a boolean if data exists
+                element.descriptionUnlocked = data ? data === "true" : false;
+            } else {
+                element.descriptionUnlocked = true;
+            }
+        });
     });
 </script>
 
@@ -41,7 +54,11 @@
         >
             <div class="title">{scenario.metadata.name}</div>
             <div class="text">
-                <p class="description">
+                <p
+                    class="description {scenario.descriptionUnlocked
+                        ? ''
+                        : 'redacted'}"
+                >
                     {scenario.metadata.description}
                 </p>
                 <p>Written by</p>
@@ -148,6 +165,11 @@
         scroll-snap-align: center;
         cursor: default;
         pointer-events: none;
+    }
+
+    .redacted {
+        background-color: black;
+        color: black;
     }
 
     .card:hover {

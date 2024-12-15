@@ -44,7 +44,10 @@ These are the options you have to include
 - "icon" – A small image that is visible only in the scenario picker. **Leave blank to not show any picture**
 - "author" – Just a small acknowledgment for your hard work. Visible only in the scenario picker.
 - "year" –  Visible only in the scenario picker.
-- "hidden" – if true it will not be visible in the scneario picker. Useful if it is under development and not ready for others to view but it is still accessible by using a direct link.
+- "hidden" – If true, it will not be visible in the scneario picker. Useful if it is under development and not ready for others to view but it is still accessible by using a direct link.
+- "descriptionUnlockPath" - Path starting from the static directory to a scenario which has to be completed to show the description of this scenario. When omitted, the description will be always shown. Possible uses:
+  - setting this to the path to the this scenario will hide possible spoilers
+  - setting this to path to scenario which should be played before will hide it until the previous scenario has been completed
   
   > The "icon" and "entrypoint" options both pick from the root of your scenario folder
 

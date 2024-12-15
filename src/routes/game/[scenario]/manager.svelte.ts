@@ -369,3 +369,15 @@ export class Operation implements GameEvent {
         manager.runNextEvent();
     }
 }
+
+export class ScenarioEnd implements GameEvent {
+    type = "ChangeScript";
+    constructor(public scenarioName: string) { }
+    // Default to metadata.json if no scriptName provided
+    execute(manager: GameManager) {
+        // Save that this scenario was completed
+        localStorage.setItem("is_completed::" + this.scenarioName, "true")
+        console.log(this.scenarioName)
+        goto("/game")
+    }
+}

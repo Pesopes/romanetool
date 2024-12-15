@@ -1,0 +1,11 @@
+$PlaySound;/sounds/intro.ogg
+
+$FadeOutScreen;Act 0; The End of the Beginning
+
++ PERSON;A person;/logo.svg
+
+[PERSON left
+We will need all the novelists we can...
+]
+
+$FadeInScreen;End of act 0; The Beginning of the End

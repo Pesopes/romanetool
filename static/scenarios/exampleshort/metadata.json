@@ -1,0 +1,10 @@
+{
+    "name": "A very short example scenario.",
+    "description": "Something begins but then it abruptly ends.",
+    "entrypoint": "main.nls",
+    "icon": "",
+    "author": "Trollak",
+    "year": 2024,
+    "hidden": false,
+    "descriptionUnlockPath": "exampleshort"
+}

@@ -1,5 +1,5 @@
 import type { ProfilePosition, PromptInfo } from './speaker';
-import { AddSpeaker, MoveSpeaker, GameManager, HideSpeaker, Jump, Label, Operation, Prompt, SayLine, SetBackgroundAmbientMusic, SetBackgroundImage, SetBackgroundShader, SetVariable, type Operations, PlaySound, ChangeScript, FadeInScreen, FadeOutScreen, AutoContinueAfter, } from './manager.svelte';
+import { AddSpeaker, MoveSpeaker, GameManager, HideSpeaker, Jump, Label, Operation, Prompt, SayLine, SetBackgroundAmbientMusic, SetBackgroundImage, SetBackgroundShader, SetVariable, type Operations, PlaySound, ChangeScript, FadeInScreen, FadeOutScreen, AutoContinueAfter, ScenarioEnd, } from './manager.svelte';
 
 export function parseScript(script: string, scriptName: string): GameManager {
     const convertPath = (path: string) => {
@@ -164,7 +164,8 @@ export function parseScript(script: string, scriptName: string): GameManager {
             choiceBuffer.push(line.trim());
         }
     }
-    // console.log("Finished parsing:", manager)
+    // Add scenario end to EVERY script, it is reached only when there aren't any jumps in case of multi-script scenario
+    manager.addEvent(new ScenarioEnd(scriptName));
     return manager
 }
 

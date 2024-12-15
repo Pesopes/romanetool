@@ -8,11 +8,13 @@ export interface ScenarioMetadata {
     icon: string,
     author: string,
     year: number,
-    hidden: boolean
+    hidden: boolean,
+    descriptionUnlockPath: string // Used for hiding spoilers in description
 }
 export interface Scenario {
     dirName: string,
-    metadata: ScenarioMetadata
+    metadata: ScenarioMetadata,
+    descriptionUnlocked: boolean
 }
 export const load: PageServerLoad = async () => {
     const staticPath = 'static/scenarios';
@@ -27,13 +29,13 @@ export const load: PageServerLoad = async () => {
             const metadataPath = join(dirPath, metadataFileName);
             const metadataFile = readFileSync(metadataPath, "utf-8");
             const metadata: ScenarioMetadata = JSON.parse(metadataFile);
-            // Ignore scenarios that are hidden
             if (metadata.hidden) {
                 return null;
             }
             return {
                 dirName: dir,
-                metadata: metadata
+                metadata: metadata,
+                descriptionUnlocked: false
             }
         } catch (error) {
             console.error(`Failed to read metadata for ${dir}: ${error}`);
