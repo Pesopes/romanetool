@@ -5,7 +5,7 @@
     let scrollY = $state(0);
     // This is very poorly done and DOES NOT REFLECT the CSS that much
     // TODO: make it easier to refactor
-    let cardHeight = $state(480);
+    let cardHeight = $state(4800);
     const GAP = 112;
     const EXTRA_RANDOM = 4; // some border shit that cardElement.clientHeight doesn't count
     const FINAL_HEIGHT = $derived(cardHeight + GAP + EXTRA_RANDOM);
