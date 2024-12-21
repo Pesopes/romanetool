@@ -26,7 +26,7 @@ export function parseScript(script: string, scriptName: string): GameManager {
     let isDialogueBlock = false
     let dialogueBuffer: string[] = [];
 
-    for (const line of lines) {
+    for (const [index, line] of lines.entries()) {
         // Dialogue
         if (line.startsWith("[")) {
             isDialogueBlock = true;
@@ -34,9 +34,9 @@ export function parseScript(script: string, scriptName: string): GameManager {
 
             const headerValues = line.slice(1).trim().split(" ")
             if (headerValues.length < 1)
-                throw new Error("Dialogue block speaker argument syntax not valid: not enough arguments")
+                throw new Error(`Dialogue block speaker argument syntax on line +-${index} in file ${script} not valid: not enough arguments`)
             if (headerValues.length > 2)
-                throw new Error("Dialogue block speaker argument syntax not valid: too many arguments")
+                throw new Error(`Dialogue block speaker argument syntax on line +-${index} in file ${script} not valid: too many arguments`)
 
             // set new speaker values
             codename = headerValues[0]; // read speaker codename
@@ -136,16 +136,16 @@ export function parseScript(script: string, scriptName: string): GameManager {
                     }
                     break;
                 default:
-                    throw new Error(`Command "$${headerValues[0]}" not recognized.`)
+                    throw new Error(`Command "$${headerValues[0]}" on line +-${index} in file ${script} not recognized.`)
             }
         } else if (line.startsWith("<<")) { //START of choice block
             isChoiceBlock = true;
             choiceBuffer = [];
             const headerValues = line.slice(2).trim().split(" ")
             if (headerValues.length < 1)
-                throw new Error("Choice block speaker argument syntax not valid: not enough arguments")
+                throw new Error(`Choice block speaker argument syntax on line +-${index} in file ${script} not valid: not enough arguments`)
             if (headerValues.length > 2)
-                throw new Error("Choice block speaker argument syntax not valid: too many arguments")
+                throw new Error(`Choice block speaker argument syntax on line +-${index} in file ${script} not valid: too many arguments`)
 
             // set new speaker values
             codename = headerValues[0]; // read speaker codename
@@ -154,7 +154,7 @@ export function parseScript(script: string, scriptName: string): GameManager {
             manager.addEvent(event);
         } else if (line.startsWith(">>")) { //END of choice block
             if (choiceBuffer.length < 1) {
-                throw new Error("Choice block syntax not valid: not enough arguments")
+                throw new Error(`Choice block syntax on line +-${index} in file ${script} not valid: not enough arguments`)
             }
             isChoiceBlock = false;
             manager.addEvent(new Prompt(parseChoiceBuffer(choiceBuffer, codename)));
