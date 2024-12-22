@@ -248,6 +248,12 @@ export class SetBackgroundShader implements GameEvent {
     type = "SetBackgroundShader";
     constructor(public shaderPath: string) { }
     async execute(manager: GameManager) {
+        if (this.shaderPath == "") {
+            // Disables the current shader if the path is empty ("")
+            manager.background.shaderCode = ""
+            manager.runNextEvent()
+            return
+        }
         const code = await fetch(this.shaderPath)
         manager.background.shaderCode = await code.text()
         manager.runNextEvent()
