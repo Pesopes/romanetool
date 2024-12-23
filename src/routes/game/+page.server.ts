@@ -9,6 +9,7 @@ export interface ScenarioMetadata {
     author: string,
     year: number,
     hidden: boolean,
+    id: number,
     descriptionUnlockPath: string // Used for hiding spoilers in description
 }
 export interface Scenario {
@@ -41,7 +42,7 @@ export const load: PageServerLoad = async () => {
             console.error(`Failed to read metadata for ${dir}: ${error}`);
             return null; // Return null if the file is missing or unreadable
         }
-    }).filter((obj) => obj != null);
+    }).filter((obj) => obj != null).sort((a, b) => a.metadata.id - b.metadata.id);
 
     return { scenarios };
 }

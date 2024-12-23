@@ -70,12 +70,18 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        top: 0;
+        top: -20px;
         left: 0;
+        opacity: 10%;
         margin: 0 auto;
         width: 100vw;
         height: 4rem;
         background-color: rgba(0, 0, 0, 0.126);
+        transition: all 1s linear;
+    }
+    .bar:hover {
+        opacity: 100%;
+        top: 0px;
     }
     .options {
         display: flex;

@@ -3,7 +3,7 @@
     let { data } = $props();
 </script>
 
-<div class="mainTitle">The Script Archive</div>
+<div class="mainTitle">Archive</div>
 <div class="back">
     <Scenarios scenarios={data.scenarios} />
 </div>
@@ -23,7 +23,7 @@
         position: sticky;
         top: 0;
         font-family: "Courier Prime", Arial, Helvetica, sans-serif;
-        font-size: 4rem;
+        font-size: 10rem;
         text-align: center;
         font-weight: bold;
     }
