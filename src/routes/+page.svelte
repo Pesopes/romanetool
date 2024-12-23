@@ -62,7 +62,7 @@
 
     a:hover {
         transform: scale(1.1);
-        background: #ff3d3d;
+        background: #ffabab;
     }
 
     a:active {
