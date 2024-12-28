@@ -13,14 +13,6 @@ A wacky story.
 - Dr. Watson (Martin Freeman) – Harald Krichel, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons, modified and distributed under the same license 
 - Poirot – [original skin](https://t.novaskin.me/88f57c7c2cd4e701ca7a5433a7eaaba617416e73521cd52b4377c6bc1a515fad) screenshot and edit by me
 
-## TODO
-- [ ] Some kind of tutorial (at least what to press)
-- [x] Better script variables. ~~Printing~~, operations with numbers etc.
-- [ ] Clean up the examplescenario scrips and stuff before publishing
-- [x] change cursor when able to interact with stuff
-- [x] better screen fade thingies, and animations between script transition
-- [ ] some way to end the scenario
-
 ## How to make custom scenarios
 See [Custom scenarios guide](./CUSTOM_SCENARIOS_GUIDE.md)
 
