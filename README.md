@@ -21,8 +21,9 @@ Romanetool was created as a way to allow anyone to share stories that were once 
 
 
 ## Credits
+Some assets listed below are under third-party licenses (e.g., Creative Commons). The MIT license applies only to original code and content in this repository not these assets.
 ### Sound effects
-- [Digital Audio Pack](https://kenney.nl/assets/digital-audio)
+- [Digital Audio Pack](https://kenney.nl/assets/digital-audio), Creative Commons CC0
 - Intro music by [Universfield](https://pixabay.com/users/universfield-28281460/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=153277)
 
 ### Example scenario assets
