@@ -1,6 +1,10 @@
 # The visual novel project
 *A wacky story.*
 
+## Screenshot
+
+![A screenshot of the web ui with a character on the left named Sherlock with a text box below him saying "Oh hello Poirot!"](./example_screenshot.png)
+
 ## What is it?
 
 Romanetool is an [open-source](https://github.com/Pesopes/romanetool) project developed using [Svelte](https://svelte.dev/) and SvelteKit.
