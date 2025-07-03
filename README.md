@@ -1,6 +1,20 @@
 # The visual novel project
+*A wacky story.*
 
-A wacky story.
+## What is it?
+
+Romanetool is an [open-source](https://github.com/Pesopes/romanetool) project developed using [Svelte](https://svelte.dev/) and SvelteKit.
+
+By writing a script using a custom syntax and providing your own assets, you can tell a story in the style of a visual novel. Afterwards, you can host this on your server (or just use it locally). Since everything is open source, you can completely change the UI or maybe add missing functionality specific to your story.
+
+Each story is organized in a tidy folder, containing the script and all related assets. The game engine then reads this script to bring the story to life for the player.
+
+While the project currently provides just one example scenario to help developers and writers understand the workflow, to add your own scenarios, you'll need to host your own instance of [Romanetool](https://github.com/Pesopes/romanetool).
+
+## How It Came To Be
+
+Romanetool was created as a way to allow anyone to share stories that were once limited only to their imagination.
+
 
 ## Credits
 ### Sound effects
