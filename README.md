@@ -17,8 +17,7 @@ While the project currently provides just one example scenario to help developer
 
 ## How It Came To Be
 
-Romanetool was created as a way to allow anyone to share stories that were once limited only to their imagination.
-
+Originally this was made for a one off occasion. But why not release it.
 
 ## Credits
 Some assets listed below are under third-party licenses (e.g., Creative Commons). The MIT license applies only to original code and content in this repository not these assets.
